@@ -11,7 +11,7 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children, navOpen, onNavToggle }) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', pb: 12 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
       <AppBar onNavToggle={onNavToggle} />
       <SideNav open={navOpen} onClose={onNavToggle} />
 
@@ -24,6 +24,8 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children, navOpen, onNavToggle 
           display: 'flex',
           flexDirection: 'column',
           mt: 0,
+          overflow: 'auto',
+          minHeight: 0,
         }}
       >
         {children}

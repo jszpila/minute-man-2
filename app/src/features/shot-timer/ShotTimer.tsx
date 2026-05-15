@@ -59,7 +59,7 @@ const ShotTimer: React.FC = () => {
   });
   const [splits, setSplits] = useState<number[]>([]);
 
-  // Audio detection state - detect gunshots DURING timer run
+  // Audio detection state - detect shots DURING timer run
   const [isListening, setIsListening] = useState(false);
   const [sensitivity, setSensitivity] = useState(() => {
     // Load default sensitivity from Settings
@@ -77,6 +77,7 @@ const ShotTimer: React.FC = () => {
   const visualizationRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const detectionRAFRef = useRef<number | null>(null);
   const isRunningRef = useRef(false); // Track running state for detection loop
+  const analyserRef = useRef<AudioAnalyser | null>(null); // Store current analyser for visualization
 
   // Auto-request microphone permission on mount
   useEffect(() => {
@@ -91,17 +92,23 @@ const ShotTimer: React.FC = () => {
     requestMicPermission();
   }, []);
 
-  // Cleanup on unmount
+  // Track isRunning changes
+  useEffect(() => {
+    // Track running state for detection loop
+  }, [isRunning]);
+
+  // Cleanup on unmount or when stopping
   useEffect(() => {
     return () => {
-      if (visualizationRef.current) {
+      // Only clear visualization if we're stopping, not when starting
+      if (!isRunning && visualizationRef.current) {
         clearInterval(visualizationRef.current);
       }
       if (audioAnalyser) {
         stopListening(audioAnalyser.mediaStream);
       }
     };
-  }, [audioAnalyser]);
+  }, [audioAnalyser, isRunning]);
 
   useEffect(() => {
     setStorageItem(SHOT_TIMER_START_MODE_KEY, startMode);
@@ -201,41 +208,36 @@ const ShotTimer: React.FC = () => {
     isRunningRef.current = true; // Set running ref IMMEDIATELY
     setIsRunning(true); // Also update state for UI
 
-    // Always start gunshot detection when timer starts
+    // Always start shot detection when timer starts
     try {
       setDetectionError(null);
 
       // Request microphone access
       const mediaStream = await requestMicrophoneAccess();
       const analyser = createAudioAnalyser(mediaStream);
+      analyserRef.current = analyser; // Store in ref for visualization loop
       setAudioAnalyser(analyser);
       setIsListening(true);
 
-      // Start visualization loop
+      // Start visualization loop - copied from Settings which works
       if (visualizationRef.current) {
         clearInterval(visualizationRef.current);
       }
-      let vizLoopCount = 0;
       visualizationRef.current = setInterval(() => {
-        if (analyser) {
-          try {
-            const rmsLevel = getRMSLevel(analyser);
-            setCurrentRMSLevel(rmsLevel);
-            vizLoopCount++;
-          } catch (error) {
-            console.error('Error in viz loop:', error);
-          }
+        if (analyserRef.current) {
+          const rmsLevel = getRMSLevel(analyserRef.current);
+          setCurrentRMSLevel(rmsLevel);
         }
       }, 50);
 
-      // Start continuous gunshot detection loop
+      // Start continuous shot detection loop
       const threshold = 10 + (100 - sensitivity) * 0.4; // Lower threshold for better clap detection
       let lastDetectionTime = 0;
       let lastRMS = 0;
       let consecutiveHighSamples = 0;
       let loopCount = 0;
 
-      const detectGunshotLoop = () => {
+      const detectShotLoop = () => {
           if (!analyser) {
             return;
           }
@@ -246,7 +248,7 @@ const ShotTimer: React.FC = () => {
 
             loopCount++;
 
-            // Detect sudden loud spike (key characteristic of claps/gunshots)
+            // Detect sudden loud spike (key characteristic of claps/shots)
             const spike = rms - lastRMS > 20 && rms > threshold;
             const sustainedLoud = rms > threshold;
             
@@ -266,17 +268,15 @@ const ShotTimer: React.FC = () => {
               consecutiveHighSamples = 0;
               // Handle based on timer mode
               if (isRunningRef.current && startTimeRef.current !== null) {
-                const gunShotTime = Date.now() - startTimeRef.current;
+                const shotTime = Date.now() - startTimeRef.current;
                 
                 if (timerMode === 'firstShot') {
-                  // For firstShot mode: STOP the timer on gunshot detection
+                  // For firstShot mode: STOP the timer on shot detection
                   isRunningRef.current = false;
                   setIsRunning(false);
-                  playBeep();
                 } else {
                   // For other modes: record as a split
-                  setSplits((prev) => [...prev, gunShotTime]);
-                  playBeep();
+                  setSplits((prev) => [...prev, shotTime]);
                 }
               }
             }
@@ -285,14 +285,14 @@ const ShotTimer: React.FC = () => {
 
             // Continue looping while running - use ref instead of state
             if (isRunningRef.current) {
-              detectionRAFRef.current = requestAnimationFrame(detectGunshotLoop);
+              detectionRAFRef.current = requestAnimationFrame(detectShotLoop);
             }
           } catch (detectionError) {
             console.error('Error in detection loop:', detectionError);
           }
         };
 
-        detectionRAFRef.current = requestAnimationFrame(detectGunshotLoop);
+        detectionRAFRef.current = requestAnimationFrame(detectShotLoop);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Microphone access denied';
       setDetectionError(errorMsg);
@@ -309,6 +309,7 @@ const ShotTimer: React.FC = () => {
       if (audioAnalyser) {
         stopListening(audioAnalyser.mediaStream);
         setAudioAnalyser(null);
+        analyserRef.current = null;
         setIsListening(false);
         setCurrentRMSLevel(0);
       }
@@ -335,6 +336,7 @@ const ShotTimer: React.FC = () => {
     if (audioAnalyser) {
       stopListening(audioAnalyser.mediaStream);
       setAudioAnalyser(null);
+      analyserRef.current = null;
       setIsListening(false);
       setCurrentRMSLevel(0);
     }
@@ -348,25 +350,20 @@ const ShotTimer: React.FC = () => {
     }
   };
 
-  const handleAddSplit = () => {
-    if (isRunning) {
-      setSplits([...splits, elapsedMs]);
-    }
-  };
-
   const displayTime = formatTimeMMSS(
     timerMode === 'par' ? Math.max(0, parTimeMs - elapsedMs) : elapsedMs
   );
 
 
   return (
-    <Box sx={{ pb: 12 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        {t('shotTimer.title')}
-      </Typography>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+      <Box sx={{ flex: '0 0 auto' }}>
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          {t('shotTimer.title')}
+        </Typography>
 
-      {/* Timer Display */}
-      <Box sx={{ mb: 4, textAlign: 'center' }}>
+        {/* Timer Display */}
+        <Box sx={{ mb: 2, textAlign: 'center' }}>
         <Typography
           variant="h2"
           sx={{
@@ -379,21 +376,13 @@ const ShotTimer: React.FC = () => {
         </Typography>
 
         {/* Add Split Button (visible during run in split mode) */}
-        {isRunning && timerMode === 'split' && (
-          <Button
-            variant="outlined"
-            onClick={handleAddSplit}
-            sx={{ mt: 2 }}
-          >
-            {t('shotTimer.results')}
-          </Button>
-        )}
+
       </Box>
 
-      {/* Gunshot Detection Visualization (during active timer) */}
+      {/* Shot Detection Visualization (during active timer) */}
       {isListening && isRunning && (
-        <Box sx={{ mb: 3, p: 2, backgroundColor: 'action.hover', borderRadius: 1 }}>
-          <Stack spacing={2}>
+        <Box sx={{ mb: 1, p: 1, backgroundColor: 'action.hover', borderRadius: 1 }}>
+          <Stack spacing={1}>
             <Stack direction="row" spacing={1} alignItems="center">
               <MicIcon sx={{ color: 'error.main', animation: 'pulse 1s infinite' }} />
               <Typography variant="body2" sx={{ color: 'error.main', fontWeight: 'bold' }}>
@@ -456,120 +445,126 @@ const ShotTimer: React.FC = () => {
       )}
 
       {/* Tabs Section */}
-      <Box sx={{ mb: 3, borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={(_, newValue) => setTabValue(newValue)}>
           <Tab label={t('shotTimer.settingsTab')} />
           <Tab label={t('shotTimer.splitsTab')} disabled={timerMode === 'firstShot'} />
         </Tabs>
       </Box>
+      </Box>
 
-      {/* Settings Tab */}
-      {tabValue === 0 && (
-        <Stack spacing={2} sx={{ mb: 3 }}>
-          <Typography variant="h6">{t('shotTimer.currentSettings')}</Typography>
+      {/* Scrollable Content Area */}
+      <Box sx={{ flex: 1, overflow: 'auto', px: 0, minHeight: 0, pb: 2 }}>
+        {/* Settings Tab */}
+        {tabValue === 0 && (
+          <Box sx={{ px: 2, pt: 2 }}>
+            <Stack spacing={2}>
+              <Typography variant="h6">{t('shotTimer.currentSettings')}</Typography>
 
-          {/* Start Mode Dropdown */}
-          <FormControl fullWidth>
-            <InputLabel>{t('shotTimer.startMode')}</InputLabel>
-            <Select
-              value={startMode}
-              label={t('shotTimer.startMode')}
-              onChange={(e) => {
-                if (isRunning) handleReset();
-                setStartMode(e.target.value as StartMode);
-              }}
-            >
-              <MenuItem value="instant">{t('shotTimer.instantStart')}</MenuItem>
-              <MenuItem value="delayed">{t('shotTimer.delayedStart')}</MenuItem>
-              <MenuItem value="random">{t('shotTimer.randomStart')}</MenuItem>
-            </Select>
-          </FormControl>
+              {/* Start Mode Dropdown */}
+              <FormControl fullWidth>
+                <InputLabel>{t('shotTimer.startMode')}</InputLabel>
+                <Select
+                  value={startMode}
+                  label={t('shotTimer.startMode')}
+                  onChange={(e) => {
+                    if (isRunning) handleReset();
+                    setStartMode(e.target.value as StartMode);
+                  }}
+                >
+                  <MenuItem value="instant">{t('shotTimer.instantStart')}</MenuItem>
+                  <MenuItem value="delayed">{t('shotTimer.delayedStart')}</MenuItem>
+                  <MenuItem value="random">{t('shotTimer.randomStart')}</MenuItem>
+                </Select>
+              </FormControl>
 
-          {/* Timer Mode Dropdown */}
-          <FormControl fullWidth>
-            <InputLabel>{t('shotTimer.timerMode')}</InputLabel>
-            <Select
-              value={timerMode}
-              label={t('shotTimer.timerMode')}
-              onChange={(e) => {
-                if (isRunning) handleReset();
-                setTimerMode(e.target.value as TimerMode);
-              }}
-            >
-              <MenuItem value="split">{t('shotTimer.splitTimer')}</MenuItem>
-              <MenuItem value="par">{t('shotTimer.parTimer')}</MenuItem>
-              <MenuItem value="firstShot">{t('shotTimer.firstShot')}</MenuItem>
-            </Select>
-          </FormControl>
+              {/* Timer Mode Dropdown */}
+              <FormControl fullWidth>
+                <InputLabel>{t('shotTimer.timerMode')}</InputLabel>
+                <Select
+                  value={timerMode}
+                  label={t('shotTimer.timerMode')}
+                  onChange={(e) => {
+                    if (isRunning) handleReset();
+                    setTimerMode(e.target.value as TimerMode);
+                  }}
+                >
+                  <MenuItem value="split">{t('shotTimer.splitTimer')}</MenuItem>
+                  <MenuItem value="par">{t('shotTimer.parTimer')}</MenuItem>
+                  <MenuItem value="firstShot">{t('shotTimer.firstShot')}</MenuItem>
+                </Select>
+              </FormControl>
 
-          {/* Par Time Input (for par mode) */}
-          {timerMode === 'par' && (
-            <TextField
-              label={t('shotTimer.parTime')}
-              type="number"
-              value={Math.round(parTimeMs / 1000)}
-              onChange={(e) => {
-                if (isRunning) handleReset();
-                setParTimeMs(Math.max(1, parseInt(e.target.value) || 1) * 1000);
-              }}
-              inputProps={{ min: 1, step: 1, max: 600 }}
-              helperText="Seconds"
-              fullWidth
-            />
-          )}
+              {/* Par Time Input (for par mode) */}
+              {timerMode === 'par' && (
+                <TextField
+                  label={t('shotTimer.parTime')}
+                  type="number"
+                  value={Math.round(parTimeMs / 1000)}
+                  onChange={(e) => {
+                    if (isRunning) handleReset();
+                    setParTimeMs(Math.max(1, parseInt(e.target.value) || 1) * 1000);
+                  }}
+                  inputProps={{ min: 1, step: 1, max: 600 }}
+                  helperText="Seconds"
+                  fullWidth
+                />
+              )}
 
-          {/* Gunshot Detection Sensitivity Slider */}
-          <FormControl fullWidth>
-            <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
-              Gunshot Detection Sensitivity: {sensitivity}%
-            </Typography>
-            <Box sx={{ px: 1.5 }}>
-              <Slider
-                value={sensitivity}
-                onChange={(_, newValue) => setSensitivity(newValue as number)}
-                min={0}
-                max={100}
-                step={1}
-                marks={[
-                  { value: 0, label: '0%' },
-                  { value: 100, label: '100%' },
-                ]}
-                disabled={isListening}
-                valueLabelDisplay="auto"
-              />
-            </Box>
-            <Typography variant="caption" sx={{ mt: 1, display: 'block', color: 'text.secondary', fontSize: '0.75rem' }}>
-              {timerMode === 'firstShot'
-                ? 'FirstShot mode: Gunshot will STOP the timer.'
-                : 'Split/Par modes: Gunshots automatically recorded as splits.'}
-            </Typography>
-          </FormControl>
-        </Stack>
-      )}
+              {/* Shot Detection Sensitivity Slider */}
+              <FormControl fullWidth>
+                <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                  Shot Detection Sensitivity: {sensitivity}%
+                </Typography>
+                <Box sx={{ px: 1.5 }}>
+                  <Slider
+                    value={sensitivity}
+                    onChange={(_, newValue) => setSensitivity(newValue as number)}
+                    min={0}
+                    max={100}
+                    step={1}
+                    marks={[
+                      { value: 0, label: '0%' },
+                      { value: 100, label: '100%' },
+                    ]}
+                    disabled={isListening}
+                    valueLabelDisplay="auto"
+                  />
+                </Box>
+                <Typography variant="caption" sx={{ mt: 1, display: 'block', color: 'text.secondary', fontSize: '0.75rem' }}>
+                  {timerMode === 'firstShot'
+                    ? 'FirstShot mode: Shot will STOP the timer.'
+                    : 'Split/Par modes: Shots automatically recorded as splits.'}
+                </Typography>
+              </FormControl>
+            </Stack>
+          </Box>
+        )}
 
-      {/* Splits Tab */}
-      {tabValue === 1 && timerMode !== 'firstShot' && (
-        <Box sx={{ mb: 3 }}>
-          {splits.length > 0 ? (
-            <>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                {t('shotTimer.splits')} ({splits.length})
+        {/* Splits Tab */}
+        {tabValue === 1 && timerMode !== 'firstShot' && (
+          <Box sx={{ px: 2, pt: 2 }}>
+            {splits.length > 0 ? (
+              <>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  {t('shotTimer.splits')} ({splits.length})
+                </Typography>
+                <Stack spacing={1}>
+                  {splits.map((split, index) => (
+                    <Typography key={index} variant="body2">
+                      {index + 1}. {formatTimeMMSS(split)}
+                    </Typography>
+                  ))}
+                </Stack>
+              </>
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                No splits recorded yet. Start the timer and shots will appear here.
               </Typography>
-              <Stack spacing={1}>
-                {splits.map((split, index) => (
-                  <Typography key={index} variant="body2">
-                    {index + 1}. {formatTimeMMSS(split)}
-                  </Typography>
-                ))}
-              </Stack>
-            </>
-          ) : (
-            <Typography variant="body2" color="text.secondary">
-              No splits recorded yet. Start the timer and gunshots will appear here.
-            </Typography>
-          )}
-        </Box>
-      )}
+            )}
+          </Box>
+        )}
+      </Box>
 
       {/* Control Buttons */}
       <FixedButtonFooter>

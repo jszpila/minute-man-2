@@ -1,5 +1,5 @@
 /**
- * Audio detection utilities for gunshot detection
+ * Audio detection utilities for shot detection
  */
 
 export interface AudioAnalyser {
@@ -116,11 +116,11 @@ export const calculateRMS = (dataArray: any): number => {
 };
 
 /**
- * Detect a gunshot based on amplitude threshold
+ * Detect a shot based on amplitude threshold
  * Sensitivity: 0-100 (higher = more sensitive)
- * Returns a promise that resolves when gunshot is detected
+ * Returns a promise that resolves when shot is detected
  */
-export const detectGunshot = (
+export const detectShot = (
   analyser: AudioAnalyser,
   sensitivity: number = 50,
   debounceMs: number = 250
@@ -137,7 +137,7 @@ export const detectGunshot = (
       analyser.analyser.getByteFrequencyData(analyser.dataArray);
       const rms = calculateRMS(analyser.dataArray);
 
-      // Detect sudden loud spike (gunshot/clap characteristic)
+      // Detect sudden loud spike (shot/clap characteristic)
       // Look for rapid increase in amplitude
       const spike = rms - lastRMS > 15 && rms > threshold;
 
