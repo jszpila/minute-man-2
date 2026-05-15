@@ -5,6 +5,7 @@ import { AppBar as MuiAppBar, Toolbar, IconButton, Typography } from '@mui/mater
 import MenuIcon from '@mui/icons-material/Menu';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Logo from './Logo';
+import InstallButton from './InstallButton';
 import { useAppContext } from '../context/AppContext';
 
 interface AppBarProps {
@@ -30,6 +31,8 @@ const AppBar: React.FC<AppBarProps> = ({ onNavToggle }) => {
         >
           {t('app.title')}
         </Typography>
+
+        <InstallButton />
 
         <IconButton
           size="large"
