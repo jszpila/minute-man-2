@@ -131,9 +131,12 @@ const RangeConditions: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        {t('rangeConditions.title')}
-      </Typography>
+      <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
+        <Typography variant="h4">
+          {t('rangeConditions.title')}
+        </Typography>
+        {loading && <CircularProgress size={32} />}
+      </Stack>
 
       {/* Error Display */}
       {error && (
@@ -186,13 +189,6 @@ const RangeConditions: React.FC = () => {
               </Button>
             )}
           </Stack>
-
-      {/* Loading */}
-      {loading && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-          <CircularProgress />
-        </Box>
-      )}
 
       {/* Weather Display */}
       {weather && location && (
