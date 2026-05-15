@@ -29,6 +29,60 @@ const lightTheme = createTheme({
   },
 });
 
+const rangerGreenLightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#2d5016',
+    },
+    secondary: {
+      main: '#5a7c3e',
+    },
+    background: {
+      default: '#f5f7f2',
+      paper: '#fff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+});
+
+const rangerGreenDarkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#7cb342',
+    },
+    secondary: {
+      main: '#9ccc65',
+    },
+    background: {
+      default: '#1b1b1b',
+      paper: '#2d2d2d',
+    },
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+});
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -58,11 +112,19 @@ const darkTheme = createTheme({
 
 interface ThemeProviderProps {
   children: React.ReactNode;
-  mode: 'light' | 'dark';
+  mode: 'light' | 'dark' | 'rangerGreen';
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, mode }) => {
-  const theme = mode === 'dark' ? darkTheme : lightTheme;
+  let theme;
+  if (mode === 'rangerGreen') {
+    // Use light ranger green for 'rangerGreen' mode (can be toggled in settings)
+    theme = rangerGreenLightTheme;
+  } else if (mode === 'dark') {
+    theme = darkTheme;
+  } else {
+    theme = lightTheme;
+  }
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -72,4 +134,4 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, mode }) 
   );
 };
 
-export { darkTheme, lightTheme };
+export { darkTheme, lightTheme, rangerGreenLightTheme, rangerGreenDarkTheme };

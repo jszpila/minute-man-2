@@ -216,10 +216,11 @@ const Settings: React.FC = () => {
             <Select
               value={theme}
               label={t('settings.theme')}
-              onChange={(e) => setTheme(e.target.value as 'light' | 'dark')}
+              onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'rangerGreen')}
             >
               <MenuItem value="light">{t('settings.light')}</MenuItem>
               <MenuItem value="dark">{t('settings.dark')}</MenuItem>
+              <MenuItem value="rangerGreen">{t('settings.rangerGreen')}</MenuItem>
             </Select>
           </FormControl>
 

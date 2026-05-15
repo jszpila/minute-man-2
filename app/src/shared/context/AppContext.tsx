@@ -2,8 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import i18n from '../localization/i18n';
 
 export interface AppContextType {
-  theme: 'light' | 'dark';
-  setTheme: (theme: 'light' | 'dark') => void;
+  theme: 'light' | 'dark' | 'rangerGreen';
+  setTheme: (theme: 'light' | 'dark' | 'rangerGreen') => void;
   fontSize: 'microscopic' | 'diminutive' | 'normie' | 'embiggened' | 'thiccc';
   setFontSize: (size: 'microscopic' | 'diminutive' | 'normie' | 'embiggened' | 'thiccc') => void;
   units: 'merican' | 'metric';
@@ -21,8 +21,8 @@ interface AppProviderProps {
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<'light' | 'dark'>(() => {
-    return (localStorage.getItem('theme') as 'light' | 'dark') || 'dark';
+  const [theme, setThemeState] = useState<'light' | 'dark' | 'rangerGreen'>(() => {
+    return (localStorage.getItem('theme') as 'light' | 'dark' | 'rangerGreen') || 'dark';
   });
 
   const [fontSize, setFontSizeState] = useState<
@@ -48,7 +48,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     return localStorage.getItem('navBurger') === 'true';
   });
 
-  const setTheme = (newTheme: 'light' | 'dark') => {
+  const setTheme = (newTheme: 'light' | 'dark' | 'rangerGreen') => {
     setThemeState(newTheme);
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
