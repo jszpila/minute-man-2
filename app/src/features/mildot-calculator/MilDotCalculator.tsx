@@ -62,12 +62,16 @@ const MilDotCalculator: React.FC = () => {
   const distanceUnit = isMetric ? t('units.meters') : t('units.yards');
   const sizeUnit = isMetric ? t('units.centimeters') : t('units.inches');
 
-  // Count how many fields are filled
+  // Count how many fields are filled (by numeric value, not string)
   const filledFields = useMemo(() => {
     const filled = [];
-    if (formData.milSize.trim()) filled.push('mil');
-    if (formData.physicalSize.trim()) filled.push('size');
-    if (formData.distance.trim()) filled.push('distance');
+    const milNum = formData.milSize ? parseFloat(formData.milSize) : 0;
+    const sizeNum = formData.physicalSize ? parseFloat(formData.physicalSize) : 0;
+    const distNum = formData.distance ? parseFloat(formData.distance) : 0;
+    
+    if (milNum !== 0) filled.push('mil');
+    if (sizeNum !== 0) filled.push('size');
+    if (distNum !== 0) filled.push('distance');
     return filled;
   }, [formData]);
 
@@ -222,8 +226,6 @@ const MilDotCalculator: React.FC = () => {
         open={resultModalOpen}
         title={t('mildotCalculator.results')}
         onClose={() => setResultModalOpen(false)}
-        variant="success"
-        isAlert
       >
         {result && (
           <Stack spacing={1} sx={{ mt: 2 }}>
@@ -240,8 +242,6 @@ const MilDotCalculator: React.FC = () => {
         open={errorModalOpen}
         title={t('common.error')}
         onClose={() => setErrorModalOpen(false)}
-        variant="error"
-        isAlert
       >
         {errorMessage}
       </Modal>

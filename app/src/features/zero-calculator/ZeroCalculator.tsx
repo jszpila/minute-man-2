@@ -295,8 +295,6 @@ const ZeroCalculator: React.FC = () => {
         open={resultModalOpen}
         title={t('zeroCalculator.results')}
         onClose={() => setResultModalOpen(false)}
-        variant="success"
-        isAlert
       >
         {result && (
           <Stack spacing={2} sx={{ mt: 2 }}>
@@ -325,8 +323,6 @@ const ZeroCalculator: React.FC = () => {
         open={errorModalOpen}
         title={t('common.error')}
         onClose={() => setErrorModalOpen(false)}
-        variant="error"
-        isAlert
       >
         {errorMessage}
       </Modal>

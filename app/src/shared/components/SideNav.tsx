@@ -11,6 +11,7 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
+import packageJson from '../../../package.json';
 
 interface NavItem {
   label: string;
@@ -45,14 +46,20 @@ const SideNav: React.FC<SideNavProps> = ({ open, onClose }) => {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
-        sx={{ width: 250, pt: 2 }}
+        sx={{ 
+          width: 250, 
+          pt: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
         role="presentation"
       >
         <Typography variant="h6" sx={{ px: 2, mb: 2 }}>
           {t('app.title')}
         </Typography>
 
-        <List>
+        <List sx={{ flex: 1 }}>
           {navItems.map((item) => (
             <React.Fragment key={item.path}>
               {item.path === '/settings' && <Divider />}
@@ -67,6 +74,13 @@ const SideNav: React.FC<SideNavProps> = ({ open, onClose }) => {
             </React.Fragment>
           ))}
         </List>
+
+        {/* Version number */}
+        <Box sx={{ px: 2, pb: 2, textAlign: 'right' }}>
+          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+            v{packageJson.version}
+          </Typography>
+        </Box>
       </Box>
     </Drawer>
   );
