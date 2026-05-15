@@ -397,14 +397,14 @@ const ShotTimer: React.FC = () => {
             <Stack direction="row" spacing={1} alignItems="center">
               <MicIcon sx={{ color: 'error.main', animation: 'pulse 1s infinite' }} />
               <Typography variant="body2" sx={{ color: 'error.main', fontWeight: 'bold' }}>
-                Listening...
+                {t('shotTimer.listening')}
               </Typography>
             </Stack>
 
             {/* Amplitude Visualization */}
             <Box>
               <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
-                Sound Level (RMS: {Math.round(currentRMSLevel)}/255 | Threshold: {Math.round(10 + (100 - sensitivity) * 0.4)})
+                {t('shotTimer.soundLevel')} (RMS: {Math.round(currentRMSLevel)}/255 | Threshold: {Math.round(10 + (100 - sensitivity) * 0.4)})
               </Typography>
               <Box
                 sx={{
@@ -447,10 +447,10 @@ const ShotTimer: React.FC = () => {
       {detectionError && (
         <Box sx={{ mb: 3, p: 2, backgroundColor: '#ffebee', border: '1px solid #c62828', borderRadius: 1 }}>
           <Typography variant="body2" sx={{ color: '#c62828', fontWeight: 'bold' }}>
-            ⚠️ Error: {detectionError}
+            ⚠️ {t('shotTimer.detectionError')}: {detectionError}
           </Typography>
           <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#c62828' }}>
-            Check the browser console (F12) for more details. Make sure this site is HTTPS (not HTTP).
+            {t('shotTimer.consoleHint')}
           </Typography>
         </Box>
       )}
@@ -458,8 +458,8 @@ const ShotTimer: React.FC = () => {
       {/* Tabs Section */}
       <Box sx={{ mb: 3, borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={(_, newValue) => setTabValue(newValue)}>
-          <Tab label="Settings" />
-          <Tab label="Splits" disabled={timerMode === 'firstShot'} />
+          <Tab label={t('shotTimer.settingsTab')} />
+          <Tab label={t('shotTimer.splitsTab')} disabled={timerMode === 'firstShot'} />
         </Tabs>
       </Box>
 

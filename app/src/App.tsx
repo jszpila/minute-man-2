@@ -9,9 +9,7 @@ import { MilDotCalculator } from './features/mildot-calculator';
 import { RangeConditions } from './features/range-conditions';
 import { ShotTimer } from './features/shot-timer';
 import { Settings } from './features/settings';
-
-// Placeholder components for features (we'll build these next)
-const About = () => <div>About</div>;
+import { About } from './features/about';
 
 const AppRoutes: React.FC = () => {
   const [navOpen, setNavOpen] = useState(false);

@@ -81,7 +81,14 @@
     "results": "Results",
     "totalTime": "Total Time",
     "splits": "Splits",
-    "shotCount": "Shots"
+    "shotCount": "Shots",
+    "listening": "Listening...",
+    "settingsTab": "Settings",
+    "splitsTab": "Splits",
+    "soundLevel": "Sound Level",
+    "currentSettings": "Current Settings",
+    "detectionError": "Detection Error",
+    "consoleHint": "Check the browser console (F12) for more details. Make sure this site is HTTPS (not HTTP)."
   },
   "rangeConditions": {
     "title": "Range Conditions",
@@ -149,7 +156,23 @@
     "installAndroid": "On Android: Tap the install button in the navigation bar",
     "installIos": "On iOS: Tap Share, then Add to Home Screen",
     "privacy": "This app stores all data locally on your device. No data is collected or sent to any server.",
-    "buyMeCoffee": "Like this app? Buy me a coffee!"
+    "buyMeCoffee": "Like this app? Buy me a coffee!",
+    "aboutTitle": "About",
+    "diagnosticsTitle": "Diagnostics",
+    "madeBy": "MinuteMan is brought to you by",
+    "ursineSoftware": "Ursine Software",
+    "contactUs": "Need help? Hit us up at",
+    "contactEmail": "contact@ursine.llc",
+    "donate": "If you really liked it, you can donate at",
+    "donateUrl": "ursine.llc/donate",
+    "diagnosticVersion": "Version",
+    "diagnosticNetwork": "Network",
+    "diagnosticNetworkConnected": "Connected",
+    "diagnosticNetworkNotConnected": "Not Connected",
+    "diagnosticMode": "Mode",
+    "diagnosticModeStandalone": "Standalone",
+    "diagnosticModeWeb": "Web",
+    "diagnosticPlatform": "Platform"
   },
   "validation": {
     "required": "This field is required",

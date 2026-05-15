@@ -12,10 +12,10 @@ export default defineConfig({
       '@shared': path.resolve(__dirname, './src/shared'),
       '@routes': path.resolve(__dirname, './src/routes'),
     },
+    dedupe: ['react', 'react-dom'],
   },
   server: {
     port: 5173,
-    open: true,
   },
   build: {
     target: 'es2023',
