@@ -6,11 +6,11 @@ import { ThemeProvider } from './shared/theme/ThemeProvider';
 import RootLayout from './shared/components/RootLayout';
 import { ZeroCalculator } from './features/zero-calculator';
 import { MilDotCalculator } from './features/mildot-calculator';
+import { RangeConditions } from './features/range-conditions';
 import { Settings } from './features/settings';
 
 // Placeholder components for features (we'll build these next)
 const ShotTimer = () => <div>Shot Timer</div>;
-const RangeConditions = () => <div>Range Conditions</div>;
 const About = () => <div>About</div>;
 
 const AppRoutes: React.FC = () => {
