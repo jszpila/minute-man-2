@@ -56,7 +56,7 @@
   "mildotCalculator": {
     "title": "MilDot-Rechner",
     "description": "Berechnet Mil-Größe, Zielgröße oder Entfernung",
-    "milSize": "Mil-Größe",
+    "milSize": "Mils",
     "physicalSize": "Physische Größe",
     "distance": "Entfernung",
     "results": "Ergebnisse",
@@ -142,7 +142,7 @@
     "defaultZeroDistance": "Standard-Nullpunkt-Entfernung",
     "defaultAdjustmentIncrement": "Standard-Einstellungsschritte",
     "moaClick": "MOA/Klick",
-    "defaultMilSize": "Standard-Mil-Größe",
+    "defaultMilSize": "Standard Mils",
     "defaultPhysicalSize": "Standard-physische Größe",
     "defaultDistance": "Standard-Entfernung",
     "defaultStartMode": "Standard-Startmodus",

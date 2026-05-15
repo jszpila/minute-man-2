@@ -56,7 +56,7 @@
   "mildotCalculator": {
     "title": "MilDot Calculator",
     "description": "Calculate mil size, target size, or distance",
-    "milSize": "Mil Size",
+    "milSize": "Mils",
     "physicalSize": "Physical Size",
     "distance": "Distance",
     "results": "Results",
@@ -141,7 +141,7 @@
     "defaultZeroDistance": "Default Zero Distance",
     "defaultAdjustmentIncrement": "Default Adjustment Increment",
     "moaClick": "MOA/Click",
-    "defaultMilSize": "Default Mil Size",
+    "defaultMilSize": "Default Mils",
     "defaultPhysicalSize": "Default Physical Size",
     "defaultDistance": "Default Distance",
     "defaultStartMode": "Default Start Mode",

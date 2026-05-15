@@ -56,7 +56,7 @@
   "mildotCalculator": {
     "title": "Kalkulator MilDot",
     "description": "Oblicza rozmiar mil, rozmiar celu lub dystans",
-    "milSize": "Rozmiar Mil",
+    "milSize": "Mils",
     "physicalSize": "Rozmiar Fizyczny",
     "distance": "Dystans",
     "results": "Wyniki",
@@ -142,7 +142,7 @@
     "defaultZeroDistance": "Domyślny Dystans Zerowania",
     "defaultAdjustmentIncrement": "Domyślny Przyrost Regulacji",
     "moaClick": "MOA/Klik",
-    "defaultMilSize": "Domyślny Rozmiar Mil",
+    "defaultMilSize": "Domyślne Mils",
     "defaultPhysicalSize": "Domyślny Rozmiar Fizyczny",
     "defaultDistance": "Domyślny Dystans",
     "defaultStartMode": "Domyślny Tryb Startu",
