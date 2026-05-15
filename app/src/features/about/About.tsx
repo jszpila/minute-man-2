@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography, Link, Table, TableBody, TableCell, TableRow, Stack } from '@mui/material';
+import { Box, Typography, Link, Table, TableBody, TableCell, TableRow, Stack, Button } from '@mui/material';
 import GitInfo from '../../shared/static/GitInfo';
+
+declare global {
+  interface WindowEventMap {
+    beforeinstallprompt: BeforeInstallPromptEvent;
+  }
+}
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 export const About: React.FC = () => {
   const { t } = useTranslation();
   const isStandAlone = window.matchMedia('(display-mode: standalone)').matches;
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+      setShowInstallPrompt(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleInstall = async () => {
+    if (!installPrompt) return;
+
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setShowInstallPrompt(false);
+      setInstallPrompt(null);
+    }
+  };
 
   return (
     <Box sx={{ maxWidth: 600, mx: 'auto' }}>
@@ -46,6 +84,25 @@ export const About: React.FC = () => {
             </Link>
           </Typography>
         </Box>
+
+        {/* PWA Install Prompt */}
+        {!isStandAlone && showInstallPrompt && installPrompt && (
+          <Box sx={{ p: 2, backgroundColor: 'action.hover', border: '1px solid', borderColor: 'primary.main', borderRadius: 1 }}>
+            <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
+              {t('about.installPWATitle')}
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 2 }}>
+              {t('about.installPWADescription')}
+            </Typography>
+            <Button 
+              variant="contained" 
+              size="small" 
+              onClick={handleInstall}
+            >
+              {t('about.installButton')}
+            </Button>
+          </Box>
+        )}
 
         {/* Diagnostics table */}
         <Box>
