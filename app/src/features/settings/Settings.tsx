@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -11,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Slider,
   Stack,
   Switch,
   TextField,
@@ -20,6 +22,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAppContext } from '../../shared/context/AppContext';
 import { StorageKeys, getStorageItem, setStorageItem } from '../../shared/utils/storage';
 import { yardsToMeters, metersToYards } from '../../shared/utils/calculations';
+import {
+  requestMicrophoneAccess,
+  createAudioAnalyser,
+  stopListening,
+  getRMSLevel,
+} from '../../shared/utils/audioDetectionUtils';
 
 const SettingsSection: React.FC<{
   title: string;
@@ -150,6 +158,50 @@ const Settings: React.FC = () => {
     }
   };
 
+  // Shot Timer Settings
+  type TimerMode = 'par' | 'split' | 'firstShot';
+  type StartMode = 'instant' | 'delayed' | 'random';
+
+  const [shotTimerDefaultStartMode, setShotTimerDefaultStartMode] = React.useState<StartMode>(() => {
+    return getStorageItem<StartMode>(StorageKeys.SHOT_TIMER_DEFAULT_START_MODE, 'instant') || 'instant';
+  });
+
+  const [shotTimerDefaultTimerMode, setShotTimerDefaultTimerMode] = React.useState<TimerMode>(() => {
+    return getStorageItem<TimerMode>(StorageKeys.SHOT_TIMER_DEFAULT_TIMER_MODE, 'split') || 'split';
+  });
+
+  const [shotTimerDefaultParTime, setShotTimerDefaultParTime] = React.useState<number>(() => {
+    return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME, 5000) || 5000;
+  });
+
+  const [shotTimerDefaultSensitivity, setShotTimerDefaultSensitivity] = React.useState<number>(() => {
+    return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, 50) || 50;
+  });
+
+  const handleShotTimerStartModeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as StartMode;
+    setShotTimerDefaultStartMode(value);
+    setStorageItem(StorageKeys.SHOT_TIMER_DEFAULT_START_MODE, value);
+  };
+
+  const handleShotTimerTimerModeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as TimerMode;
+    setShotTimerDefaultTimerMode(value);
+    setStorageItem(StorageKeys.SHOT_TIMER_DEFAULT_TIMER_MODE, value);
+  };
+
+  const handleShotTimerParTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.max(1, parseInt(e.target.value) || 1) * 1000;
+    setShotTimerDefaultParTime(value);
+    setStorageItem(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME, value);
+  };
+
+  // Sensitivity testing
+  const [listeningForSensitivity, setListeningForSensitivity] = React.useState(false);
+  const [currentRMSLevel, setCurrentRMSLevel] = React.useState(0);
+  const sensitivityAudioAnalyserRef = React.useRef<any>(null);
+  const sensitivityVisualizationRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
+
   return (
     <Box>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -157,7 +209,7 @@ const Settings: React.FC = () => {
       </Typography>
 
       {/* App Settings */}
-      <SettingsSection title={t('settings.appSettings')}>
+      <SettingsSection title={t('settings.appSettings')} defaultExpanded={false}>
         <Stack spacing={3}>
           <FormControl fullWidth>
             <InputLabel>{t('settings.theme')}</InputLabel>
@@ -229,7 +281,7 @@ const Settings: React.FC = () => {
                 onChange={(e) => setNavBurger(e.target.checked)}
               />
             }
-            label={t('settings.navBurger')}
+            label="NavBurger™"
           />
         </Stack>
       </SettingsSection>
@@ -295,6 +347,158 @@ const Settings: React.FC = () => {
             onChange={handleDistanceChange}
             fullWidth
           />
+        </Stack>
+      </SettingsSection>
+
+      {/* Shot Timer Settings */}
+      <SettingsSection title="Shot Timer Defaults" defaultExpanded={false}>
+        <Stack spacing={2}>
+          <FormControl fullWidth>
+            <InputLabel>Default Start Mode</InputLabel>
+            <Select
+              value={shotTimerDefaultStartMode}
+              label="Default Start Mode"
+              onChange={handleShotTimerStartModeChange as any}
+            >
+              <MenuItem value="instant">Instant Start</MenuItem>
+              <MenuItem value="delayed">Delayed Start (2s)</MenuItem>
+              <MenuItem value="random">Random Start (2-5s)</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel>Default Timer Mode</InputLabel>
+            <Select
+              value={shotTimerDefaultTimerMode}
+              label="Default Timer Mode"
+              onChange={handleShotTimerTimerModeChange as any}
+            >
+              <MenuItem value="split">Split Timer</MenuItem>
+              <MenuItem value="par">Par Timer</MenuItem>
+              <MenuItem value="firstShot">First Shot</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            label="Default Par Time"
+            type="number"
+            value={Math.round(shotTimerDefaultParTime / 1000)}
+            onChange={handleShotTimerParTimeChange}
+            inputProps={{ min: 1, step: 1, max: 600 }}
+            helperText="Seconds"
+            fullWidth
+          />
+
+          <FormControl fullWidth>
+            <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+              Default Sensitivity: {shotTimerDefaultSensitivity}%
+            </Typography>
+            <Box sx={{ px: 1.5, mb: 2 }}>
+              <Slider
+                value={shotTimerDefaultSensitivity}
+                onChange={(_, newValue) => {
+                  const value = newValue as number;
+                  setShotTimerDefaultSensitivity(value);
+                  setStorageItem(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, value);
+                }}
+                min={0}
+                max={100}
+                step={1}
+                marks={[
+                  { value: 0, label: '0%' },
+                  { value: 100, label: '100%' },
+                ]}
+                disabled={listeningForSensitivity}
+                valueLabelDisplay="auto"
+              />
+            </Box>
+            <Button
+              size="small"
+              variant={listeningForSensitivity ? 'contained' : 'outlined'}
+              onClick={async () => {
+                if (listeningForSensitivity) {
+                  // Stop listening
+                  setListeningForSensitivity(false);
+                  if (sensitivityAudioAnalyserRef.current) {
+                    stopListening(sensitivityAudioAnalyserRef.current.mediaStream);
+                    sensitivityAudioAnalyserRef.current = null;
+                  }
+                  if (sensitivityVisualizationRef.current) {
+                    clearInterval(sensitivityVisualizationRef.current);
+                    sensitivityVisualizationRef.current = null;
+                  }
+                  setCurrentRMSLevel(0);
+                } else {
+                  // Start listening
+                  try {
+                    const mediaStream = await requestMicrophoneAccess();
+                    const analyser = createAudioAnalyser(mediaStream);
+                    sensitivityAudioAnalyserRef.current = analyser;
+                    setListeningForSensitivity(true);
+
+                    // Visualization loop
+                    if (sensitivityVisualizationRef.current) {
+                      clearInterval(sensitivityVisualizationRef.current);
+                    }
+                    sensitivityVisualizationRef.current = setInterval(() => {
+                      if (sensitivityAudioAnalyserRef.current) {
+                        const rmsLevel = getRMSLevel(sensitivityAudioAnalyserRef.current);
+                        setCurrentRMSLevel(rmsLevel);
+                      }
+                    }, 50);
+                  } catch (error) {
+                    alert('Failed to access microphone');
+                  }
+                }
+              }}
+            >
+              {listeningForSensitivity ? 'Stop' : 'Test'}
+            </Button>
+
+            {/* Visualization when testing */}
+            {listeningForSensitivity && (
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
+                  Sound Level (RMS: {Math.round(currentRMSLevel)}/255 | Threshold: {Math.round(10 + (100 - shotTimerDefaultSensitivity) * 0.4)})
+                </Typography>
+                <Box
+                  sx={{
+                    height: 32,
+                    backgroundColor: '#e0e0e0',
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    border: '1px solid #999',
+                  }}
+                >
+                  {/* Threshold line */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      left: `${((10 + (100 - shotTimerDefaultSensitivity) * 0.4) / 255) * 100}%`,
+                      top: 0,
+                      bottom: 0,
+                      width: '2px',
+                      backgroundColor: '#ff0000',
+                      zIndex: 2,
+                    }}
+                  />
+                  {/* Current level bar */}
+                  <Box
+                    sx={{
+                      height: '100%',
+                      width: `${(currentRMSLevel / 255) * 100}%`,
+                      backgroundColor: currentRMSLevel > 10 + (100 - shotTimerDefaultSensitivity) * 0.4 ? '#4caf50' : '#2196f3',
+                      transition: 'width 0.05s linear',
+                    }}
+                  />
+                </Box>
+                <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'error.main' }}>
+                  Clap, snap, or make sounds. Adjust slider to find comfortable threshold.
+                </Typography>
+              </Box>
+            )}
+          </FormControl>
         </Stack>
       </SettingsSection>
     </Box>
