@@ -111,8 +111,6 @@
     "humidity": "Humidité",
     "pressure": "Pression Barométrique",
     "condition": "Condition",
-    "sunrise": "Lever du Soleil",
-    "sunset": "Coucher du Soleil",
     "lastUpdated": "Dernière Mise à Jour",
     "noData": "Aucune donnée météo disponible. Entrez une localisation pour commencer.",
     "mph": "mph",

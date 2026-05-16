@@ -113,8 +113,6 @@
     "humidity": "Luftfeuchtigkeit",
     "pressure": "Luftdruck",
     "condition": "Bedingung",
-    "sunrise": "Sonnenaufgang",
-    "sunset": "Sonnenuntergang",
     "lastUpdated": "Zuletzt aktualisiert",
     "noData": "Keine Wetterdaten verfügbar. Geben Sie einen Ort ein, um zu beginnen.",
     "mph": "mph",

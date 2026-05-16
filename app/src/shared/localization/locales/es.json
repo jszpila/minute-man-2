@@ -111,8 +111,6 @@
     "humidity": "Humedad",
     "pressure": "Presión Barométrica",
     "condition": "Condición",
-    "sunrise": "Salida del Sol",
-    "sunset": "Puesta del Sol",
     "lastUpdated": "Última Actualización",
     "noData": "Sin datos del clima disponibles. Ingresa una ubicación para comenzar.",
     "mph": "mph",

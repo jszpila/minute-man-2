@@ -113,8 +113,6 @@
     "humidity": "Humidity",
     "pressure": "Barometric Pressure",
     "condition": "Condition",
-    "sunrise": "Sunrise",
-    "sunset": "Sunset",
     "lastUpdated": "Last Updated",
     "noData": "No weather data available. Enter a location to get started.",
     "mph": "mph",

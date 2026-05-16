@@ -1,6 +1,7 @@
 export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  watchman: false,
   roots: ['<rootDir>/src'],
   testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
   moduleNameMapper: {
@@ -8,6 +9,7 @@ export default {
     '^@features/(.*)$': '<rootDir>/src/features/$1',
     '^@shared/(.*)$': '<rootDir>/src/shared/$1',
     '^@routes/(.*)$': '<rootDir>/src/routes/$1',
+    '^\\.\\./\\.\\./\\.\\./package\\.json$': '<rootDir>/src/__mocks__/packageJsonMock.js',
     '\\.(scss|css)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png|jpg|jpeg)$': '<rootDir>/src/__mocks__/fileMock.js',
   },

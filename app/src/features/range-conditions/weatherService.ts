@@ -7,8 +7,6 @@ export interface CachedWeatherData {
   windDirection: string;
   humidity: number;
   pressure: number;
-  sunrise: string;
-  sunset: string;
   description: string;
   lastUpdated: string;
   lat: number;
@@ -62,18 +60,6 @@ const parseWindDirection = (direction: string): string => {
     NNW: 'NNW',
   };
   return dirMap[direction] || direction;
-};
-
-/**
- * Format time string (HH:MM format)
- */
-const formatTime = (isoString: string): string => {
-  try {
-    const date = new Date(isoString);
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-  } catch {
-    return isoString;
-  }
 };
 
 /**
@@ -143,8 +129,6 @@ export const getWeatherData = async (
       windDirection: parseWindDirection(period.windDirection),
       humidity: period.relativeHumidity || 0,
       pressure: period.barometricPressure ? convertPressure(period.barometricPressure) : 0,
-      sunrise: period.sunrise ? formatTime(period.sunrise) : 'N/A',
-      sunset: period.sunset ? formatTime(period.sunset) : 'N/A',
       description: period.shortForecast,
       lastUpdated: new Date().toLocaleTimeString('en-US', {
         hour: '2-digit',

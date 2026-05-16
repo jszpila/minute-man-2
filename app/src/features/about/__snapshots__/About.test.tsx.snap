@@ -88,7 +88,7 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
                 >
                   v
-                  2.0.1
+                  0.0.0-test
                    (
                   )
                 </td>
@@ -282,7 +282,7 @@ exports[`About component matches snapshot when not standalone 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
                 >
                   v
-                  2.0.1
+                  0.0.0-test
                    (
                   )
                 </td>

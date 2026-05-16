@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { About } from './About';
 
+const TEST_APP_VERSION = '0.0.0-test';
+
 // Mock useTranslation
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -85,8 +87,9 @@ describe('About component', () => {
 
   it('displays diagnostics information correctly', () => {
     render(<About />);
-    // Version should include the SHA
-    const versionCell = screen.getByText(/v2\.0\.1/);
+    const versionCell = screen.getByText((_content, element) => (
+      element?.textContent === `v${TEST_APP_VERSION} ()`
+    ));
     expect(versionCell).toBeInTheDocument();
   });
 

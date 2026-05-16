@@ -77,6 +77,7 @@ const WeatherIcon: React.FC<{ weather: CachedWeatherData }> = ({ weather }) => {
 const AppBarWeather: React.FC = () => {
   const { showWeatherInAppBar, units } = useAppContext();
   const [weather, setWeather] = React.useState<CachedWeatherData | null>(null);
+  const [hasPollingError, setHasPollingError] = React.useState(false);
   const isMetric = units === 'metric';
 
   React.useEffect(() => {
@@ -84,7 +85,10 @@ const AppBarWeather: React.FC = () => {
 
     const loadWeather = async (forceRefresh = false) => {
       if (!showWeatherInAppBar || !navigator.geolocation) {
-        if (!cancelled) setWeather(null);
+        if (!cancelled) {
+          setWeather(null);
+          setHasPollingError(false);
+        }
         return;
       }
 
@@ -92,14 +96,20 @@ const AppBarWeather: React.FC = () => {
         if (navigator.permissions?.query) {
           const permission = await navigator.permissions.query({ name: 'geolocation' });
           if (permission.state !== 'granted') {
-            if (!cancelled) setWeather(null);
+            if (!cancelled) {
+              setWeather(null);
+              setHasPollingError(false);
+            }
             return;
           }
         }
 
         const cached = getCachedWeather();
         if (!forceRefresh && cached && hasExpectedUnit(cached, isMetric)) {
-          if (!cancelled) setWeather(cached);
+          if (!cancelled) {
+            setWeather(cached);
+            setHasPollingError(false);
+          }
           return;
         }
 
@@ -113,10 +123,11 @@ const AppBarWeather: React.FC = () => {
 
         if (!cancelled) {
           setWeather(nextWeather);
+          setHasPollingError(false);
         }
       } catch {
         if (!cancelled) {
-          setWeather(null);
+          setHasPollingError(true);
         }
       }
     };
@@ -148,9 +159,11 @@ const AppBarWeather: React.FC = () => {
   return (
     <Box
       aria-label={weather.description}
+      data-polling-error={hasPollingError}
+      data-testid="app-bar-weather"
       sx={{
         alignItems: 'center',
-        color: 'inherit',
+        color: hasPollingError ? 'text.disabled' : 'inherit',
         display: 'inline-flex',
         gap: 0.5,
         mx: 0.5,

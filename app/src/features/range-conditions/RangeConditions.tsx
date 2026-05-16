@@ -26,8 +26,6 @@ interface WeatherData {
   windDirection: string;
   humidity: number;
   pressure: number;
-  sunrise: string;
-  sunset: string;
   description: string;
   lastUpdated: string;
   lat: number;
@@ -245,22 +243,6 @@ const RangeConditions: React.FC = () => {
                     {t('rangeConditions.condition')}
                   </Typography>
                   <Typography variant="h6">{weather.description}</Typography>
-                </Box>
-              </Box>
-
-              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
-                <Box>
-                  <Typography variant="body2" color="textSecondary">
-                    {t('rangeConditions.sunrise')}
-                  </Typography>
-                  <Typography variant="body1">{weather.sunrise}</Typography>
-                </Box>
-
-                <Box>
-                  <Typography variant="body2" color="textSecondary">
-                    {t('rangeConditions.sunset')}
-                  </Typography>
-                  <Typography variant="body1">{weather.sunset}</Typography>
                 </Box>
               </Box>
             </Stack>

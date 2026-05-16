@@ -113,8 +113,6 @@
     "humidity": "Wilgotność",
     "pressure": "Ciśnienie Barometryczne",
     "condition": "Warunki",
-    "sunrise": "Wschód Słońca",
-    "sunset": "Zachód Słońca",
     "lastUpdated": "Ostatnia Aktualizacja",
     "noData": "Brak dostępnych danych pogodowych. Wpisz lokalizację, aby zacząć.",
     "mph": "mph",
