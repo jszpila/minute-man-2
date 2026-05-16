@@ -85,8 +85,8 @@ export const About: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* PWA Install Prompt */}
-        {!isStandAlone && showInstallPrompt && installPrompt && (
+        {/* PWA Installation Instructions - show when NOT installed as app */}
+        {!isStandAlone && (
           <Box sx={{ p: 2, backgroundColor: 'action.hover', border: '1px solid', borderColor: 'primary.main', borderRadius: 1 }}>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
               {t('about.installPWATitle')}
@@ -94,13 +94,26 @@ export const About: React.FC = () => {
             <Typography variant="body2" sx={{ mb: 2 }}>
               {t('about.installPWADescription')}
             </Typography>
-            <Button 
-              variant="contained" 
-              size="small" 
-              onClick={handleInstall}
-            >
-              {t('about.installButton')}
-            </Button>
+            <Stack spacing={1} sx={{ mb: 2 }}>
+              <Typography variant="body2">
+                <strong>{t('about.installation')}</strong>
+              </Typography>
+              <Typography variant="body2" sx={{ pl: 1 }}>
+                📱 <strong>Android:</strong> {t('about.installAndroid')}
+              </Typography>
+              <Typography variant="body2" sx={{ pl: 1 }}>
+                🍎 <strong>iOS:</strong> {t('about.installIos')}
+              </Typography>
+            </Stack>
+            {showInstallPrompt && installPrompt && (
+              <Button 
+                variant="contained" 
+                size="small" 
+                onClick={handleInstall}
+              >
+                {t('about.installButton')}
+              </Button>
+            )}
           </Box>
         )}
 

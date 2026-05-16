@@ -1,0 +1,316 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About component matches snapshot when in standalone mode 1`] = `
+<div>
+  <div
+    class="MuiBox-root css-18lglfx"
+  >
+    <h4
+      class="MuiTypography-root MuiTypography-h4 css-1ynjyiz-MuiTypography-root"
+    >
+      about.title
+    </h4>
+    <div
+      class="MuiStack-root css-8mcjw0-MuiStack-root"
+    >
+      <div
+        class="MuiBox-root css-yd8sa2"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+        >
+          about.madeBy
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="https://www.ursine.llc"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            about.ursineSoftware
+          </a>
+          .
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+        >
+          about.contactUs
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="mailto:contact@ursine.llc"
+          >
+            about.contactEmail
+          </a>
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+        >
+          about.donate
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="https://www.ursine.llc/donate"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            about.donateUrl
+          </a>
+        </p>
+      </div>
+      <div
+        class="MuiBox-root css-0"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-1hge7r6-MuiTypography-root"
+        >
+          about.diagnosticsTitle
+        </h6>
+        <table
+          class="MuiTable-root css-h040yz-MuiTable-root"
+        >
+          <tbody
+            class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
+          >
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-m69c0l-MuiTableCell-root"
+              >
+                about.diagnosticVersion
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              >
+                v2.0.0 (
+                )
+              </td>
+            </tr>
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+              >
+                about.diagnosticNetwork
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              >
+                about.diagnosticNetworkConnected
+              </td>
+            </tr>
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+              >
+                about.diagnosticMode
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              >
+                about.diagnosticModeStandalone
+              </td>
+            </tr>
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+              >
+                about.diagnosticPlatform
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`About component matches snapshot when not standalone 1`] = `
+<div>
+  <div
+    class="MuiBox-root css-18lglfx"
+  >
+    <h4
+      class="MuiTypography-root MuiTypography-h4 css-1ynjyiz-MuiTypography-root"
+    >
+      about.title
+    </h4>
+    <div
+      class="MuiStack-root css-8mcjw0-MuiStack-root"
+    >
+      <div
+        class="MuiBox-root css-yd8sa2"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+        >
+          about.madeBy
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="https://www.ursine.llc"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            about.ursineSoftware
+          </a>
+          .
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+        >
+          about.contactUs
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="mailto:contact@ursine.llc"
+          >
+            about.contactEmail
+          </a>
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+        >
+          about.donate
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="https://www.ursine.llc/donate"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            about.donateUrl
+          </a>
+        </p>
+      </div>
+      <div
+        class="MuiBox-root css-lthmg2"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-ln1bfl-MuiTypography-root"
+        >
+          about.installPWATitle
+        </h6>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-956xpl-MuiTypography-root"
+        >
+          about.installPWADescription
+        </p>
+        <div
+          class="MuiStack-root css-1pxjrel-MuiStack-root"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          >
+            <strong>
+              about.installation
+            </strong>
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-m5y6ct-MuiTypography-root"
+          >
+            📱 
+            <strong>
+              Android:
+            </strong>
+             
+            about.installAndroid
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-m5y6ct-MuiTypography-root"
+          >
+            🍎 
+            <strong>
+              iOS:
+            </strong>
+             
+            about.installIos
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiBox-root css-0"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-1hge7r6-MuiTypography-root"
+        >
+          about.diagnosticsTitle
+        </h6>
+        <table
+          class="MuiTable-root css-h040yz-MuiTable-root"
+        >
+          <tbody
+            class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
+          >
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-m69c0l-MuiTableCell-root"
+              >
+                about.diagnosticVersion
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              >
+                v2.0.0 (
+                )
+              </td>
+            </tr>
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+              >
+                about.diagnosticNetwork
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              >
+                about.diagnosticNetworkConnected
+              </td>
+            </tr>
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+              >
+                about.diagnosticMode
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              >
+                about.diagnosticModeWeb
+              </td>
+            </tr>
+            <tr
+              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            >
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+              >
+                about.diagnosticPlatform
+              </td>
+              <td
+                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -106,6 +106,9 @@ export const createAudioAnalyser = (
  * Returns value 0-255 representing loudness
  */
 export const calculateRMS = (dataArray: any): number => {
+  if (dataArray.length === 0) {
+    return 0;
+  }
   let sum = 0;
   for (let i = 0; i < dataArray.length; i++) {
     const value = dataArray[i];
