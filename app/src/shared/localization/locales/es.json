@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Minute Man",
-    "description": "Una aplicación web progresiva para tu campo de tiro"
+    "description": "Una aplicación web progresiva para tu campo de tiro",
+    "newVersionAvailable": "Nueva versión disponible",
+    "reload": "Recargar"
   },
   "nav": {
     "zeroCalculator": "Calculadora de Cero",
@@ -38,7 +40,9 @@
   "zeroCalculator": {
     "title": "Calculadora de Cero",
     "description": "Calcula clics de ajuste de mira",
-    "pointOfImpact": "Punto de Impacto",    "offset": "Desplazamiento",    "horizontalOffset": "Desplazamiento Horizontal",
+    "pointOfImpact": "Punto de Impacto",
+    "offset": "Desplazamiento",
+    "horizontalOffset": "Desplazamiento Horizontal",
     "verticalOffset": "Desplazamiento Vertical",
     "direction": "Dirección",
     "left": "Izquierda",

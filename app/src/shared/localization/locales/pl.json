@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Minute Man",
-    "description": "Progresywna aplikacja internetowa dla Twojego pola strzeleckiego"
+    "description": "Progresywna aplikacja internetowa dla Twojego pola strzeleckiego",
+    "newVersionAvailable": "Dostępna jest nowa wersja",
+    "reload": "Odśwież"
   },
   "nav": {
     "zeroCalculator": "Kalkulator Zerowania",
@@ -141,7 +143,9 @@
     },
     "navBurger": "Ikona Menu Hamburger",
     "dark": "Ciemny",
-    "light": "Jasny",    "rangerGreen": "Ranger Zielony",    "microscopic": "Mikroskopijny",
+    "light": "Jasny",
+    "rangerGreen": "Ranger Zielony",
+    "microscopic": "Mikroskopijny",
     "diminutive": "Malutki",
     "normie": "Normalny",
     "embiggened": "Powiększony",

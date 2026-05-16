@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Minute Man",
-    "description": "Une application web progressive pour votre stand de tir"
+    "description": "Une application web progressive pour votre stand de tir",
+    "newVersionAvailable": "Nouvelle version disponible",
+    "reload": "Recharger"
   },
   "nav": {
     "zeroCalculator": "Calculatrice de Zéro",
@@ -38,7 +40,9 @@
   "zeroCalculator": {
     "title": "Calculatrice de Zéro",
     "description": "Calcule les clics d'ajustement de la lunette",
-    "pointOfImpact": "Point d'Impact",    "offset": "Décalage",    "horizontalOffset": "Décalage Horizontal",
+    "pointOfImpact": "Point d'Impact",
+    "offset": "Décalage",
+    "horizontalOffset": "Décalage Horizontal",
     "verticalOffset": "Décalage Vertical",
     "direction": "Direction",
     "left": "Gauche",

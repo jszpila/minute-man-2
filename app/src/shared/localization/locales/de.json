@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Minute Man",
-    "description": "Eine progressive Web-App für deinen Schießstand"
+    "description": "Eine progressive Web-App für deinen Schießstand",
+    "newVersionAvailable": "Neue Version verfügbar",
+    "reload": "Neu laden"
   },
   "nav": {
     "zeroCalculator": "Nullpunkt-Rechner",

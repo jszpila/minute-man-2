@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Minute Man",
-    "description": "A progressive web app for your range"
+    "description": "A progressive web app for your range",
+    "newVersionAvailable": "New version available",
+    "reload": "Reload"
   },
   "nav": {
     "zeroCalculator": "Zero Calculator",
