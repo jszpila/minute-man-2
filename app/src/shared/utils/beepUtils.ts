@@ -1,6 +1,6 @@
 /**
  * Plays a beep sound using Web Audio API
- * Loads and plays the pre-recorded beep.wav file
+ * Loads and plays the pre-recorded beep.mp3 file
  */
 
 let audioContext: AudioContext | null = null;
@@ -19,7 +19,7 @@ const loadBeepBuffer = async (): Promise<AudioBuffer> => {
   }
 
   try {
-    const response = await fetch('/sounds/beep.wav');
+    const response = await fetch('/sounds/beep.mp3');
     const arrayBuffer = await response.arrayBuffer();
     const ctx = getAudioContext();
     beepBuffer = await ctx.decodeAudioData(arrayBuffer);
