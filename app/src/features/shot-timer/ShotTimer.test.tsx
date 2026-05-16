@@ -24,6 +24,8 @@ jest.mock('../../shared/context/AppContext', () => ({
     setLanguage: jest.fn(),
     navBurger: false,
     setNavBurger: jest.fn(),
+    showWeatherInAppBar: false,
+    setShowWeatherInAppBar: jest.fn(),
   }),
 }));
 

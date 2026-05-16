@@ -1,6 +1,6 @@
 import { getStorageItem, setStorageItem } from '../../shared/utils/storage';
 
-interface CachedWeatherData {
+export interface CachedWeatherData {
   temperature: number;
   temperatureUnit: string;
   windSpeed: number;

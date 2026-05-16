@@ -131,6 +131,7 @@
     "fontSize": "Tamaño de Fuente",
     "units": "Unidades",
     "language": "Idioma",
+    "showWeatherInAppBar": "Mostrar clima en la barra de la app",
     "languages": {
       "english": "Inglés",
       "spanish": "Español",

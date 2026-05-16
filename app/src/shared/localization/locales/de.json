@@ -133,6 +133,7 @@
     "fontSize": "Schriftgröße",
     "units": "Einheiten",
     "language": "Sprache",
+    "showWeatherInAppBar": "Wetter in der App-Leiste anzeigen",
     "languages": {
       "english": "Englisch",
       "spanish": "Spanisch",

@@ -23,6 +23,8 @@ jest.mock('../../shared/context/AppContext', () => ({
     setLanguage: jest.fn(),
     navBurger: false,
     setNavBurger: jest.fn(),
+    showWeatherInAppBar: false,
+    setShowWeatherInAppBar: jest.fn(),
   }),
 }));
 
@@ -105,6 +107,11 @@ describe('Settings component', () => {
     const { container } = render(<Settings />);
     // Component should render without errors
     expect(container).toBeTruthy();
+  });
+
+  it('renders weather in app bar checkbox', () => {
+    render(<Settings />);
+    expect(screen.getByLabelText('settings.showWeatherInAppBar')).toBeInTheDocument();
   });
 
   it('renders Zero Calculator Settings section', () => {

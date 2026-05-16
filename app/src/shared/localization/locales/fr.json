@@ -131,6 +131,7 @@
     "fontSize": "Taille de la Police",
     "units": "Unités",
     "language": "Langue",
+    "showWeatherInAppBar": "Afficher la météo dans la barre d'application",
     "languages": {
       "english": "Anglais",
       "spanish": "Espagnol",

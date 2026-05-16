@@ -64,7 +64,20 @@ const SettingsSection: React.FC<{
 
 const Settings: React.FC = () => {
   const { t } = useTranslation();
-  const { theme, setTheme, fontSize, setFontSize, units, setUnits, language, setLanguage, navBurger, setNavBurger } = useAppContext();
+  const {
+    theme,
+    setTheme,
+    fontSize,
+    setFontSize,
+    units,
+    setUnits,
+    language,
+    setLanguage,
+    navBurger,
+    setNavBurger,
+    showWeatherInAppBar,
+    setShowWeatherInAppBar,
+  } = useAppContext();
 
   // Zero Calculator settings - initialize with 100 yards, convert to meters if metric
   const [zeroDistance, setZeroDistance] = React.useState<number>(100);
@@ -283,6 +296,16 @@ const Settings: React.FC = () => {
               />
             }
             label={t('settings.navBurger')}
+          />
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showWeatherInAppBar}
+                onChange={(e) => setShowWeatherInAppBar(e.target.checked)}
+              />
+            }
+            label={t('settings.showWeatherInAppBar')}
           />
         </Stack>
       </SettingsSection>

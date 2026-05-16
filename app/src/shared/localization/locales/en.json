@@ -133,6 +133,7 @@
     "fontSize": "Font Size",
     "units": "Units",
     "language": "Language",
+    "showWeatherInAppBar": "Show Weather in App Bar",
     "languages": {
       "english": "English",
       "spanish": "Spanish",

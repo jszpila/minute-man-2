@@ -133,6 +133,7 @@
     "fontSize": "Rozmiar Czcionki",
     "units": "Jednostki",
     "language": "Język",
+    "showWeatherInAppBar": "Pokaż pogodę na pasku aplikacji",
     "languages": {
       "english": "Angielski",
       "spanish": "Hiszpański",
