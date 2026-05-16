@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography, Link, Table, TableBody, TableCell, TableRow, Stack, Button } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Link,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import GitInfo from '../../shared/static/GitInfo';
+import packageJson from '../../../package.json';
 
 declare global {
   interface WindowEventMap {
@@ -46,15 +59,15 @@ export const About: React.FC = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: 'auto' }}>
-      <Typography variant="h4" sx={{ mb: 3, fontWeight: 'bold' }}>
+    <Box>
+      <Typography variant="h4" sx={{ mb: 3 }}>
         {t('about.title')}
       </Typography>
 
-      <Stack spacing={4}>
+      <Stack spacing={3}>
         {/* Blurb content */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Typography variant="body2">
+          <Typography variant="body1">
             {t('about.madeBy')}{' '}
             <Link
               href="https://www.ursine.llc"
@@ -66,14 +79,14 @@ export const About: React.FC = () => {
             .
           </Typography>
 
-          <Typography variant="body2">
+          <Typography variant="body1">
             {t('about.contactUs')}{' '}
             <Link href="mailto:contact@ursine.llc">
               {t('about.contactEmail')}
             </Link>
           </Typography>
 
-          <Typography variant="body2">
+          <Typography variant="body1">
             {t('about.donate')}{' '}
             <Link
               href="https://www.ursine.llc/donate"
@@ -87,78 +100,88 @@ export const About: React.FC = () => {
 
         {/* PWA Installation Instructions - show when NOT installed as app */}
         {!isStandAlone && (
-          <Box sx={{ p: 2, backgroundColor: 'action.hover', border: '1px solid', borderColor: 'primary.main', borderRadius: 1 }}>
-            <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
-              {t('about.installPWATitle')}
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              {t('about.installPWADescription')}
-            </Typography>
-            <Stack spacing={1} sx={{ mb: 2 }}>
-              <Typography variant="body2">
-                <strong>{t('about.installation')}</strong>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                {t('about.installPWATitle')}
               </Typography>
-              <Typography variant="body2" sx={{ pl: 1 }}>
-                📱 <strong>Android:</strong> {t('about.installAndroid')}
+              <Typography variant="body2" sx={{ mb: 2 }}>
+                {t('about.installPWADescription')}
               </Typography>
-              <Typography variant="body2" sx={{ pl: 1 }}>
-                🍎 <strong>iOS:</strong> {t('about.installIos')}
-              </Typography>
-            </Stack>
-            {showInstallPrompt && installPrompt && (
-              <Button 
-                variant="contained" 
-                size="small" 
-                onClick={handleInstall}
-              >
-                {t('about.installButton')}
-              </Button>
-            )}
-          </Box>
+              <Stack spacing={1} sx={{ mb: showInstallPrompt && installPrompt ? 2 : 0 }}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                  {t('about.installation')}
+                </Typography>
+                <Typography variant="body2">
+                  <Box component="span" sx={{ fontWeight: 'bold' }}>
+                    {t('about.android')}:
+                  </Box>{' '}
+                  {t('about.installAndroid')}
+                </Typography>
+                <Typography variant="body2">
+                  <Box component="span" sx={{ fontWeight: 'bold' }}>
+                    {t('about.ios')}:
+                  </Box>{' '}
+                  {t('about.installIos')}
+                </Typography>
+              </Stack>
+              {showInstallPrompt && installPrompt && (
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={handleInstall}
+                >
+                  {t('about.installButton')}
+                </Button>
+              )}
+            </CardContent>
+          </Card>
         )}
 
         {/* Diagnostics table */}
-        <Box>
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-            {t('about.diagnosticsTitle')}
-          </Typography>
-          <Table sx={{ '& td': { border: 'none', py: 1 } }}>
-            <TableBody>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold', width: '140px' }}>
-                  {t('about.diagnosticVersion')}
-                </TableCell>
-                <TableCell>v2.0.0 ({GitInfo.sha})</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold' }}>
-                  {t('about.diagnosticNetwork')}
-                </TableCell>
-                <TableCell>
-                  {navigator.onLine
-                    ? t('about.diagnosticNetworkConnected')
-                    : t('about.diagnosticNetworkNotConnected')}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold' }}>
-                  {t('about.diagnosticMode')}
-                </TableCell>
-                <TableCell>
-                  {isStandAlone
-                    ? t('about.diagnosticModeStandalone')
-                    : t('about.diagnosticModeWeb')}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold' }}>
-                  {t('about.diagnosticPlatform')}
-                </TableCell>
-                <TableCell>{navigator.platform}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Box>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              {t('about.diagnosticsTitle')}
+            </Typography>
+            <Table sx={{ '& td': { border: 'none', px: 0, py: 1 } }}>
+              <TableBody>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
+                    {t('about.diagnosticVersion')}
+                  </TableCell>
+                  <TableCell>v{packageJson.version} ({GitInfo.sha})</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 'bold' }}>
+                    {t('about.diagnosticNetwork')}
+                  </TableCell>
+                  <TableCell>
+                    {navigator.onLine
+                      ? t('about.diagnosticNetworkConnected')
+                      : t('about.diagnosticNetworkNotConnected')}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 'bold' }}>
+                    {t('about.diagnosticMode')}
+                  </TableCell>
+                  <TableCell>
+                    {isStandAlone
+                      ? t('about.diagnosticModeStandalone')
+                      : t('about.diagnosticModeWeb')}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 'bold' }}>
+                    {t('about.diagnosticPlatform')}
+                  </TableCell>
+                  <TableCell>{navigator.platform}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </Stack>
     </Box>
   );

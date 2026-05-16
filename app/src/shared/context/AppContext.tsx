@@ -12,6 +12,8 @@ export interface AppContextType {
   setLanguage: (lang: string) => void;
   navBurger: boolean;
   setNavBurger: (burgerStyle: boolean) => void;
+  showWeatherInAppBar: boolean;
+  setShowWeatherInAppBar: (showWeather: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -48,6 +50,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     return localStorage.getItem('navBurger') === 'true';
   });
 
+  const [showWeatherInAppBar, setShowWeatherInAppBarState] = useState<boolean>(() => {
+    return localStorage.getItem('showWeatherInAppBar') === 'true';
+  });
+
   const setTheme = (newTheme: 'light' | 'dark' | 'rangerGreen') => {
     setThemeState(newTheme);
     localStorage.setItem('theme', newTheme);
@@ -76,6 +82,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     localStorage.setItem('navBurger', String(burgerStyle));
   };
 
+  const setShowWeatherInAppBar = (showWeather: boolean) => {
+    setShowWeatherInAppBarState(showWeather);
+    localStorage.setItem('showWeatherInAppBar', String(showWeather));
+  };
+
   // Apply theme and font size on mount and when they change
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -93,6 +104,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     setLanguage,
     navBurger,
     setNavBurger,
+    showWeatherInAppBar,
+    setShowWeatherInAppBar,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

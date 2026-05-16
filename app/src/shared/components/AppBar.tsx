@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Logo from './Logo';
 import InstallButton from './InstallButton';
+import AppBarWeather from './AppBarWeather';
 import { useAppContext } from '../context/AppContext';
 
 interface AppBarProps {
@@ -33,12 +34,13 @@ const AppBar: React.FC<AppBarProps> = ({ onNavToggle }) => {
         </Typography>
 
         <InstallButton />
+        <AppBarWeather />
 
         <IconButton
           size="large"
           edge="end"
           color="inherit"
-          aria-label="menu"
+          aria-label={t('nav.menu')}
           onClick={onNavToggle}
         >
           {navBurger ? <FastfoodIcon /> : <MenuIcon />}

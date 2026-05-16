@@ -393,7 +393,10 @@ const ShotTimer: React.FC = () => {
             {/* Amplitude Visualization */}
             <Box>
               <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
-                {t('shotTimer.soundLevel')} (RMS: {Math.round(currentRMSLevel)}/255 | Threshold: {Math.round(10 + (100 - sensitivity) * 0.4)})
+                {t('shotTimer.soundLevelDetails', {
+                  rms: Math.round(currentRMSLevel),
+                  threshold: Math.round(10 + (100 - sensitivity) * 0.4),
+                })}
               </Typography>
               <Box
                 sx={{
@@ -506,7 +509,7 @@ const ShotTimer: React.FC = () => {
                     setParTimeMs(Math.max(1, parseInt(e.target.value) || 1) * 1000);
                   }}
                   inputProps={{ min: 1, step: 1, max: 600 }}
-                  helperText="Seconds"
+                  helperText={t('settings.seconds')}
                   fullWidth
                 />
               )}
@@ -514,7 +517,7 @@ const ShotTimer: React.FC = () => {
               {/* Shot Detection Sensitivity Slider */}
               <FormControl fullWidth>
                 <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
-                  Shot Detection Sensitivity: {sensitivity}%
+                  {t('shotTimer.sensitivity', { sensitivity })}
                 </Typography>
                 <Box sx={{ px: 1.5 }}>
                   <Slider
@@ -533,8 +536,8 @@ const ShotTimer: React.FC = () => {
                 </Box>
                 <Typography variant="caption" sx={{ mt: 1, display: 'block', color: 'text.secondary', fontSize: '0.75rem' }}>
                   {timerMode === 'firstShot'
-                    ? 'FirstShot mode: Shot will STOP the timer.'
-                    : 'Split/Par modes: Shots automatically recorded as splits.'}
+                    ? t('shotTimer.firstShotSensitivityHint')
+                    : t('shotTimer.splitSensitivityHint')}
                 </Typography>
               </FormControl>
             </Stack>
@@ -559,7 +562,7 @@ const ShotTimer: React.FC = () => {
               </>
             ) : (
               <Typography variant="body2" color="text.secondary">
-                No splits recorded yet. Start the timer and shots will appear here.
+                {t('shotTimer.noSplits')}
               </Typography>
             )}
           </Box>

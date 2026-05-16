@@ -23,6 +23,8 @@ jest.mock('../../shared/context/AppContext', () => ({
     setLanguage: jest.fn(),
     navBurger: false,
     setNavBurger: jest.fn(),
+    showWeatherInAppBar: false,
+    setShowWeatherInAppBar: jest.fn(),
   }),
 }));
 
@@ -107,6 +109,11 @@ describe('Settings component', () => {
     expect(container).toBeTruthy();
   });
 
+  it('renders weather in app bar checkbox', () => {
+    render(<Settings />);
+    expect(screen.getByLabelText('settings.showWeatherInAppBar')).toBeInTheDocument();
+  });
+
   it('renders Zero Calculator Settings section', () => {
     render(<Settings />);
     expect(screen.getByText('settings.zeroCalculatorSettings')).toBeInTheDocument();
@@ -119,7 +126,7 @@ describe('Settings component', () => {
 
   it('renders Shot Timer Settings section', () => {
     render(<Settings />);
-    const section = screen.getByText('Shot Timer Defaults');
+    const section = screen.getByText('settings.shotTimerSettings');
     expect(section).toBeInTheDocument();
   });
 
@@ -148,15 +155,15 @@ describe('Settings component', () => {
     const user = userEvent.setup({ delay: null });
     render(<Settings />);
 
-    // Click to expand Shot Timer Defaults section
-    const shotTimerHeader = screen.getByText('Shot Timer Defaults').closest('div');
+    // Click to expand Shot Timer section
+    const shotTimerHeader = screen.getByText('settings.shotTimerSettings').closest('div');
     if (shotTimerHeader) {
       await user.click(shotTimerHeader);
     }
 
     // Look for sensitivity slider/label
     await waitFor(() => {
-      expect(screen.getByText(/Default Sensitivity/)).toBeInTheDocument();
+      expect(screen.getByText('settings.defaultSensitivity')).toBeInTheDocument();
     });
   });
 

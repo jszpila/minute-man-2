@@ -189,9 +189,7 @@ exports[`ShotTimer component matches snapshot 1`] = `
             <p
               class="MuiTypography-root MuiTypography-body2 css-1mdp5ck-MuiTypography-root"
             >
-              Shot Detection Sensitivity: 
-              50
-              %
+              shotTimer.sensitivity
             </p>
             <div
               class="MuiBox-root css-hhy13k"
@@ -270,7 +268,7 @@ exports[`ShotTimer component matches snapshot 1`] = `
             <span
               class="MuiTypography-root MuiTypography-caption css-13bw7ct-MuiTypography-root"
             >
-              Split/Par modes: Shots automatically recorded as splits.
+              shotTimer.splitSensitivityHint
             </span>
           </div>
         </div>
@@ -525,9 +523,7 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
             <p
               class="MuiTypography-root MuiTypography-body2 css-1mdp5ck-MuiTypography-root"
             >
-              Shot Detection Sensitivity: 
-              50
-              %
+              shotTimer.sensitivity
             </p>
             <div
               class="MuiBox-root css-hhy13k"
@@ -606,7 +602,7 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
             <span
               class="MuiTypography-root MuiTypography-caption css-13bw7ct-MuiTypography-root"
             >
-              Split/Par modes: Shots automatically recorded as splits.
+              shotTimer.splitSensitivityHint
             </span>
           </div>
         </div>

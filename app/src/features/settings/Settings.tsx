@@ -64,7 +64,20 @@ const SettingsSection: React.FC<{
 
 const Settings: React.FC = () => {
   const { t } = useTranslation();
-  const { theme, setTheme, fontSize, setFontSize, units, setUnits, language, setLanguage, navBurger, setNavBurger } = useAppContext();
+  const {
+    theme,
+    setTheme,
+    fontSize,
+    setFontSize,
+    units,
+    setUnits,
+    language,
+    setLanguage,
+    navBurger,
+    setNavBurger,
+    showWeatherInAppBar,
+    setShowWeatherInAppBar,
+  } = useAppContext();
 
   // Zero Calculator settings - initialize with 100 yards, convert to meters if metric
   const [zeroDistance, setZeroDistance] = React.useState<number>(100);
@@ -255,11 +268,11 @@ const Settings: React.FC = () => {
               label={t('settings.language')}
               onChange={(e) => setLanguage(e.target.value)}
             >
-              <MenuItem value="en">English</MenuItem>
-              <MenuItem value="es">Español</MenuItem>
-              <MenuItem value="fr">Français</MenuItem>
-              <MenuItem value="de">Deutsch</MenuItem>
-              <MenuItem value="pl">Polski</MenuItem>
+              <MenuItem value="en">{t('settings.languages.english')}</MenuItem>
+              <MenuItem value="es">{t('settings.languages.spanish')}</MenuItem>
+              <MenuItem value="fr">{t('settings.languages.french')}</MenuItem>
+              <MenuItem value="de">{t('settings.languages.german')}</MenuItem>
+              <MenuItem value="pl">{t('settings.languages.polish')}</MenuItem>
             </Select>
           </FormControl>
 
@@ -282,7 +295,17 @@ const Settings: React.FC = () => {
                 onChange={(e) => setNavBurger(e.target.checked)}
               />
             }
-            label="NavBurger™"
+            label={t('settings.navBurger')}
+          />
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showWeatherInAppBar}
+                onChange={(e) => setShowWeatherInAppBar(e.target.checked)}
+              />
+            }
+            label={t('settings.showWeatherInAppBar')}
           />
         </Stack>
       </SettingsSection>
@@ -301,7 +324,11 @@ const Settings: React.FC = () => {
               step: units === 'metric' ? 1 : 25,
             }}
             fullWidth
-            helperText={`Min: ${units === 'metric' ? 23 : 25}, Max: ${units === 'metric' ? 457 : 500}, ${units === 'metric' ? t('units.meters') : t('units.yards')}`}
+            helperText={t('settings.minMaxHelper', {
+              min: units === 'metric' ? 23 : 25,
+              max: units === 'metric' ? 457 : 500,
+              unit: units === 'metric' ? t('units.meters') : t('units.yards'),
+            })}
           />
 
           <FormControl fullWidth>
@@ -352,47 +379,47 @@ const Settings: React.FC = () => {
       </SettingsSection>
 
       {/* Shot Timer Settings */}
-      <SettingsSection title="Shot Timer Defaults" defaultExpanded={false}>
+      <SettingsSection title={t('settings.shotTimerSettings')} defaultExpanded={false}>
         <Stack spacing={2}>
           <FormControl fullWidth>
-            <InputLabel>Default Start Mode</InputLabel>
+            <InputLabel>{t('settings.defaultStartMode')}</InputLabel>
             <Select
               value={shotTimerDefaultStartMode}
-              label="Default Start Mode"
+              label={t('settings.defaultStartMode')}
               onChange={handleShotTimerStartModeChange as any}
             >
-              <MenuItem value="instant">Instant Start</MenuItem>
-              <MenuItem value="delayed">Delayed Start (2s)</MenuItem>
-              <MenuItem value="random">Random Start (2-5s)</MenuItem>
+              <MenuItem value="instant">{t('shotTimer.instantStart')}</MenuItem>
+              <MenuItem value="delayed">{t('shotTimer.delayedStart')}</MenuItem>
+              <MenuItem value="random">{t('shotTimer.randomStart')}</MenuItem>
             </Select>
           </FormControl>
 
           <FormControl fullWidth>
-            <InputLabel>Default Timer Mode</InputLabel>
+            <InputLabel>{t('settings.defaultTimerMode')}</InputLabel>
             <Select
               value={shotTimerDefaultTimerMode}
-              label="Default Timer Mode"
+              label={t('settings.defaultTimerMode')}
               onChange={handleShotTimerTimerModeChange as any}
             >
-              <MenuItem value="split">Split Timer</MenuItem>
-              <MenuItem value="par">Par Timer</MenuItem>
-              <MenuItem value="firstShot">First Shot</MenuItem>
+              <MenuItem value="split">{t('shotTimer.splitTimer')}</MenuItem>
+              <MenuItem value="par">{t('shotTimer.parTimer')}</MenuItem>
+              <MenuItem value="firstShot">{t('shotTimer.firstShot')}</MenuItem>
             </Select>
           </FormControl>
 
           <TextField
-            label="Default Par Time"
+            label={t('settings.defaultParTime')}
             type="number"
             value={Math.round(shotTimerDefaultParTime / 1000)}
             onChange={handleShotTimerParTimeChange}
             inputProps={{ min: 1, step: 1, max: 600 }}
-            helperText="Seconds"
+            helperText={t('settings.seconds')}
             fullWidth
           />
 
           <FormControl fullWidth>
             <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
-              Default Sensitivity: {shotTimerDefaultSensitivity}%
+              {t('settings.defaultSensitivity', { sensitivity: shotTimerDefaultSensitivity })}
             </Typography>
             <Box sx={{ px: 1.5, mb: 2 }}>
               <Slider
@@ -448,19 +475,22 @@ const Settings: React.FC = () => {
                       }
                     }, 50);
                   } catch (error) {
-                    alert('Failed to access microphone');
+                    alert(t('errors.microphone'));
                   }
                 }
               }}
             >
-              {listeningForSensitivity ? 'Stop' : 'Test'}
+              {listeningForSensitivity ? t('shotTimer.stop') : t('settings.testSensitivity')}
             </Button>
 
             {/* Visualization when testing */}
             {listeningForSensitivity && (
               <Box sx={{ mt: 2 }}>
                 <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
-                  Sound Level (RMS: {Math.round(currentRMSLevel)}/255 | Threshold: {Math.round(10 + (100 - shotTimerDefaultSensitivity) * 0.4)})
+                  {t('shotTimer.soundLevelDetails', {
+                    rms: Math.round(currentRMSLevel),
+                    threshold: Math.round(10 + (100 - shotTimerDefaultSensitivity) * 0.4),
+                  })}
                 </Typography>
                 <Box
                   sx={{
@@ -495,7 +525,7 @@ const Settings: React.FC = () => {
                   />
                 </Box>
                 <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'error.main' }}>
-                  Clap, snap, or make sounds. Adjust slider to find comfortable threshold.
+                  {t('settings.sensitivityTestHint')}
                 </Typography>
               </Box>
             )}

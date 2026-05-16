@@ -86,7 +86,7 @@ describe('About component', () => {
   it('displays diagnostics information correctly', () => {
     render(<About />);
     // Version should include the SHA
-    const versionCell = screen.getByText(/v2\.0\.0/);
+    const versionCell = screen.getByText(/v2\.0\.1/);
     expect(versionCell).toBeInTheDocument();
   });
 

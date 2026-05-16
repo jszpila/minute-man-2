@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import GitInfo from '../static/GitInfo';
+import packageJson from '../../../package.json';
 
 interface InfoModalProps {
   open: boolean;
@@ -98,7 +99,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
           <TableCell sx={{ fontWeight: 'bold', width: '140px' }}>
             {t('about.diagnosticVersion')}
           </TableCell>
-          <TableCell>v2.0.0 ({GitInfo.sha})</TableCell>
+          <TableCell>v{packageJson.version} ({GitInfo.sha})</TableCell>
         </TableRow>
         <TableRow>
           <TableCell sx={{ fontWeight: 'bold' }}>
@@ -155,7 +156,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
           edge="end"
           color="inherit"
           onClick={onClose}
-          aria-label="close"
+          aria-label={t('common.close')}
           size="small"
         >
           <CloseIcon />
@@ -165,7 +166,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
       <Tabs
         value={tabValue}
         onChange={handleTabChange}
-        aria-label="info tabs"
+        aria-label={t('about.infoTabs')}
         variant="fullWidth"
       >
         <Tab label={t('about.aboutTitle')} id="info-tab-0" aria-controls="info-tabpanel-0" />

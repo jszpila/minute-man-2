@@ -165,7 +165,7 @@ const RangeConditions: React.FC = () => {
                   label={t('rangeConditions.enterZipOrCity')}
                   value={locationInput}
                   onChange={(e) => setLocationInput(e.target.value)}
-                  placeholder="e.g., 90210 or Los Angeles, CA"
+                  placeholder={t('rangeConditions.locationPlaceholder')}
                   fullWidth
                 />
                 <Button

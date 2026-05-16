@@ -24,6 +24,8 @@ jest.mock('../../shared/context/AppContext', () => ({
     setLanguage: jest.fn(),
     navBurger: false,
     setNavBurger: jest.fn(),
+    showWeatherInAppBar: false,
+    setShowWeatherInAppBar: jest.fn(),
   }),
 }));
 
@@ -137,7 +139,7 @@ describe('ShotTimer component', () => {
 
   it('displays sensitivity slider', () => {
     render(<ShotTimer />);
-    expect(screen.getByText(/Shot Detection Sensitivity/)).toBeInTheDocument();
+    expect(screen.getByText('shotTimer.sensitivity')).toBeInTheDocument();
   });
 
   it('has Settings and Splits tabs', () => {
