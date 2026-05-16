@@ -3,21 +3,21 @@
 exports[`About component matches snapshot when in standalone mode 1`] = `
 <div>
   <div
-    class="MuiBox-root css-18lglfx"
+    class="MuiBox-root css-0"
   >
     <h4
-      class="MuiTypography-root MuiTypography-h4 css-1ynjyiz-MuiTypography-root"
+      class="MuiTypography-root MuiTypography-h4 css-10jnrrx-MuiTypography-root"
     >
       about.title
     </h4>
     <div
-      class="MuiStack-root css-8mcjw0-MuiStack-root"
+      class="MuiStack-root css-v2woy3-MuiStack-root"
     >
       <div
         class="MuiBox-root css-yd8sa2"
       >
         <p
-          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
         >
           about.madeBy
            
@@ -32,7 +32,7 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
           .
         </p>
         <p
-          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
         >
           about.contactUs
            
@@ -44,7 +44,7 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
           </a>
         </p>
         <p
-          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
         >
           about.donate
            
@@ -59,76 +59,83 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
         </p>
       </div>
       <div
-        class="MuiBox-root css-0"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
       >
-        <h6
-          class="MuiTypography-root MuiTypography-h6 css-1hge7r6-MuiTypography-root"
+        <div
+          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
         >
-          about.diagnosticsTitle
-        </h6>
-        <table
-          class="MuiTable-root css-h040yz-MuiTable-root"
-        >
-          <tbody
-            class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
           >
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            about.diagnosticsTitle
+          </h6>
+          <table
+            class="MuiTable-root css-1dwe2ef-MuiTable-root"
+          >
+            <tbody
+              class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
             >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-m69c0l-MuiTableCell-root"
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                about.diagnosticVersion
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-13fv10z-MuiTableCell-root"
+                >
+                  about.diagnosticVersion
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                >
+                  v
+                  2.0.1
+                   (
+                  )
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                v2.0.0 (
-                )
-              </td>
-            </tr>
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-            >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                >
+                  about.diagnosticNetwork
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                >
+                  about.diagnosticNetworkConnected
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                about.diagnosticNetwork
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                >
+                  about.diagnosticMode
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                >
+                  about.diagnosticModeStandalone
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                about.diagnosticNetworkConnected
-              </td>
-            </tr>
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-            >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-              >
-                about.diagnosticMode
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-              >
-                about.diagnosticModeStandalone
-              </td>
-            </tr>
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-            >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-              >
-                about.diagnosticPlatform
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-              />
-            </tr>
-          </tbody>
-        </table>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                >
+                  about.diagnosticPlatform
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                />
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -138,21 +145,21 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
 exports[`About component matches snapshot when not standalone 1`] = `
 <div>
   <div
-    class="MuiBox-root css-18lglfx"
+    class="MuiBox-root css-0"
   >
     <h4
-      class="MuiTypography-root MuiTypography-h4 css-1ynjyiz-MuiTypography-root"
+      class="MuiTypography-root MuiTypography-h4 css-10jnrrx-MuiTypography-root"
     >
       about.title
     </h4>
     <div
-      class="MuiStack-root css-8mcjw0-MuiStack-root"
+      class="MuiStack-root css-v2woy3-MuiStack-root"
     >
       <div
         class="MuiBox-root css-yd8sa2"
       >
         <p
-          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
         >
           about.madeBy
            
@@ -167,7 +174,7 @@ exports[`About component matches snapshot when not standalone 1`] = `
           .
         </p>
         <p
-          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
         >
           about.contactUs
            
@@ -179,7 +186,7 @@ exports[`About component matches snapshot when not standalone 1`] = `
           </a>
         </p>
         <p
-          class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
         >
           about.donate
            
@@ -194,121 +201,135 @@ exports[`About component matches snapshot when not standalone 1`] = `
         </p>
       </div>
       <div
-        class="MuiBox-root css-lthmg2"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
       >
-        <h6
-          class="MuiTypography-root MuiTypography-h6 css-ln1bfl-MuiTypography-root"
-        >
-          about.installPWATitle
-        </h6>
-        <p
-          class="MuiTypography-root MuiTypography-body2 css-956xpl-MuiTypography-root"
-        >
-          about.installPWADescription
-        </p>
         <div
-          class="MuiStack-root css-1pxjrel-MuiStack-root"
+          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
         >
-          <p
-            class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-18xxwmt-MuiTypography-root"
           >
-            <strong>
+            about.installPWATitle
+          </h6>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-956xpl-MuiTypography-root"
+          >
+            about.installPWADescription
+          </p>
+          <div
+            class="MuiStack-root css-14pcems-MuiStack-root"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-1a40gj6-MuiTypography-root"
+            >
               about.installation
-            </strong>
-          </p>
-          <p
-            class="MuiTypography-root MuiTypography-body2 css-m5y6ct-MuiTypography-root"
-          >
-            📱 
-            <strong>
-              Android:
-            </strong>
-             
-            about.installAndroid
-          </p>
-          <p
-            class="MuiTypography-root MuiTypography-body2 css-m5y6ct-MuiTypography-root"
-          >
-            🍎 
-            <strong>
-              iOS:
-            </strong>
-             
-            about.installIos
-          </p>
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+            >
+              <span
+                class="MuiBox-root css-1vg6q84"
+              >
+                about.android
+                :
+              </span>
+               
+              about.installAndroid
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+            >
+              <span
+                class="MuiBox-root css-1vg6q84"
+              >
+                about.ios
+                :
+              </span>
+               
+              about.installIos
+            </p>
+          </div>
         </div>
       </div>
       <div
-        class="MuiBox-root css-0"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
       >
-        <h6
-          class="MuiTypography-root MuiTypography-h6 css-1hge7r6-MuiTypography-root"
+        <div
+          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
         >
-          about.diagnosticsTitle
-        </h6>
-        <table
-          class="MuiTable-root css-h040yz-MuiTable-root"
-        >
-          <tbody
-            class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
           >
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
+            about.diagnosticsTitle
+          </h6>
+          <table
+            class="MuiTable-root css-1dwe2ef-MuiTable-root"
+          >
+            <tbody
+              class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
             >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-m69c0l-MuiTableCell-root"
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                about.diagnosticVersion
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-13fv10z-MuiTableCell-root"
+                >
+                  about.diagnosticVersion
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                >
+                  v
+                  2.0.1
+                   (
+                  )
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                v2.0.0 (
-                )
-              </td>
-            </tr>
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-            >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                >
+                  about.diagnosticNetwork
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                >
+                  about.diagnosticNetworkConnected
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                about.diagnosticNetwork
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                >
+                  about.diagnosticMode
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                >
+                  about.diagnosticModeWeb
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
               >
-                about.diagnosticNetworkConnected
-              </td>
-            </tr>
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-            >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-              >
-                about.diagnosticMode
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-              >
-                about.diagnosticModeWeb
-              </td>
-            </tr>
-            <tr
-              class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-            >
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-              >
-                about.diagnosticPlatform
-              </td>
-              <td
-                class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-              />
-            </tr>
-          </tbody>
-        </table>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
+                >
+                  about.diagnosticPlatform
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
+                />
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

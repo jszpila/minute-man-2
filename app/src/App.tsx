@@ -30,10 +30,10 @@ const AppRoutes: React.FC = () => {
 };
 
 const AppContent: React.FC = () => {
-  const { theme } = useAppContext();
+  const { theme, fontSize } = useAppContext();
 
   return (
-    <ThemeProvider mode={theme}>
+    <ThemeProvider mode={theme} fontSize={fontSize}>
       <Router>
         <AppRoutes />
       </Router>

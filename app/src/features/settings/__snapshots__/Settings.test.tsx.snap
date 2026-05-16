@@ -183,7 +183,7 @@ exports[`Settings component matches snapshot 1`] = `
                       role="combobox"
                       tabindex="0"
                     >
-                      English
+                      settings.languages.english
                     </div>
                     <input
                       aria-hidden="true"
@@ -294,7 +294,7 @@ exports[`Settings component matches snapshot 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    NavBurger™
+                    settings.navBurger
                   </span>
                 </label>
               </div>
@@ -393,7 +393,7 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
                     id=":r5d:-helper-text"
                   >
-                    Min: 25, Max: 500, units.yards
+                    settings.minMaxHelper
                   </p>
                 </div>
                 <div
@@ -646,7 +646,7 @@ exports[`Settings component matches snapshot 1`] = `
           <span
             class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
           >
-            Shot Timer Defaults
+            settings.shotTimerSettings
           </span>
         </div>
       </div>
@@ -673,7 +673,7 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
                   >
-                    Default Start Mode
+                    settings.defaultStartMode
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
@@ -685,7 +685,7 @@ exports[`Settings component matches snapshot 1`] = `
                       role="combobox"
                       tabindex="0"
                     >
-                      Instant Start
+                      shotTimer.instantStart
                     </div>
                     <input
                       aria-hidden="true"
@@ -713,7 +713,7 @@ exports[`Settings component matches snapshot 1`] = `
                         class="css-ex8a5f-MuiNotchedOutlined-root"
                       >
                         <span>
-                          Default Start Mode
+                          settings.defaultStartMode
                         </span>
                       </legend>
                     </fieldset>
@@ -726,7 +726,7 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
                   >
-                    Default Timer Mode
+                    settings.defaultTimerMode
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
@@ -738,7 +738,7 @@ exports[`Settings component matches snapshot 1`] = `
                       role="combobox"
                       tabindex="0"
                     >
-                      Split Timer
+                      shotTimer.splitTimer
                     </div>
                     <input
                       aria-hidden="true"
@@ -766,7 +766,7 @@ exports[`Settings component matches snapshot 1`] = `
                         class="css-ex8a5f-MuiNotchedOutlined-root"
                       >
                         <span>
-                          Default Timer Mode
+                          settings.defaultTimerMode
                         </span>
                       </legend>
                     </fieldset>
@@ -781,7 +781,7 @@ exports[`Settings component matches snapshot 1`] = `
                     for=":r5k:"
                     id=":r5k:-label"
                   >
-                    Default Par Time
+                    settings.defaultParTime
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
@@ -805,7 +805,7 @@ exports[`Settings component matches snapshot 1`] = `
                         class="css-ex8a5f-MuiNotchedOutlined-root"
                       >
                         <span>
-                          Default Par Time
+                          settings.defaultParTime
                         </span>
                       </legend>
                     </fieldset>
@@ -814,7 +814,7 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
                     id=":r5k:-helper-text"
                   >
-                    Seconds
+                    settings.seconds
                   </p>
                 </div>
                 <div
@@ -823,9 +823,7 @@ exports[`Settings component matches snapshot 1`] = `
                   <p
                     class="MuiTypography-root MuiTypography-body2 css-1mdp5ck-MuiTypography-root"
                   >
-                    Default Sensitivity: 
-                    50
-                    %
+                    settings.defaultSensitivity
                   </p>
                   <div
                     class="MuiBox-root css-1n18gjk"
@@ -906,7 +904,7 @@ exports[`Settings component matches snapshot 1`] = `
                     tabindex="0"
                     type="button"
                   >
-                    Test
+                    settings.testSensitivity
                   </button>
                 </div>
               </div>
@@ -1102,7 +1100,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                       role="combobox"
                       tabindex="0"
                     >
-                      English
+                      settings.languages.english
                     </div>
                     <input
                       aria-hidden="true"
@@ -1213,7 +1211,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    NavBurger™
+                    settings.navBurger
                   </span>
                 </label>
               </div>
@@ -1312,7 +1310,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
                     id=":r5q:-helper-text"
                   >
-                    Min: 25, Max: 500, units.yards
+                    settings.minMaxHelper
                   </p>
                 </div>
                 <div
@@ -1565,7 +1563,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
           <span
             class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
           >
-            Shot Timer Defaults
+            settings.shotTimerSettings
           </span>
         </div>
       </div>
@@ -1592,7 +1590,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
                   >
-                    Default Start Mode
+                    settings.defaultStartMode
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
@@ -1604,7 +1602,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                       role="combobox"
                       tabindex="0"
                     >
-                      Instant Start
+                      shotTimer.instantStart
                     </div>
                     <input
                       aria-hidden="true"
@@ -1632,7 +1630,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                         class="css-ex8a5f-MuiNotchedOutlined-root"
                       >
                         <span>
-                          Default Start Mode
+                          settings.defaultStartMode
                         </span>
                       </legend>
                     </fieldset>
@@ -1645,7 +1643,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
                   >
-                    Default Timer Mode
+                    settings.defaultTimerMode
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
@@ -1657,7 +1655,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                       role="combobox"
                       tabindex="0"
                     >
-                      Split Timer
+                      shotTimer.splitTimer
                     </div>
                     <input
                       aria-hidden="true"
@@ -1685,7 +1683,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                         class="css-ex8a5f-MuiNotchedOutlined-root"
                       >
                         <span>
-                          Default Timer Mode
+                          settings.defaultTimerMode
                         </span>
                       </legend>
                     </fieldset>
@@ -1700,7 +1698,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     for=":r61:"
                     id=":r61:-label"
                   >
-                    Default Par Time
+                    settings.defaultParTime
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
@@ -1724,7 +1722,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                         class="css-ex8a5f-MuiNotchedOutlined-root"
                       >
                         <span>
-                          Default Par Time
+                          settings.defaultParTime
                         </span>
                       </legend>
                     </fieldset>
@@ -1733,7 +1731,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
                     id=":r61:-helper-text"
                   >
-                    Seconds
+                    settings.seconds
                   </p>
                 </div>
                 <div
@@ -1742,9 +1740,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <p
                     class="MuiTypography-root MuiTypography-body2 css-1mdp5ck-MuiTypography-root"
                   >
-                    Default Sensitivity: 
-                    50
-                    %
+                    settings.defaultSensitivity
                   </p>
                   <div
                     class="MuiBox-root css-1n18gjk"
@@ -1825,7 +1821,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     tabindex="0"
                     type="button"
                   >
-                    Test
+                    settings.testSensitivity
                   </button>
                 </div>
               </div>

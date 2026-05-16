@@ -38,7 +38,7 @@ const AppBar: React.FC<AppBarProps> = ({ onNavToggle }) => {
           size="large"
           edge="end"
           color="inherit"
-          aria-label="menu"
+          aria-label={t('nav.menu')}
           onClick={onNavToggle}
         >
           {navBurger ? <FastfoodIcon /> : <MenuIcon />}

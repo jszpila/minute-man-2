@@ -119,7 +119,7 @@ describe('Settings component', () => {
 
   it('renders Shot Timer Settings section', () => {
     render(<Settings />);
-    const section = screen.getByText('Shot Timer Defaults');
+    const section = screen.getByText('settings.shotTimerSettings');
     expect(section).toBeInTheDocument();
   });
 
@@ -148,15 +148,15 @@ describe('Settings component', () => {
     const user = userEvent.setup({ delay: null });
     render(<Settings />);
 
-    // Click to expand Shot Timer Defaults section
-    const shotTimerHeader = screen.getByText('Shot Timer Defaults').closest('div');
+    // Click to expand Shot Timer section
+    const shotTimerHeader = screen.getByText('settings.shotTimerSettings').closest('div');
     if (shotTimerHeader) {
       await user.click(shotTimerHeader);
     }
 
     // Look for sensitivity slider/label
     await waitFor(() => {
-      expect(screen.getByText(/Default Sensitivity/)).toBeInTheDocument();
+      expect(screen.getByText('settings.defaultSensitivity')).toBeInTheDocument();
     });
   });
 

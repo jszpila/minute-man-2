@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { triggerInstallPrompt, isInstallPromptAvailable } from '../utils/pwaUtils';
 
 const InstallButton: React.FC = () => {
+  const { t } = useTranslation();
   const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
@@ -45,7 +47,8 @@ const InstallButton: React.FC = () => {
     <IconButton
       color="inherit"
       onClick={handleInstallClick}
-      title="Install app"
+      title={t('about.installButton')}
+      aria-label={t('about.installButton')}
       size="large"
     >
       <FileDownloadIcon />
