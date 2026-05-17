@@ -8,6 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1976d2" />
     <title>Minute Man</title>
+    <script>
+      (function () {
+        try {
+          var redirect = sessionStorage.getItem('minute-man:redirect');
+          if (redirect) {
+            sessionStorage.removeItem('minute-man:redirect');
+            history.replaceState(null, '', redirect);
+          }
+        } catch (error) {
+          console.warn('Unable to restore redirected route', error);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

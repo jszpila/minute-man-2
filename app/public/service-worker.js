@@ -1,5 +1,5 @@
-const CACHE_NAME = 'minute-man-v1';
-const RUNTIME_CACHE = 'minute-man-runtime-v1';
+const CACHE_NAME = 'minute-man-v2';
+const RUNTIME_CACHE = 'minute-man-runtime-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -9,6 +9,9 @@ const STATIC_ASSETS = [
   '/logo512.png',
   '/mainfest.webmanifest',
 ];
+
+const getAppShell = () =>
+  caches.match('/index.html').then((cached) => cached || fetch('/index.html'));
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
@@ -53,6 +56,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  if (request.method !== 'GET') {
+    return;
+  }
+
   // Never cache Vite development traffic. Cached HMR clients can keep stale
   // websocket tokens and stale optimized dependency chunks alive after reloads.
   if (
@@ -62,6 +69,29 @@ self.addEventListener('fetch', (event) => {
     url.pathname.includes('/src/') ||
     url.searchParams.has('t')
   ) {
+    return;
+  }
+
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (!response.ok) {
+            return getAppShell();
+          }
+
+          const responseClone = response.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => {
+            cache.put(request, responseClone);
+          });
+          return response;
+        })
+        .catch(() => {
+          return caches.match(request).then((cached) => {
+            return cached || getAppShell();
+          });
+        })
+    );
     return;
   }
 
@@ -125,7 +155,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network-first for everything else (HTML pages)
+  // Network-first for everything else
   event.respondWith(
     fetch(request)
       .then((response) => {
@@ -141,7 +171,7 @@ self.addEventListener('fetch', (event) => {
       })
       .catch(() => {
         return caches.match(request).then((cached) => {
-          return cached || caches.match('/index.html');
+          return cached || getAppShell();
         });
       })
   );

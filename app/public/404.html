@@ -2,23 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minute Man</title>
+    <script>
+      try {
+        sessionStorage.setItem(
+          'minute-man:redirect',
+          location.pathname + location.search + location.hash
+        );
+      } catch (error) {
+        console.warn('Unable to store redirected route', error);
+      }
+      location.replace('/');
+    </script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
-    <script>
-      // Single Page App for GitHub Pages
-      // Redirect to index.html for SPA routing
-      (function() {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
-    </script>
+    <noscript>Redirecting to Minute Man...</noscript>
   </body>
 </html>
