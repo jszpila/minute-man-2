@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
@@ -14,52 +14,21 @@ import {
   Typography,
 } from '@mui/material';
 import GitInfo from '../../shared/static/GitInfo';
+import { isRunningAsInstalled, triggerInstallPrompt } from '../../shared/utils/pwaUtils';
+import { usePwaInstallPromptVisibility } from '../../shared/hooks/usePwaInstallPromptVisibility';
 import packageJson from '../../../package.json';
-
-declare global {
-  interface WindowEventMap {
-    beforeinstallprompt: BeforeInstallPromptEvent;
-  }
-}
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
 
 export const About: React.FC = () => {
   const { t } = useTranslation();
-  const isStandAlone = window.matchMedia('(display-mode: standalone)').matches;
-  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setInstallPrompt(e as BeforeInstallPromptEvent);
-      setShowInstallPrompt(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
+  const shouldShowInstallPrompt = usePwaInstallPromptVisibility();
+  const isStandAlone = isRunningAsInstalled();
 
   const handleInstall = async () => {
-    if (!installPrompt) return;
-
-    installPrompt.prompt();
-    const { outcome } = await installPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setShowInstallPrompt(false);
-      setInstallPrompt(null);
-    }
+    await triggerInstallPrompt();
   };
 
   return (
-    <Box>
+    <Box sx={{ width: '100%', textAlign: 'left' }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
         {t('about.title')}
       </Typography>
@@ -69,11 +38,7 @@ export const About: React.FC = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Typography variant="body1">
             {t('about.madeBy')}{' '}
-            <Link
-              href="https://www.ursine.llc"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="https://www.ursine.llc" target="_blank" rel="noopener noreferrer">
               {t('about.ursineSoftware')}
             </Link>
             .
@@ -81,25 +46,39 @@ export const About: React.FC = () => {
 
           <Typography variant="body1">
             {t('about.contactUs')}{' '}
-            <Link href="mailto:contact@ursine.llc">
-              {t('about.contactEmail')}
-            </Link>
+            <Link href="mailto:contact@ursine.llc">{t('about.contactEmail')}</Link>
           </Typography>
 
           <Typography variant="body1">
             {t('about.donate')}{' '}
-            <Link
-              href="https://www.ursine.llc/donate"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="https://www.ursine.llc/donate" target="_blank" rel="noopener noreferrer">
               {t('about.donateUrl')}
             </Link>
           </Typography>
         </Box>
 
-        {/* PWA Installation Instructions - show when NOT installed as app */}
-        {!isStandAlone && (
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              Share this app! Scan the QR code below.
+            </Typography>
+            <Box
+              component="img"
+              src="/assets/minman-v2-qr.png"
+              alt="QR code for sharing Minute Man"
+              sx={{
+                display: 'block',
+                width: '100%',
+                maxWidth: 240,
+                height: 'auto',
+                mx: 'auto',
+              }}
+            />
+          </CardContent>
+        </Card>
+
+        {/* PWA Installation Instructions - mirrors app-bar install button visibility */}
+        {shouldShowInstallPrompt && (
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ mb: 1 }}>
@@ -108,7 +87,7 @@ export const About: React.FC = () => {
               <Typography variant="body2" sx={{ mb: 2 }}>
                 {t('about.installPWADescription')}
               </Typography>
-              <Stack spacing={1} sx={{ mb: showInstallPrompt && installPrompt ? 2 : 0 }}>
+              <Stack spacing={1} sx={{ mb: 2 }}>
                 <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                   {t('about.installation')}
                 </Typography>
@@ -125,15 +104,9 @@ export const About: React.FC = () => {
                   {t('about.installIos')}
                 </Typography>
               </Stack>
-              {showInstallPrompt && installPrompt && (
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={handleInstall}
-                >
-                  {t('about.installButton')}
-                </Button>
-              )}
+              <Button variant="contained" size="small" onClick={handleInstall}>
+                {t('about.installButton')}
+              </Button>
             </CardContent>
           </Card>
         )}
@@ -150,12 +123,12 @@ export const About: React.FC = () => {
                   <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
                     {t('about.diagnosticVersion')}
                   </TableCell>
-                  <TableCell>v{packageJson.version} ({GitInfo.sha})</TableCell>
+                  <TableCell>
+                    v{packageJson.version} ({GitInfo.sha})
+                  </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'bold' }}>
-                    {t('about.diagnosticNetwork')}
-                  </TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticNetwork')}</TableCell>
                   <TableCell>
                     {navigator.onLine
                       ? t('about.diagnosticNetworkConnected')
@@ -163,9 +136,7 @@ export const About: React.FC = () => {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'bold' }}>
-                    {t('about.diagnosticMode')}
-                  </TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticMode')}</TableCell>
                   <TableCell>
                     {isStandAlone
                       ? t('about.diagnosticModeStandalone')
@@ -173,9 +144,7 @@ export const About: React.FC = () => {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'bold' }}>
-                    {t('about.diagnosticPlatform')}
-                  </TableCell>
+                  <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticPlatform')}</TableCell>
                   <TableCell>{navigator.platform}</TableCell>
                 </TableRow>
               </TableBody>

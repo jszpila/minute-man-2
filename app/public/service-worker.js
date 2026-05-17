@@ -53,8 +53,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Never cache Vite development traffic. Cached HMR clients can keep stale
+  // websocket tokens and stale optimized dependency chunks alive after reloads.
+  if (
+    url.pathname.startsWith('/@vite/') ||
+    url.pathname.startsWith('/@react-refresh') ||
+    url.pathname.startsWith('/node_modules/.vite/') ||
+    url.pathname.includes('/src/') ||
+    url.searchParams.has('t')
+  ) {
+    return;
+  }
+
   // Network-first strategy for API calls (weather data)
-  if (url.pathname.includes('/api/') || url.host.includes('weather.gov') || url.host.includes('open-meteo.com')) {
+  if (
+    url.pathname.includes('/api/') ||
+    url.host.includes('weather.gov') ||
+    url.host.includes('open-meteo.com')
+  ) {
     event.respondWith(
       fetch(request)
         .then((response) => {

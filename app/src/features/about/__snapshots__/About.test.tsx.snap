@@ -3,7 +3,7 @@
 exports[`About component matches snapshot when in standalone mode 1`] = `
 <div>
   <div
-    class="MuiBox-root css-0"
+    class="MuiBox-root css-cfm5gl"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 css-10jnrrx-MuiTypography-root"
@@ -57,6 +57,25 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
             about.donateUrl
           </a>
         </p>
+      </div>
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
+        style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+      >
+        <div
+          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
+          >
+            Share this app! Scan the QR code below.
+          </h6>
+          <img
+            alt="QR code for sharing Minute Man"
+            class="MuiBox-root css-1uipide"
+            src="/assets/minman-v2-qr.png"
+          />
+        </div>
       </div>
       <div
         class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
@@ -145,7 +164,7 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
 exports[`About component matches snapshot when not standalone 1`] = `
 <div>
   <div
-    class="MuiBox-root css-0"
+    class="MuiBox-root css-cfm5gl"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 css-10jnrrx-MuiTypography-root"
@@ -208,48 +227,15 @@ exports[`About component matches snapshot when not standalone 1`] = `
           class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
         >
           <h6
-            class="MuiTypography-root MuiTypography-h6 css-18xxwmt-MuiTypography-root"
+            class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
           >
-            about.installPWATitle
+            Share this app! Scan the QR code below.
           </h6>
-          <p
-            class="MuiTypography-root MuiTypography-body2 css-956xpl-MuiTypography-root"
-          >
-            about.installPWADescription
-          </p>
-          <div
-            class="MuiStack-root css-14pcems-MuiStack-root"
-          >
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-1a40gj6-MuiTypography-root"
-            >
-              about.installation
-            </p>
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
-            >
-              <span
-                class="MuiBox-root css-1vg6q84"
-              >
-                about.android
-                :
-              </span>
-               
-              about.installAndroid
-            </p>
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
-            >
-              <span
-                class="MuiBox-root css-1vg6q84"
-              >
-                about.ios
-                :
-              </span>
-               
-              about.installIos
-            </p>
-          </div>
+          <img
+            alt="QR code for sharing Minute Man"
+            class="MuiBox-root css-1uipide"
+            src="/assets/minman-v2-qr.png"
+          />
         </div>
       </div>
       <div

@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 import Settings from './Settings';
 import * as audioUtils from '../../shared/utils/audioDetectionUtils';
 
+const mockSetShowWeatherInAppBar = jest.fn();
+
 // Mock dependencies
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -24,7 +26,7 @@ jest.mock('../../shared/context/AppContext', () => ({
     navBurger: false,
     setNavBurger: jest.fn(),
     showWeatherInAppBar: false,
-    setShowWeatherInAppBar: jest.fn(),
+    setShowWeatherInAppBar: mockSetShowWeatherInAppBar,
   }),
 }));
 
@@ -71,6 +73,19 @@ describe('Settings component', () => {
 
     (audioUtils.getRMSLevel as jest.Mock).mockReturnValue(128);
     (audioUtils.stopListening as jest.Mock).mockResolvedValue(undefined);
+
+    Object.defineProperty(navigator, 'permissions', {
+      configurable: true,
+      value: undefined,
+    });
+    Object.defineProperty(navigator, 'geolocation', {
+      configurable: true,
+      value: {
+        getCurrentPosition: jest.fn((success: PositionCallback) => {
+          success({ coords: { latitude: 41, longitude: -87 } } as GeolocationPosition);
+        }),
+      },
+    });
   });
 
   it('renders Settings title', () => {
@@ -112,6 +127,78 @@ describe('Settings component', () => {
   it('renders weather in app bar checkbox', () => {
     render(<Settings />);
     expect(screen.getByLabelText('settings.showWeatherInAppBar')).toBeInTheDocument();
+  });
+
+  it('enables weather in app bar without prompting when location permission is granted', async () => {
+    const user = userEvent.setup({ delay: null });
+    const getCurrentPosition = jest.fn();
+    Object.defineProperty(navigator, 'permissions', {
+      configurable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: 'granted' }),
+      },
+    });
+    Object.defineProperty(navigator, 'geolocation', {
+      configurable: true,
+      value: { getCurrentPosition },
+    });
+
+    render(<Settings />);
+    await user.click(screen.getByLabelText('settings.showWeatherInAppBar'));
+
+    await waitFor(() => {
+      expect(mockSetShowWeatherInAppBar).toHaveBeenCalledWith(true);
+    });
+    expect(getCurrentPosition).not.toHaveBeenCalled();
+  });
+
+  it('prompts for location permission before enabling weather in app bar', async () => {
+    const user = userEvent.setup({ delay: null });
+    const getCurrentPosition = jest.fn((success: PositionCallback) => {
+      success({ coords: { latitude: 41, longitude: -87 } } as GeolocationPosition);
+    });
+    Object.defineProperty(navigator, 'permissions', {
+      configurable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: 'prompt' }),
+      },
+    });
+    Object.defineProperty(navigator, 'geolocation', {
+      configurable: true,
+      value: { getCurrentPosition },
+    });
+
+    render(<Settings />);
+    await user.click(screen.getByLabelText('settings.showWeatherInAppBar'));
+
+    await waitFor(() => {
+      expect(getCurrentPosition).toHaveBeenCalled();
+      expect(mockSetShowWeatherInAppBar).toHaveBeenCalledWith(true);
+    });
+  });
+
+  it('does not enable weather in app bar when location permission is denied', async () => {
+    const user = userEvent.setup({ delay: null });
+    const getCurrentPosition = jest.fn();
+    Object.defineProperty(navigator, 'permissions', {
+      configurable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: 'denied' }),
+      },
+    });
+    Object.defineProperty(navigator, 'geolocation', {
+      configurable: true,
+      value: { getCurrentPosition },
+    });
+
+    render(<Settings />);
+    await user.click(screen.getByLabelText('settings.showWeatherInAppBar'));
+
+    await waitFor(() => {
+      expect(navigator.permissions?.query).toHaveBeenCalledWith({ name: 'geolocation' });
+    });
+    expect(getCurrentPosition).not.toHaveBeenCalled();
+    expect(mockSetShowWeatherInAppBar).not.toHaveBeenCalledWith(true);
   });
 
   it('renders Zero Calculator Settings section', () => {

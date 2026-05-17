@@ -129,10 +129,13 @@ const RangeConditions: React.FC = () => {
 
   return (
     <Box>
-      <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
-        <Typography variant="h4">
-          {t('rangeConditions.title')}
-        </Typography>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ mb: 3, width: '100%' }}
+      >
+        <Typography variant="h4">{t('rangeConditions.title')}</Typography>
         {loading && <CircularProgress size={32} />}
       </Stack>
 
@@ -145,48 +148,44 @@ const RangeConditions: React.FC = () => {
 
       {/* Location Input */}
       <Stack spacing={2} sx={{ mb: 3 }}>
-            <FormControl fullWidth>
-              <InputLabel>{t('rangeConditions.locationMethod')}</InputLabel>
-              <Select
-                value={useGeolocation ? 'geolocation' : 'manual'}
-                label={t('rangeConditions.locationMethod')}
-                onChange={(e) => setUseGeolocation(e.target.value === 'geolocation')}
-              >
-                <MenuItem value="geolocation">{t('rangeConditions.useGeolocation')}</MenuItem>
-                <MenuItem value="manual">{t('rangeConditions.manualLocation')}</MenuItem>
-              </Select>
-            </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>{t('rangeConditions.locationMethod')}</InputLabel>
+          <Select
+            value={useGeolocation ? 'geolocation' : 'manual'}
+            label={t('rangeConditions.locationMethod')}
+            onChange={(e) => setUseGeolocation(e.target.value === 'geolocation')}
+          >
+            <MenuItem value="geolocation">{t('rangeConditions.useGeolocation')}</MenuItem>
+            <MenuItem value="manual">{t('rangeConditions.manualLocation')}</MenuItem>
+          </Select>
+        </FormControl>
 
-            {!useGeolocation && (
-              <>
-                <TextField
-                  label={t('rangeConditions.enterZipOrCity')}
-                  value={locationInput}
-                  onChange={(e) => setLocationInput(e.target.value)}
-                  placeholder={t('rangeConditions.locationPlaceholder')}
-                  fullWidth
-                />
-                <Button
-                  variant="contained"
-                  startIcon={<LocationOnIcon />}
-                  onClick={handleManualLocationSearch}
-                  disabled={loading}
-                >
-                  {t('rangeConditions.search')}
-                </Button>
-              </>
-            )}
+        {!useGeolocation && (
+          <>
+            <TextField
+              label={t('rangeConditions.enterZipOrCity')}
+              value={locationInput}
+              onChange={(e) => setLocationInput(e.target.value)}
+              placeholder={t('rangeConditions.locationPlaceholder')}
+              fullWidth
+            />
+            <Button
+              variant="contained"
+              startIcon={<LocationOnIcon />}
+              onClick={handleManualLocationSearch}
+              disabled={loading}
+            >
+              {t('rangeConditions.search')}
+            </Button>
+          </>
+        )}
 
-            {useGeolocation && !location && !loading && (
-              <Button
-                variant="contained"
-                startIcon={<LocationOnIcon />}
-                onClick={requestGeolocation}
-              >
-                {t('rangeConditions.getLocation')}
-              </Button>
-            )}
-          </Stack>
+        {useGeolocation && !location && !loading && (
+          <Button variant="contained" startIcon={<LocationOnIcon />} onClick={requestGeolocation}>
+            {t('rangeConditions.getLocation')}
+          </Button>
+        )}
+      </Stack>
 
       {/* Weather Display */}
       {weather && location && (
@@ -213,7 +212,8 @@ const RangeConditions: React.FC = () => {
                     {t('rangeConditions.windSpeed')}
                   </Typography>
                   <Typography variant="h6">
-                    {Math.round(weather.windSpeed)} {t(units === 'metric' ? 'rangeConditions.kmh' : 'rangeConditions.mph')}
+                    {Math.round(weather.windSpeed)}{' '}
+                    {t(units === 'metric' ? 'rangeConditions.kmh' : 'rangeConditions.mph')}
                   </Typography>
                 </Box>
 
@@ -253,9 +253,7 @@ const RangeConditions: React.FC = () => {
       {!weather && !loading && !error && (
         <Card>
           <CardContent>
-            <Typography color="textSecondary">
-              {t('rangeConditions.noData')}
-            </Typography>
+            <Typography color="textSecondary">{t('rangeConditions.noData')}</Typography>
           </CardContent>
         </Card>
       )}
