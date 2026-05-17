@@ -59,6 +59,7 @@
     "helpOpenAria": "Hilfe zum Nullpunkt-Rechner öffnen",
     "helpDiagramAlt": "Diagramm für Zielpunkt und Treffpunkt im Nullpunkt-Rechner",
     "helpPointAimImpact": "Der Zielpunkt ist die Stelle, an der der Schuss landen sollte. Der Treffpunkt ist die Stelle, an der der Schuss tatsächlich gelandet ist.",
+    "helpPointImpactGroup": "Messen Sie den Treffpunkt ungefähr in der Mitte einer Schussgruppe, nicht anhand eines einzelnen Lochs.",
     "helpOffsets": "Die horizontale Abweichung ist die Links- oder Rechtsentfernung zwischen diesen zwei Punkten, und die vertikale Abweichung ist die Auf- oder Abwärtsentfernung zwischen ihnen."
   },
   "mildotCalculator": {

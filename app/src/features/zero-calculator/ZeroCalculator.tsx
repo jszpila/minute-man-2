@@ -41,6 +41,8 @@ interface ZeroCalculatorResult {
   verticalDirection: string;
 }
 
+const HELP_DIAGRAM_SRC = '/assets/zero-calculator-diagram.png';
+
 const ZeroCalculator: React.FC = () => {
   const { t } = useTranslation();
   const { units } = useAppContext();
@@ -71,6 +73,11 @@ const ZeroCalculator: React.FC = () => {
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [result, setResult] = useState<ZeroCalculatorResult | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    const helpDiagram = new Image();
+    helpDiagram.src = HELP_DIAGRAM_SRC;
+  }, []);
 
   // Sync zero distance with storage when settings change
   useEffect(() => {
@@ -317,7 +324,7 @@ const ZeroCalculator: React.FC = () => {
         <Stack spacing={2} sx={{ mt: 1 }}>
           <Box
             component="img"
-            src="/assets/zero-calculator-diagram.png"
+            src={HELP_DIAGRAM_SRC}
             alt={t('zeroCalculator.helpDiagramAlt')}
             sx={{
               display: 'block',
@@ -327,6 +334,7 @@ const ZeroCalculator: React.FC = () => {
             }}
           />
           <Typography variant="body2">{t('zeroCalculator.helpPointAimImpact')}</Typography>
+          <Typography variant="body2">{t('zeroCalculator.helpPointImpactGroup')}</Typography>
           <Typography variant="body2">{t('zeroCalculator.helpOffsets')}</Typography>
         </Stack>
       </Modal>

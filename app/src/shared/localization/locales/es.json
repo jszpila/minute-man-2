@@ -59,6 +59,7 @@
     "helpOpenAria": "Abrir ayuda de la Calculadora de Cero",
     "helpDiagramAlt": "Diagrama de punto de mira y punto de impacto de la Calculadora de Cero",
     "helpPointAimImpact": "El Punto de Mira es donde pretendías que impactara el disparo. El Punto de Impacto es donde realmente impactó.",
+    "helpPointImpactGroup": "Al medir el Punto de Impacto, usa aproximadamente el centro de un grupo de disparos en lugar de un solo agujero.",
     "helpOffsets": "El Desplazamiento Horizontal es la distancia a la izquierda o derecha entre esos dos puntos, y el Desplazamiento Vertical es la distancia hacia arriba o abajo entre ellos."
   },
   "mildotCalculator": {

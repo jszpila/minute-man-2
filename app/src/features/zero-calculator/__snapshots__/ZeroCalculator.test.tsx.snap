@@ -891,6 +891,11 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
             <p
               class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
             >
+              zeroCalculator.helpPointImpactGroup
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+            >
               zeroCalculator.helpOffsets
             </p>
           </div>

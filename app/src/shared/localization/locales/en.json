@@ -59,6 +59,7 @@
     "helpOpenAria": "Open Zero Calculator help",
     "helpDiagramAlt": "Zero Calculator point of aim and point of impact diagram",
     "helpPointAimImpact": "Point of Aim is where you intended the shot to land. Point of Impact is where the shot actually landed.",
+    "helpPointImpactGroup": "When measuring Point of Impact, use roughly the center of a group of shots instead of a single hole.",
     "helpOffsets": "Horizontal Offset is the left or right distance between those two points, and Vertical Offset is the up or down distance between them."
   },
   "mildotCalculator": {

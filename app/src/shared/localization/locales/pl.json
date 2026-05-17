@@ -59,6 +59,7 @@
     "helpOpenAria": "Otwórz pomoc Kalkulatora Zerowania",
     "helpDiagramAlt": "Diagram punktu celowania i punktu trafienia dla Kalkulatora Zerowania",
     "helpPointAimImpact": "Punkt Celowania to miejsce, w które miał trafić strzał. Punkt Trafienia to miejsce, w które strzał faktycznie trafił.",
+    "helpPointImpactGroup": "Podczas mierzenia Punktu Trafienia użyj w przybliżeniu środka grupy strzałów zamiast pojedynczej przestrzeliny.",
     "helpOffsets": "Przesunięcie Poziome to odległość w lewo lub prawo między tymi punktami, a Przesunięcie Pionowe to odległość w górę lub w dół między nimi."
   },
   "mildotCalculator": {
