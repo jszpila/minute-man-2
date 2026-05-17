@@ -26,7 +26,8 @@
     "loading": "Chargement...",
     "edit": "Modifier",
     "delete": "Supprimer",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "help": "Aide"
   },
   "units": {
     "yards": "Verges",
@@ -54,7 +55,11 @@
     "adjustmentIncrement": "Incrément d'Ajustement",
     "clicks": "Clics",
     "results": "Résultats",
-    "invalidInput": "Veuillez entrer au moins une valeur de décalage"
+    "invalidInput": "Veuillez entrer au moins une valeur de décalage",
+    "helpOpenAria": "Ouvrir l'aide de la Calculatrice de Zéro",
+    "helpDiagramAlt": "Schéma du point visé et du point d'impact de la Calculatrice de Zéro",
+    "helpPointAimImpact": "Le point visé est l'endroit où vous vouliez que le tir arrive. Le point d'impact est l'endroit où le tir est réellement arrivé.",
+    "helpOffsets": "Le décalage horizontal est la distance à gauche ou à droite entre ces deux points, et le décalage vertical est la distance vers le haut ou vers le bas entre eux."
   },
   "mildotCalculator": {
     "title": "Calculatrice MilDot",
@@ -64,7 +69,11 @@
     "distance": "Distance",
     "results": "Résultats",
     "calculated": "Calculé",
-    "invalidInput": "Veuillez fournir au moins deux valeurs"
+    "invalidInput": "Veuillez fournir au moins deux valeurs",
+    "helpOpenAria": "Ouvrir l'aide de la Calculatrice MilDot",
+    "helpIntro": "La Calculatrice MilDot relie trois valeurs : taille en mils, taille physique et distance. Entrez deux valeurs connues et laissez vide la valeur à calculer.",
+    "helpTerms": "La taille en mils indique la taille apparente de la cible dans le réticule, mesurée en mils. La taille physique est la taille réelle de la cible. La distance est la portée entre vous et la cible.",
+    "helpExample": "Par exemple, si vous connaissez la taille physique de la cible et le nombre de mils qu'elle couvre dans la lunette, la calculatrice peut estimer la distance."
   },
   "shotTimer": {
     "title": "Chronomètre de Tir",
@@ -96,7 +105,12 @@
     "soundLevelDetails": "Niveau Sonore (RMS : {{rms}}/255 | Seuil : {{threshold}})",
     "currentSettings": "Paramètres Actuels",
     "detectionError": "Erreur de Détection",
-    "consoleHint": "Vérifiez la console du navigateur (F12) pour plus de détails. Assurez-vous que ce site est en HTTPS (pas HTTP)."
+    "consoleHint": "Vérifiez la console du navigateur (F12) pour plus de détails. Assurez-vous que ce site est en HTTPS (pas HTTP).",
+    "helpOpenAria": "Ouvrir l'aide du Chronomètre de Tir",
+    "helpIntro": "Le Chronomètre de Tir écoute via le microphone pendant que le chronomètre fonctionne et enregistre les pics sonores nets comme des tirs.",
+    "helpStartMode": "Le mode de démarrage contrôle le moment du bip de départ : Instantané démarre immédiatement, Retardé attend brièvement et Aléatoire attend un intervalle aléatoire avant le bip.",
+    "helpTimerMode": "Le mode du chronomètre contrôle ce qui est mesuré. Divisions enregistre chaque tir détecté comme une division. Par compte à rebours depuis le temps par. Premier Tir s'arrête au premier tir détecté.",
+    "helpSensitivity": "La sensibilité règle le seuil sonore de détection. Augmentez-la si des tirs sont manqués, et baissez-la si le bruit de fond est compté comme des tirs."
   },
   "rangeConditions": {
     "title": "Conditions de Stand",
@@ -173,13 +187,13 @@
   "about": {
     "title": "À Propos de Minute Man",
     "version": "Version",
-    "description": "Une application web progressive pour les utilitaires de stand de tir",
+    "description": "Une application web progressive pour les utilitaires de stand de tir.",
     "features": "Caractéristiques",
     "installation": "Installation",
     "android": "Android",
     "ios": "iOS",
-    "installAndroid": "Appuyez sur le bouton d'installation dans la barre de navigation",
-    "installIos": "Appuyez sur Partager, puis Ajouter à l'Écran d'Accueil",
+    "installAndroid": "Appuyez sur le bouton d'installation dans la barre de navigation.",
+    "installIos": "Appuyez sur Partager, puis Ajouter à l'Écran d'Accueil.",
     "privacy": "Cette application stocke toutes les données localement sur votre appareil. Aucune donnée n'est collectée ou envoyée à un serveur.",
     "buyMeCoffee": "Vous aimez cette application? Achetez-moi un café!",
     "aboutTitle": "À Propos",
@@ -192,7 +206,7 @@
     "donate": "Si vous avez vraiment aimé, vous pouvez faire un don à",
     "donateUrl": "ursine.llc/donate",
     "installPWATitle": "Installer l'Application",
-    "installPWADescription": "Installez cette application sur votre appareil pour un accès plus rapide et une utilisation hors ligne",
+    "installPWADescription": "Installez cette application sur votre appareil pour un accès plus rapide et une utilisation hors ligne.",
     "installButton": "Installer",
     "dismissButton": "Ignorer",
     "diagnosticVersion": "Version",
@@ -202,7 +216,9 @@
     "diagnosticMode": "Mode",
     "diagnosticModeStandalone": "Autonome",
     "diagnosticModeWeb": "Web",
-    "diagnosticPlatform": "Plateforme"
+    "diagnosticPlatform": "Plateforme",
+    "shareTitle": "Partagez cette application avec le code QR ci-dessous.",
+    "shareQrAlt": "Code QR pour partager Minute Man"
   },
   "validation": {
     "required": "Ce champ est obligatoire",

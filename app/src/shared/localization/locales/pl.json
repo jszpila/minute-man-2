@@ -26,7 +26,8 @@
     "loading": "Ładowanie...",
     "edit": "Edytuj",
     "delete": "Usuń",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "help": "Pomoc"
   },
   "units": {
     "yards": "Yardy",
@@ -54,7 +55,11 @@
     "adjustmentIncrement": "Przyrost Regulacji",
     "clicks": "Kliknięcia",
     "results": "Wyniki",
-    "invalidInput": "Proszę wprowadzić co najmniej jedną wartość przesunięcia"
+    "invalidInput": "Proszę wprowadzić co najmniej jedną wartość przesunięcia",
+    "helpOpenAria": "Otwórz pomoc Kalkulatora Zerowania",
+    "helpDiagramAlt": "Diagram punktu celowania i punktu trafienia dla Kalkulatora Zerowania",
+    "helpPointAimImpact": "Punkt Celowania to miejsce, w które miał trafić strzał. Punkt Trafienia to miejsce, w które strzał faktycznie trafił.",
+    "helpOffsets": "Przesunięcie Poziome to odległość w lewo lub prawo między tymi punktami, a Przesunięcie Pionowe to odległość w górę lub w dół między nimi."
   },
   "mildotCalculator": {
     "title": "Kalkulator MilDot",
@@ -64,7 +69,11 @@
     "distance": "Dystans",
     "results": "Wyniki",
     "calculated": "Obliczone",
-    "invalidInput": "Proszę podać co najmniej dwie wartości"
+    "invalidInput": "Proszę podać co najmniej dwie wartości",
+    "helpOpenAria": "Otwórz pomoc Kalkulatora MilDot",
+    "helpIntro": "Kalkulator MilDot łączy trzy wartości: rozmiar w milach, rozmiar fizyczny i dystans. Wprowadź dwie znane wartości i pozostaw puste pole wartości, którą chcesz obliczyć.",
+    "helpTerms": "Rozmiar w milach określa, jak duży cel wydaje się w siatce celowniczej, mierzony w milach. Rozmiar fizyczny to rzeczywisty rozmiar celu. Dystans to odległość od Ciebie do celu.",
+    "helpExample": "Na przykład, jeśli znasz fizyczny rozmiar celu i liczbę milów, które zajmuje w lunecie, kalkulator może oszacować dystans."
   },
   "shotTimer": {
     "title": "Stoper Strzelów",
@@ -96,7 +105,12 @@
     "soundLevelDetails": "Poziom Dźwięku (RMS: {{rms}}/255 | Próg: {{threshold}})",
     "currentSettings": "Bieżące Ustawienia",
     "detectionError": "Błąd Wykrywania",
-    "consoleHint": "Sprawdź konsolę przeglądarki (F12) aby uzyskać więcej szczegółów. Upewnij się, że ta witryna to HTTPS (nie HTTP)."
+    "consoleHint": "Sprawdź konsolę przeglądarki (F12) aby uzyskać więcej szczegółów. Upewnij się, że ta witryna to HTTPS (nie HTTP).",
+    "helpOpenAria": "Otwórz pomoc Stopera Strzałów",
+    "helpIntro": "Stoper Strzałów nasłuchuje przez mikrofon podczas pracy stopera i zapisuje ostre skoki dźwięku jako strzały.",
+    "helpStartMode": "Tryb Startu określa, kiedy zabrzmi sygnał startowy: Natychmiastowy zaczyna od razu, Opóźniony krótko czeka, a Losowy czeka losowy czas przed sygnałem.",
+    "helpTimerMode": "Tryb Stopera określa, co jest mierzone. Podziały zapisują każdy wykryty strzał jako podział. Par odlicza od czasu par. Pierwszy Strzał zatrzymuje się na pierwszym wykrytym strzale.",
+    "helpSensitivity": "Czułość dostosowuje próg dźwięku dla wykrywania. Zwiększ ją, jeśli strzały są pomijane, i zmniejsz, jeśli hałas tła jest liczony jako strzały."
   },
   "rangeConditions": {
     "title": "Warunki na Polu",
@@ -173,13 +187,13 @@
   "about": {
     "title": "O Minute Man",
     "version": "Wersja",
-    "description": "Progresywna aplikacja internetowa dla użytecznych narzędzi na polu strzeleckim",
+    "description": "Progresywna aplikacja internetowa dla użytecznych narzędzi na polu strzeleckim.",
     "features": "Funkcje",
     "installation": "Instalacja",
     "android": "Android",
     "ios": "iOS",
-    "installAndroid": "Naciśnij przycisk instalacji w pasku nawigacji",
-    "installIos": "Naciśnij Udostępnij, a następnie Dodaj do ekranu głównego",
+    "installAndroid": "Naciśnij przycisk instalacji w pasku nawigacji.",
+    "installIos": "Naciśnij Udostępnij, a następnie Dodaj do ekranu głównego.",
     "privacy": "Ta aplikacja przechowuje wszystkie dane lokalnie na Twoim urządzeniu. Żadne dane nie są zbierane ani wysyłane do żadnego serwera.",
     "buyMeCoffee": "Podoba Ci się ta aplikacja? Kup mi kawę!",
     "aboutTitle": "O",
@@ -192,7 +206,7 @@
     "donate": "Jeśli naprawdę Ci się spodobało, możesz wesprzeć nas na",
     "donateUrl": "ursine.llc/donate",
     "installPWATitle": "Zainstaluj Aplikację",
-    "installPWADescription": "Zainstaluj tę aplikację na swoim urządzeniu dla szybszego dostępu i użytku bez internetu",
+    "installPWADescription": "Zainstaluj tę aplikację na swoim urządzeniu dla szybszego dostępu i użytku bez internetu.",
     "installButton": "Zainstaluj",
     "dismissButton": "Odrzuć",
     "diagnosticVersion": "Wersja",
@@ -202,7 +216,9 @@
     "diagnosticMode": "Tryb",
     "diagnosticModeStandalone": "Autonomiczny",
     "diagnosticModeWeb": "Web",
-    "diagnosticPlatform": "Platforma"
+    "diagnosticPlatform": "Platforma",
+    "shareTitle": "Udostępnij tę aplikację za pomocą poniższego kodu QR.",
+    "shareQrAlt": "Kod QR do udostępniania Minute Man"
   },
   "validation": {
     "required": "To pole jest wymagane",

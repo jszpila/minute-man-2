@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
@@ -14,10 +15,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import MicIcon from '@mui/icons-material/Mic';
+import Modal from '../../shared/components/Modal';
 import FixedButtonFooter from '../../shared/components/FixedButtonFooter';
 import { StorageKeys, getStorageItem, setStorageItem } from '../../shared/utils/storage';
 import { formatTimeMMSS } from '../../shared/utils/timeUtils';
@@ -69,6 +72,7 @@ const ShotTimer: React.FC = () => {
   const [detectionError, setDetectionError] = useState<string | null>(null);
   const [currentRMSLevel, setCurrentRMSLevel] = useState(0);
   const [tabValue, setTabValue] = useState(0);
+  const [helpModalOpen, setHelpModalOpen] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startTimeRef = useRef<number | null>(null);
@@ -131,12 +135,7 @@ const ShotTimer: React.FC = () => {
 
   // Beep when par time is reached (end)
   useEffect(() => {
-    if (
-      timerMode === 'par' &&
-      isRunning &&
-      elapsedMs >= parTimeMs &&
-      !parTimeBeepedRef.current
-    ) {
+    if (timerMode === 'par' && isRunning && elapsedMs >= parTimeMs && !parTimeBeepedRef.current) {
       playBeep();
       parTimeBeepedRef.current = true;
     }
@@ -238,61 +237,62 @@ const ShotTimer: React.FC = () => {
       let loopCount = 0;
 
       const detectShotLoop = () => {
-          if (!analyser) {
-            return;
+        if (!analyser) {
+          return;
+        }
+
+        try {
+          analyser.analyser.getByteFrequencyData(analyser.dataArray);
+          const rms = calculateRMS(analyser.dataArray);
+
+          loopCount++;
+
+          // Detect sudden loud spike (key characteristic of claps/shots)
+          const spike = rms - lastRMS > 20 && rms > threshold;
+          const sustainedLoud = rms > threshold;
+
+          // Track consecutive high samples for more reliable detection
+          if (sustainedLoud) {
+            consecutiveHighSamples++;
+          } else {
+            consecutiveHighSamples = 0;
           }
 
-          try {
-            analyser.analyser.getByteFrequencyData(analyser.dataArray);
-            const rms = calculateRMS(analyser.dataArray);
+          const now = Date.now();
+          // Trigger on: spike OR 2+ consecutive high samples
+          const isDetected =
+            (spike || consecutiveHighSamples >= 2) && now - lastDetectionTime > 250;
 
-            loopCount++;
+          if (isDetected) {
+            lastDetectionTime = now;
+            consecutiveHighSamples = 0;
+            // Handle based on timer mode
+            if (isRunningRef.current && startTimeRef.current !== null) {
+              const shotTime = Date.now() - startTimeRef.current;
 
-            // Detect sudden loud spike (key characteristic of claps/shots)
-            const spike = rms - lastRMS > 20 && rms > threshold;
-            const sustainedLoud = rms > threshold;
-            
-            // Track consecutive high samples for more reliable detection
-            if (sustainedLoud) {
-              consecutiveHighSamples++;
-            } else {
-              consecutiveHighSamples = 0;
-            }
-
-            const now = Date.now();
-            // Trigger on: spike OR 2+ consecutive high samples
-            const isDetected = (spike || consecutiveHighSamples >= 2) && now - lastDetectionTime > 250;
-
-            if (isDetected) {
-              lastDetectionTime = now;
-              consecutiveHighSamples = 0;
-              // Handle based on timer mode
-              if (isRunningRef.current && startTimeRef.current !== null) {
-                const shotTime = Date.now() - startTimeRef.current;
-                
-                if (timerMode === 'firstShot') {
-                  // For firstShot mode: STOP the timer on shot detection
-                  isRunningRef.current = false;
-                  setIsRunning(false);
-                } else {
-                  // For other modes: record as a split
-                  setSplits((prev) => [...prev, shotTime]);
-                }
+              if (timerMode === 'firstShot') {
+                // For firstShot mode: STOP the timer on shot detection
+                isRunningRef.current = false;
+                setIsRunning(false);
+              } else {
+                // For other modes: record as a split
+                setSplits((prev) => [...prev, shotTime]);
               }
             }
-
-            lastRMS = rms;
-
-            // Continue looping while running - use ref instead of state
-            if (isRunningRef.current) {
-              detectionRAFRef.current = requestAnimationFrame(detectShotLoop);
-            }
-          } catch (detectionError) {
-            console.error('Error in detection loop:', detectionError);
           }
-        };
 
-        detectionRAFRef.current = requestAnimationFrame(detectShotLoop);
+          lastRMS = rms;
+
+          // Continue looping while running - use ref instead of state
+          if (isRunningRef.current) {
+            detectionRAFRef.current = requestAnimationFrame(detectShotLoop);
+          }
+        } catch (detectionError) {
+          console.error('Error in detection loop:', detectionError);
+        }
+      };
+
+      detectionRAFRef.current = requestAnimationFrame(detectShotLoop);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : 'Microphone access denied';
       setDetectionError(errorMsg);
@@ -354,106 +354,126 @@ const ShotTimer: React.FC = () => {
     timerMode === 'par' ? Math.max(0, parTimeMs - elapsedMs) : elapsedMs
   );
 
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
       <Box sx={{ flex: '0 0 auto' }}>
-        <Typography variant="h4" sx={{ mb: 2 }}>
-          {t('shotTimer.title')}
-        </Typography>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ mb: 2, width: '100%' }}
+        >
+          <Typography variant="h4">{t('shotTimer.title')}</Typography>
+          <IconButton
+            aria-label={t('shotTimer.helpOpenAria')}
+            color="inherit"
+            onClick={() => setHelpModalOpen(true)}
+            size="large"
+          >
+            <HelpOutlineIcon />
+          </IconButton>
+        </Stack>
 
         {/* Timer Display */}
         <Box sx={{ mb: 2, textAlign: 'center' }}>
-        <Typography
-          variant="h2"
-          sx={{
-            fontFamily: 'monospace',
-            fontWeight: 'bold',
-            fontSize: '72px',
-          }}
-        >
-          {displayTime}
-        </Typography>
+          <Typography
+            variant="h2"
+            sx={{
+              fontFamily: 'monospace',
+              fontWeight: 'bold',
+              fontSize: '72px',
+            }}
+          >
+            {displayTime}
+          </Typography>
 
-        {/* Add Split Button (visible during run in split mode) */}
+          {/* Add Split Button (visible during run in split mode) */}
+        </Box>
 
-      </Box>
+        {/* Shot Detection Visualization (during active timer) */}
+        {isListening && isRunning && (
+          <Box sx={{ mb: 1, p: 1, backgroundColor: 'action.hover', borderRadius: 1 }}>
+            <Stack spacing={1}>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <MicIcon sx={{ color: 'error.main', animation: 'pulse 1s infinite' }} />
+                <Typography variant="body2" sx={{ color: 'error.main', fontWeight: 'bold' }}>
+                  {t('shotTimer.listening')}
+                </Typography>
+              </Stack>
 
-      {/* Shot Detection Visualization (during active timer) */}
-      {isListening && isRunning && (
-        <Box sx={{ mb: 1, p: 1, backgroundColor: 'action.hover', borderRadius: 1 }}>
-          <Stack spacing={1}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <MicIcon sx={{ color: 'error.main', animation: 'pulse 1s infinite' }} />
-              <Typography variant="body2" sx={{ color: 'error.main', fontWeight: 'bold' }}>
-                {t('shotTimer.listening')}
-              </Typography>
-            </Stack>
-
-            {/* Amplitude Visualization */}
-            <Box>
-              <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
-                {t('shotTimer.soundLevelDetails', {
-                  rms: Math.round(currentRMSLevel),
-                  threshold: Math.round(10 + (100 - sensitivity) * 0.4),
-                })}
-              </Typography>
-              <Box
-                sx={{
-                  height: 32,
-                  backgroundColor: '#e0e0e0',
-                  borderRadius: 1,
-                  overflow: 'hidden',
-                  position: 'relative',
-                  border: '1px solid #999',
-                }}
-              >
-                {/* Threshold line */}
+              {/* Amplitude Visualization */}
+              <Box>
+                <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
+                  {t('shotTimer.soundLevelDetails', {
+                    rms: Math.round(currentRMSLevel),
+                    threshold: Math.round(10 + (100 - sensitivity) * 0.4),
+                  })}
+                </Typography>
                 <Box
                   sx={{
-                    position: 'absolute',
-                    left: `${((10 + (100 - sensitivity) * 0.4) / 255) * 100}%`,
-                    top: 0,
-                    bottom: 0,
-                    width: '2px',
-                    backgroundColor: '#ff0000',
-                    zIndex: 2,
+                    height: 32,
+                    backgroundColor: '#e0e0e0',
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    border: '1px solid #999',
                   }}
-                />
-                {/* Current level bar */}
-                <Box
-                  sx={{
-                    height: '100%',
-                    width: `${(currentRMSLevel / 255) * 100}%`,
-                    backgroundColor: currentRMSLevel > 10 + (100 - sensitivity) * 0.4 ? '#4caf50' : '#2196f3',
-                    transition: 'width 0.05s linear',
-                  }}
-                />
+                >
+                  {/* Threshold line */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      left: `${((10 + (100 - sensitivity) * 0.4) / 255) * 100}%`,
+                      top: 0,
+                      bottom: 0,
+                      width: '2px',
+                      backgroundColor: '#ff0000',
+                      zIndex: 2,
+                    }}
+                  />
+                  {/* Current level bar */}
+                  <Box
+                    sx={{
+                      height: '100%',
+                      width: `${(currentRMSLevel / 255) * 100}%`,
+                      backgroundColor:
+                        currentRMSLevel > 10 + (100 - sensitivity) * 0.4 ? '#4caf50' : '#2196f3',
+                      transition: 'width 0.05s linear',
+                    }}
+                  />
+                </Box>
               </Box>
-            </Box>
-          </Stack>
-        </Box>
-      )}
+            </Stack>
+          </Box>
+        )}
 
-      {/* Detection Error - Show at top */}
-      {detectionError && (
-        <Box sx={{ mb: 3, p: 2, backgroundColor: '#ffebee', border: '1px solid #c62828', borderRadius: 1 }}>
-          <Typography variant="body2" sx={{ color: '#c62828', fontWeight: 'bold' }}>
-            ⚠️ {t('shotTimer.detectionError')}: {detectionError}
-          </Typography>
-          <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#c62828' }}>
-            {t('shotTimer.consoleHint')}
-          </Typography>
-        </Box>
-      )}
+        {/* Detection Error - Show at top */}
+        {detectionError && (
+          <Box
+            sx={{
+              mb: 3,
+              p: 2,
+              backgroundColor: '#ffebee',
+              border: '1px solid #c62828',
+              borderRadius: 1,
+            }}
+          >
+            <Typography variant="body2" sx={{ color: '#c62828', fontWeight: 'bold' }}>
+              ⚠️ {t('shotTimer.detectionError')}: {detectionError}
+            </Typography>
+            <Typography variant="caption" sx={{ display: 'block', mt: 1, color: '#c62828' }}>
+              {t('shotTimer.consoleHint')}
+            </Typography>
+          </Box>
+        )}
 
-      {/* Tabs Section */}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={tabValue} onChange={(_, newValue) => setTabValue(newValue)}>
-          <Tab label={t('shotTimer.settingsTab')} />
-          <Tab label={t('shotTimer.splitsTab')} disabled={timerMode === 'firstShot'} />
-        </Tabs>
-      </Box>
+        {/* Tabs Section */}
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={tabValue} onChange={(_, newValue) => setTabValue(newValue)}>
+            <Tab label={t('shotTimer.settingsTab')} />
+            <Tab label={t('shotTimer.splitsTab')} disabled={timerMode === 'firstShot'} />
+          </Tabs>
+        </Box>
       </Box>
 
       {/* Scrollable Content Area */}
@@ -534,7 +554,10 @@ const ShotTimer: React.FC = () => {
                     valueLabelDisplay="auto"
                   />
                 </Box>
-                <Typography variant="caption" sx={{ mt: 1, display: 'block', color: 'text.secondary', fontSize: '0.75rem' }}>
+                <Typography
+                  variant="caption"
+                  sx={{ mt: 1, display: 'block', color: 'text.secondary', fontSize: '0.75rem' }}
+                >
                   {timerMode === 'firstShot'
                     ? t('shotTimer.firstShotSensitivityHint')
                     : t('shotTimer.splitSensitivityHint')}
@@ -572,12 +595,7 @@ const ShotTimer: React.FC = () => {
       {/* Control Buttons */}
       <FixedButtonFooter>
         <Stack direction="row" spacing={1} sx={{ width: '100%' }}>
-          <Button
-            variant="outlined"
-            startIcon={<RestartAltIcon />}
-            onClick={handleReset}
-            fullWidth
-          >
+          <Button variant="outlined" startIcon={<RestartAltIcon />} onClick={handleReset} fullWidth>
             {t('common.reset')}
           </Button>
 
@@ -603,6 +621,15 @@ const ShotTimer: React.FC = () => {
           )}
         </Stack>
       </FixedButtonFooter>
+
+      <Modal open={helpModalOpen} title={t('common.help')} onClose={() => setHelpModalOpen(false)}>
+        <Stack spacing={2} sx={{ mt: 1 }}>
+          <Typography variant="body2">{t('shotTimer.helpIntro')}</Typography>
+          <Typography variant="body2">{t('shotTimer.helpStartMode')}</Typography>
+          <Typography variant="body2">{t('shotTimer.helpTimerMode')}</Typography>
+          <Typography variant="body2">{t('shotTimer.helpSensitivity')}</Typography>
+        </Stack>
+      </Modal>
     </Box>
   );
 };

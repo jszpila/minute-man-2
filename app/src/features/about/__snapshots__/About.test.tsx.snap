@@ -42,6 +42,7 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
           >
             about.contactEmail
           </a>
+          .
         </p>
         <p
           class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
@@ -56,6 +57,7 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
           >
             about.donateUrl
           </a>
+          .
         </p>
       </div>
       <div
@@ -68,10 +70,10 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
           <h6
             class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
           >
-            Share this app! Scan the QR code below.
+            about.shareTitle
           </h6>
           <img
-            alt="QR code for sharing Minute Man"
+            alt="about.shareQrAlt"
             class="MuiBox-root css-1uipide"
             src="/assets/minman-v2-qr.png"
           />
@@ -203,6 +205,7 @@ exports[`About component matches snapshot when not standalone 1`] = `
           >
             about.contactEmail
           </a>
+          .
         </p>
         <p
           class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
@@ -217,6 +220,7 @@ exports[`About component matches snapshot when not standalone 1`] = `
           >
             about.donateUrl
           </a>
+          .
         </p>
       </div>
       <div
@@ -229,10 +233,10 @@ exports[`About component matches snapshot when not standalone 1`] = `
           <h6
             class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
           >
-            Share this app! Scan the QR code below.
+            about.shareTitle
           </h6>
           <img
-            alt="QR code for sharing Minute Man"
+            alt="about.shareQrAlt"
             class="MuiBox-root css-1uipide"
             src="/assets/minman-v2-qr.png"
           />

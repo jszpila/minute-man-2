@@ -26,7 +26,8 @@
     "loading": "Cargando...",
     "edit": "Editar",
     "delete": "Eliminar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "help": "Ayuda"
   },
   "units": {
     "yards": "Yardas",
@@ -54,7 +55,11 @@
     "adjustmentIncrement": "Incremento de Ajuste",
     "clicks": "Clics",
     "results": "Resultados",
-    "invalidInput": "Por favor, ingresa al menos un valor de desplazamiento"
+    "invalidInput": "Por favor, ingresa al menos un valor de desplazamiento",
+    "helpOpenAria": "Abrir ayuda de la Calculadora de Cero",
+    "helpDiagramAlt": "Diagrama de punto de mira y punto de impacto de la Calculadora de Cero",
+    "helpPointAimImpact": "El Punto de Mira es donde pretendías que impactara el disparo. El Punto de Impacto es donde realmente impactó.",
+    "helpOffsets": "El Desplazamiento Horizontal es la distancia a la izquierda o derecha entre esos dos puntos, y el Desplazamiento Vertical es la distancia hacia arriba o abajo entre ellos."
   },
   "mildotCalculator": {
     "title": "Calculadora de MilDot",
@@ -64,7 +69,11 @@
     "distance": "Distancia",
     "results": "Resultados",
     "calculated": "Calculado",
-    "invalidInput": "Por favor, proporciona al menos dos valores"
+    "invalidInput": "Por favor, proporciona al menos dos valores",
+    "helpOpenAria": "Abrir ayuda de la Calculadora MilDot",
+    "helpIntro": "La Calculadora MilDot relaciona tres valores: tamaño en mils, tamaño físico y distancia. Ingresa dos valores conocidos y deja en blanco el valor que quieres calcular.",
+    "helpTerms": "El tamaño en mils es qué tan grande se ve el objetivo en la retícula, medido en mils. El tamaño físico es el tamaño real del objetivo. La distancia es el rango desde ti hasta el objetivo.",
+    "helpExample": "Por ejemplo, si conoces el tamaño físico del objetivo y cuántos mils ocupa en la mira, la calculadora puede estimar la distancia."
   },
   "shotTimer": {
     "title": "Temporizador de Disparos",
@@ -96,7 +105,12 @@
     "soundLevelDetails": "Nivel de Sonido (RMS: {{rms}}/255 | Umbral: {{threshold}})",
     "currentSettings": "Configuración Actual",
     "detectionError": "Error de Detección",
-    "consoleHint": "Verifica la consola del navegador (F12) para más detalles. Asegúrate de que este sitio sea HTTPS (no HTTP)."
+    "consoleHint": "Verifica la consola del navegador (F12) para más detalles. Asegúrate de que este sitio sea HTTPS (no HTTP).",
+    "helpOpenAria": "Abrir ayuda del Temporizador de Disparos",
+    "helpIntro": "El Temporizador de Disparos escucha por el micrófono mientras el temporizador está corriendo y registra picos de sonido agudos como disparos.",
+    "helpStartMode": "El Modo de Inicio controla cuándo suena el pitido inicial: Instantáneo empieza de inmediato, Retrasado espera brevemente y Aleatorio espera un intervalo aleatorio antes del pitido.",
+    "helpTimerMode": "El Modo del Temporizador controla qué se mide. Divisiones registra cada disparo detectado como una división. Par cuenta regresivamente desde el tiempo par. Primer Disparo se detiene en el primer disparo detectado.",
+    "helpSensitivity": "La sensibilidad ajusta el umbral de sonido para la detección. Auméntala si se pierden disparos y bájala si el ruido de fondo se cuenta como disparos."
   },
   "rangeConditions": {
     "title": "Condiciones del Campo",
@@ -173,13 +187,13 @@
   "about": {
     "title": "Acerca de Minute Man",
     "version": "Versión",
-    "description": "Una aplicación web progresiva para utilidades útiles en el campo de tiro",
+    "description": "Una aplicación web progresiva para utilidades útiles en el campo de tiro.",
     "features": "Características",
     "installation": "Instalación",
     "android": "Android",
     "ios": "iOS",
-    "installAndroid": "Toca el botón de instalar en la barra de navegación",
-    "installIos": "Toca Compartir, luego Añadir a la Pantalla de Inicio",
+    "installAndroid": "Toca el botón de instalar en la barra de navegación.",
+    "installIos": "Toca Compartir, luego Añadir a la Pantalla de Inicio.",
     "privacy": "Esta aplicación almacena todos los datos localmente en tu dispositivo. No se recopilan ni se envían datos a ningún servidor.",
     "buyMeCoffee": "¿Te gusta esta aplicación? ¡Cómprame un café!",
     "aboutTitle": "Acerca de",
@@ -192,7 +206,7 @@
     "donate": "Si realmente te gustó, puedes donar en",
     "donateUrl": "ursine.llc/donate",
     "installPWATitle": "Instalar Aplicación",
-    "installPWADescription": "Instala esta aplicación en tu dispositivo para acceso más rápido y uso sin conexión",
+    "installPWADescription": "Instala esta aplicación en tu dispositivo para acceso más rápido y uso sin conexión.",
     "installButton": "Instalar",
     "dismissButton": "Descartar",
     "diagnosticVersion": "Versión",
@@ -202,7 +216,9 @@
     "diagnosticMode": "Modo",
     "diagnosticModeStandalone": "Independiente",
     "diagnosticModeWeb": "Web",
-    "diagnosticPlatform": "Plataforma"
+    "diagnosticPlatform": "Plataforma",
+    "shareTitle": "Comparte esta app con el siguiente código QR.",
+    "shareQrAlt": "Código QR para compartir Minute Man"
   },
   "validation": {
     "required": "Este campo es obligatorio",

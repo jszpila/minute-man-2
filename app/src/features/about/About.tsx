@@ -46,7 +46,7 @@ export const About: React.FC = () => {
 
           <Typography variant="body1">
             {t('about.contactUs')}{' '}
-            <Link href="mailto:contact@ursine.llc">{t('about.contactEmail')}</Link>
+            <Link href="mailto:contact@ursine.llc">{t('about.contactEmail')}</Link>.
           </Typography>
 
           <Typography variant="body1">
@@ -54,18 +54,19 @@ export const About: React.FC = () => {
             <Link href="https://www.ursine.llc/donate" target="_blank" rel="noopener noreferrer">
               {t('about.donateUrl')}
             </Link>
+            .
           </Typography>
         </Box>
 
         <Card>
           <CardContent>
             <Typography variant="h6" sx={{ mb: 2 }}>
-              Share this app! Scan the QR code below.
+              {t('about.shareTitle')}
             </Typography>
             <Box
               component="img"
               src="/assets/minman-v2-qr.png"
-              alt="QR code for sharing Minute Man"
+              alt={t('about.shareQrAlt')}
               sx={{
                 display: 'block',
                 width: '100%',

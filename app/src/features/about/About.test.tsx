@@ -68,8 +68,8 @@ describe('About component', () => {
 
   it('renders share app QR code card', () => {
     render(<About />);
-    expect(screen.getByText('Share this app! Scan the QR code below.')).toBeInTheDocument();
-    expect(screen.getByAltText('QR code for sharing Minute Man')).toHaveAttribute(
+    expect(screen.getByText('about.shareTitle')).toBeInTheDocument();
+    expect(screen.getByAltText('about.shareQrAlt')).toHaveAttribute(
       'src',
       '/assets/minman-v2-qr.png'
     );
@@ -162,8 +162,8 @@ describe('About component', () => {
 
   it('renders company donation link', () => {
     render(<About />);
-    const donateLink = screen.getByText('about.donate');
-    expect(donateLink).toBeInTheDocument();
+    const donateLink = screen.getByRole('link', { name: 'about.donateUrl' });
+    expect(donateLink).toHaveAttribute('href', 'https://www.ursine.llc/donate');
   });
 
   it('matches snapshot when not standalone', () => {

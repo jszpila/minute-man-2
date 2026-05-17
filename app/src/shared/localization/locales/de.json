@@ -26,7 +26,8 @@
     "loading": "Wird geladen...",
     "edit": "Bearbeiten",
     "delete": "Löschen",
-    "save": "Speichern"
+    "save": "Speichern",
+    "help": "Hilfe"
   },
   "units": {
     "yards": "Yards",
@@ -54,7 +55,11 @@
     "adjustmentIncrement": "Einstellungsschritte",
     "clicks": "Klicks",
     "results": "Ergebnisse",
-    "invalidInput": "Bitte geben Sie mindestens einen Abweichungswert ein"
+    "invalidInput": "Bitte geben Sie mindestens einen Abweichungswert ein",
+    "helpOpenAria": "Hilfe zum Nullpunkt-Rechner öffnen",
+    "helpDiagramAlt": "Diagramm für Zielpunkt und Treffpunkt im Nullpunkt-Rechner",
+    "helpPointAimImpact": "Der Zielpunkt ist die Stelle, an der der Schuss landen sollte. Der Treffpunkt ist die Stelle, an der der Schuss tatsächlich gelandet ist.",
+    "helpOffsets": "Die horizontale Abweichung ist die Links- oder Rechtsentfernung zwischen diesen zwei Punkten, und die vertikale Abweichung ist die Auf- oder Abwärtsentfernung zwischen ihnen."
   },
   "mildotCalculator": {
     "title": "MilDot-Rechner",
@@ -64,7 +69,11 @@
     "distance": "Entfernung",
     "results": "Ergebnisse",
     "calculated": "Berechnet",
-    "invalidInput": "Bitte geben Sie mindestens zwei Werte an"
+    "invalidInput": "Bitte geben Sie mindestens zwei Werte an",
+    "helpOpenAria": "Hilfe zum MilDot-Rechner öffnen",
+    "helpIntro": "Der MilDot-Rechner verbindet drei Werte: Mil-Größe, physische Größe und Entfernung. Geben Sie zwei bekannte Werte ein und lassen Sie den zu berechnenden Wert leer.",
+    "helpTerms": "Die Mil-Größe beschreibt, wie groß das Ziel im Absehen erscheint, gemessen in Mils. Die physische Größe ist die tatsächliche Größe des Ziels. Die Entfernung ist die Strecke von Ihnen zum Ziel.",
+    "helpExample": "Wenn Sie zum Beispiel die physische Größe des Ziels kennen und wissen, wie viele Mils es im Zielfernrohr einnimmt, kann der Rechner die Entfernung schätzen."
   },
   "shotTimer": {
     "title": "Schusschronometer",
@@ -96,7 +105,12 @@
     "soundLevelDetails": "Schallpegel (RMS: {{rms}}/255 | Schwelle: {{threshold}})",
     "currentSettings": "Aktuelle Einstellungen",
     "detectionError": "Erkennungsfehler",
-    "consoleHint": "Überprüfe die Browser-Konsole (F12) für weitere Details. Stelle sicher, dass diese Website HTTPS ist (nicht HTTP)."
+    "consoleHint": "Überprüfe die Browser-Konsole (F12) für weitere Details. Stelle sicher, dass diese Website HTTPS ist (nicht HTTP).",
+    "helpOpenAria": "Hilfe zum Schusschronometer öffnen",
+    "helpIntro": "Das Schusschronometer hört während des laufenden Timers über das Mikrofon zu und zeichnet scharfe Geräuschspitzen als Schüsse auf.",
+    "helpStartMode": "Der Startmodus steuert, wann der Startton ertönt: Sofort startet direkt, Verzögert wartet kurz und Zufällig wartet ein zufälliges Intervall vor dem Ton.",
+    "helpTimerMode": "Der Chronometer-Modus steuert, was gemessen wird. Split zeichnet jeden erkannten Schuss als Split auf. Par zählt von der Par-Zeit herunter. Erster Schuss stoppt beim ersten erkannten Schuss.",
+    "helpSensitivity": "Die Empfindlichkeit passt die Tonschwelle für die Erkennung an. Erhöhen Sie sie, wenn Schüsse verpasst werden, und senken Sie sie, wenn Hintergrundgeräusche als Schüsse gezählt werden."
   },
   "rangeConditions": {
     "title": "Platzbedingungen",
@@ -173,13 +187,13 @@
   "about": {
     "title": "Über Minute Man",
     "version": "Version",
-    "description": "Eine progressive Web-App für praktische Schießstand-Dienstprogramme",
+    "description": "Eine progressive Web-App für praktische Schießstand-Dienstprogramme.",
     "features": "Funktionen",
     "installation": "Installation",
     "android": "Android",
     "ios": "iOS",
-    "installAndroid": "Tippe auf die Schaltfläche \"Installieren\" in der Navigationsleiste",
-    "installIos": "Tippe auf \"Teilen\" und dann auf \"Zum Home-Bildschirm hinzufügen\"",
+    "installAndroid": "Tippe auf die Schaltfläche \"Installieren\" in der Navigationsleiste.",
+    "installIos": "Tippe auf \"Teilen\" und dann auf \"Zum Home-Bildschirm hinzufügen\".",
     "privacy": "Diese App speichert alle Daten lokal auf deinem Gerät. Es werden keine Daten erhoben oder an einen Server gesendet.",
     "buyMeCoffee": "Magst du diese App? Kauf mir einen Kaffee!",
     "aboutTitle": "Über",
@@ -192,7 +206,7 @@
     "donate": "Wenn es dir wirklich gefallen hat, kannst du unter",
     "donateUrl": "ursine.llc/donate",
     "installPWATitle": "App Installieren",
-    "installPWADescription": "Installieren Sie diese App auf Ihrem Gerät für schnelleren Zugriff und Offline-Nutzung",
+    "installPWADescription": "Installieren Sie diese App auf Ihrem Gerät für schnelleren Zugriff und Offline-Nutzung.",
     "installButton": "Installieren",
     "dismissButton": "Verwerfen",
     "diagnosticVersion": "Version",
@@ -202,7 +216,9 @@
     "diagnosticMode": "Modus",
     "diagnosticModeStandalone": "Eigenständig",
     "diagnosticModeWeb": "Web",
-    "diagnosticPlatform": "Plattform"
+    "diagnosticPlatform": "Plattform",
+    "shareTitle": "Teile diese App mit dem untenstehenden QR-Code.",
+    "shareQrAlt": "QR-Code zum Teilen von Minute Man"
   },
   "validation": {
     "required": "Dieses Feld ist erforderlich",

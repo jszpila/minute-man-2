@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
@@ -11,6 +12,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import { useAppContext } from '../../shared/context/AppContext';
 import Modal from '../../shared/components/Modal';
@@ -51,19 +53,22 @@ const ZeroCalculator: React.FC = () => {
   // Form state
   const [formData, setFormData] = useState<ZeroFormState>(() => {
     const saved = getStorageItem<ZeroFormState>(StorageKeys.ZERO_CALC_FORM);
-    return saved || {
-      horizontalOffsetDistance: '',
-      horizontalOffsetDirection: 'left',
-      verticalOffsetDistance: '',
-      verticalOffsetDirection: 'up',
-      zeroDistance: String(defaultZeroDistance),
-      adjustmentIncrement: defaultIncrement,
-    };
+    return (
+      saved || {
+        horizontalOffsetDistance: '',
+        horizontalOffsetDirection: 'left',
+        verticalOffsetDistance: '',
+        verticalOffsetDirection: 'up',
+        zeroDistance: String(defaultZeroDistance),
+        adjustmentIncrement: defaultIncrement,
+      }
+    );
   });
 
   // Modal states
   const [resultModalOpen, setResultModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [result, setResult] = useState<ZeroCalculatorResult | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -152,10 +157,14 @@ const ZeroCalculator: React.FC = () => {
       setResult({
         horizontalClicks: Math.round(horizontalClicks * 100) / 100,
         horizontalDirection:
-          formData.horizontalOffsetDirection === 'left' ? t('zeroCalculator.right') : t('zeroCalculator.left'),
+          formData.horizontalOffsetDirection === 'left'
+            ? t('zeroCalculator.right')
+            : t('zeroCalculator.left'),
         verticalClicks: Math.round(verticalClicks * 100) / 100,
         verticalDirection:
-          formData.verticalOffsetDirection === 'up' ? t('zeroCalculator.down') : t('zeroCalculator.up'),
+          formData.verticalOffsetDirection === 'up'
+            ? t('zeroCalculator.down')
+            : t('zeroCalculator.up'),
       });
 
       setResultModalOpen(true);
@@ -180,13 +189,28 @@ const ZeroCalculator: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        {t('zeroCalculator.title')}
-      </Typography>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ mb: 3, width: '100%' }}
+      >
+        <Typography variant="h4">{t('zeroCalculator.title')}</Typography>
+        <IconButton
+          aria-label={t('zeroCalculator.helpOpenAria')}
+          color="inherit"
+          onClick={() => setHelpModalOpen(true)}
+          size="large"
+        >
+          <HelpOutlineIcon />
+        </IconButton>
+      </Stack>
 
       <Stack spacing={3} sx={{ pb: 14 }}>
         {/* Point of Impact Header */}
-        <Typography variant="h6" sx={{ mt: 0 }}>{t('zeroCalculator.pointOfImpact')}</Typography>
+        <Typography variant="h6" sx={{ mt: 0 }}>
+          {t('zeroCalculator.pointOfImpact')}
+        </Typography>
 
         {/* Horizontal Offset - Input and Direction Side-by-Side */}
         <Stack direction="row" spacing={2} alignItems="flex-start">
@@ -207,9 +231,7 @@ const ZeroCalculator: React.FC = () => {
               <Select
                 value={formData.horizontalOffsetDirection}
                 label={t('zeroCalculator.direction')}
-                onChange={(e) =>
-                  handleInputChange('horizontalOffsetDirection', e.target.value)
-                }
+                onChange={(e) => handleInputChange('horizontalOffsetDirection', e.target.value)}
               >
                 <MenuItem value="left">{t('zeroCalculator.left')}</MenuItem>
                 <MenuItem value="right">{t('zeroCalculator.right')}</MenuItem>
@@ -237,9 +259,7 @@ const ZeroCalculator: React.FC = () => {
               <Select
                 value={formData.verticalOffsetDirection}
                 label={t('zeroCalculator.direction')}
-                onChange={(e) =>
-                  handleInputChange('verticalOffsetDirection', e.target.value)
-                }
+                onChange={(e) => handleInputChange('verticalOffsetDirection', e.target.value)}
               >
                 <MenuItem value="up">{t('zeroCalculator.up')}</MenuItem>
                 <MenuItem value="down">{t('zeroCalculator.down')}</MenuItem>
@@ -249,7 +269,9 @@ const ZeroCalculator: React.FC = () => {
         </Stack>
 
         {/* General Section */}
-        <Typography variant="h6" sx={{ mt: 1 }}>{t('zeroCalculator.zeroDistance')}</Typography>
+        <Typography variant="h6" sx={{ mt: 1 }}>
+          {t('zeroCalculator.zeroDistance')}
+        </Typography>
 
         <TextField
           label={`${t('zeroCalculator.zeroRange')} (${distanceUnit})`}
@@ -289,6 +311,25 @@ const ZeroCalculator: React.FC = () => {
           {t('common.sendIt')}
         </Button>
       </FixedButtonFooter>
+
+      {/* Help Modal */}
+      <Modal open={helpModalOpen} title={t('common.help')} onClose={() => setHelpModalOpen(false)}>
+        <Stack spacing={2} sx={{ mt: 1 }}>
+          <Box
+            component="img"
+            src="/assets/zero-calculator-diagram.png"
+            alt={t('zeroCalculator.helpDiagramAlt')}
+            sx={{
+              display: 'block',
+              width: '100%',
+              height: 'auto',
+              borderRadius: 1,
+            }}
+          />
+          <Typography variant="body2">{t('zeroCalculator.helpPointAimImpact')}</Typography>
+          <Typography variant="body2">{t('zeroCalculator.helpOffsets')}</Typography>
+        </Stack>
+      </Modal>
 
       {/* Result Modal */}
       <Modal

@@ -62,9 +62,7 @@ describe('ShotTimer component', () => {
     },
     dataArray: new Uint8Array(1024),
     mediaStream: {
-      getTracks: jest.fn(() => [
-        { stop: jest.fn(), kind: 'audio' },
-      ]),
+      getTracks: jest.fn(() => [{ stop: jest.fn(), kind: 'audio' }]),
     },
   };
 
@@ -148,6 +146,19 @@ describe('ShotTimer component', () => {
     expect(screen.getByText('shotTimer.splitsTab')).toBeInTheDocument();
   });
 
+  it('opens the help modal from the title row help button', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(<ShotTimer />);
+
+    await user.click(screen.getByLabelText('shotTimer.helpOpenAria'));
+
+    expect(screen.getByRole('heading', { name: 'common.help' })).toBeInTheDocument();
+    expect(screen.getByText('shotTimer.helpIntro')).toBeInTheDocument();
+    expect(screen.getByText('shotTimer.helpStartMode')).toBeInTheDocument();
+    expect(screen.getByText('shotTimer.helpTimerMode')).toBeInTheDocument();
+    expect(screen.getByText('shotTimer.helpSensitivity')).toBeInTheDocument();
+  });
+
   it('shows par time input when par mode is selected', async () => {
     const user = userEvent.setup({ delay: null });
     const { container } = render(<ShotTimer />);
@@ -196,10 +207,22 @@ describe('ShotTimer component', () => {
     await user.click(startButton);
 
     // Just snapshot without running all timers (RAF-based code)
-    await waitFor(() => {
-      expect(container).toBeInTheDocument();
-    }, { timeout: 1000 });
+    await waitFor(
+      () => {
+        expect(container).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
 
     expect(container).toMatchSnapshot();
+  });
+
+  it('matches snapshot with help modal open', async () => {
+    const user = userEvent.setup({ delay: null });
+    const { baseElement } = render(<ShotTimer />);
+
+    await user.click(screen.getByLabelText('shotTimer.helpOpenAria'));
+
+    expect(baseElement).toMatchSnapshot();
   });
 });

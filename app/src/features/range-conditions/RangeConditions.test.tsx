@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RangeConditions from './RangeConditions';
 import { getCachedWeather, getWeatherData } from './weatherService';
@@ -61,5 +61,29 @@ describe('RangeConditions', () => {
     await waitFor(() => {
       expect(getCurrentPosition).toHaveBeenCalled();
     });
+  });
+
+  it('matches snapshot after loading current location weather', async () => {
+    Object.defineProperty(navigator, 'geolocation', {
+      configurable: true,
+      value: {
+        getCurrentPosition: jest.fn((success: PositionCallback) => {
+          success({
+            coords: {
+              latitude: 41,
+              longitude: -87,
+            },
+          } as GeolocationPosition);
+        }),
+      },
+    });
+
+    const { container } = render(<RangeConditions />);
+
+    await waitFor(() => {
+      expect(screen.getByText('72°F')).toBeInTheDocument();
+    });
+
+    expect(container).toMatchSnapshot();
   });
 });
