@@ -1,14 +1,51 @@
 import { useEffect, useState } from 'react';
-import { isInstalled, isInstallPromptAvailable } from '../utils/pwaUtils';
+import {
+  addInstalledStateChangeListeners,
+  isInstalled,
+  isInstalledAsync,
+  isInstallPromptAvailable,
+} from '../utils/pwaUtils';
+
+export const usePwaInstalledState = () => {
+  const [installed, setInstalled] = useState(() => isInstalled());
+
+  useEffect(() => {
+    let mounted = true;
+
+    const refreshInstalledState = async () => {
+      const nextInstalled = window.navigator.getInstalledRelatedApps
+        ? await isInstalledAsync()
+        : isInstalled();
+      if (mounted && nextInstalled !== installed) {
+        setInstalled(nextInstalled);
+      }
+    };
+
+    void refreshInstalledState();
+    const removeInstalledStateListeners = addInstalledStateChangeListeners(() => {
+      void refreshInstalledState();
+    });
+    window.addEventListener('pwa:app-installed', refreshInstalledState);
+    window.addEventListener('pwa:running-as-installed', refreshInstalledState);
+
+    return () => {
+      mounted = false;
+      removeInstalledStateListeners();
+      window.removeEventListener('pwa:app-installed', refreshInstalledState);
+      window.removeEventListener('pwa:running-as-installed', refreshInstalledState);
+    };
+  }, [installed]);
+
+  return installed;
+};
 
 export const usePwaInstallPromptVisibility = () => {
-  const [shouldShowInstallPrompt, setShouldShowInstallPrompt] = useState(() =>
-    isInstallPromptAvailable()
-  );
+  const installed = usePwaInstalledState();
+  const [shouldShowInstallPrompt, setShouldShowInstallPrompt] = useState(false);
 
   useEffect(() => {
     const refreshInstallPromptVisibility = () => {
-      setShouldShowInstallPrompt(isInstallPromptAvailable());
+      setShouldShowInstallPrompt(!installed && isInstallPromptAvailable());
     };
 
     const hideInstallPrompt = () => {
@@ -27,7 +64,7 @@ export const usePwaInstallPromptVisibility = () => {
       window.removeEventListener('pwa:app-installed', hideInstallPrompt);
       window.removeEventListener('pwa:running-as-installed', hideInstallPrompt);
     };
-  }, []);
+  }, [installed]);
 
-  return shouldShowInstallPrompt && !isInstalled();
+  return shouldShowInstallPrompt && !installed;
 };
