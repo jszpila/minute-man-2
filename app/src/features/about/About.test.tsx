@@ -1,6 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { About } from './About';
+import { setupInstallPrompt } from '../../shared/utils/pwaUtils';
+
+const TEST_APP_VERSION = '0.0.0-test';
 
 // Mock useTranslation
 jest.mock('react-i18next', () => ({
@@ -19,6 +22,7 @@ jest.mock('../../shared/static/GitInfo', () => ({
 describe('About component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    window.localStorage.clear();
     // Mock window.matchMedia for standalone check
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
@@ -33,6 +37,10 @@ describe('About component', () => {
         dispatchEvent: jest.fn(),
       })),
     });
+    Object.defineProperty(window.navigator, 'standalone', {
+      configurable: true,
+      value: false,
+    });
   });
 
   it('renders About title', () => {
@@ -43,7 +51,9 @@ describe('About component', () => {
   it('renders company info links', () => {
     render(<About />);
     // Check for company info by looking for specific keywords
-    const companyElements = screen.getAllByText(/about\.(madeBy|ursineSoftware|contactUs|contactEmail)/);
+    const companyElements = screen.getAllByText(
+      /about\.(madeBy|ursineSoftware|contactUs|contactEmail)/
+    );
     expect(companyElements.length).toBeGreaterThan(0);
   });
 
@@ -56,12 +66,46 @@ describe('About component', () => {
     expect(screen.getByText('about.diagnosticPlatform')).toBeInTheDocument();
   });
 
-  it('shows installation instructions when not standalone', () => {
+  it('renders share app QR code card', () => {
     render(<About />);
+    expect(screen.getByText('about.shareTitle')).toBeInTheDocument();
+    expect(screen.getByAltText('about.shareQrAlt')).toHaveAttribute(
+      'src',
+      '/assets/minman-v2-qr.png'
+    );
+  });
+
+  it('hides installation instructions in a browser tab until install is available', () => {
+    render(<About />);
+    expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument();
+  });
+
+  it('shows installation instructions when install is available', async () => {
+    setupInstallPrompt();
+    render(<About />);
+
+    const installPromptEvent = new Event('beforeinstallprompt');
+    const prompt = jest.fn().mockResolvedValue(undefined);
+    Object.defineProperties(installPromptEvent, {
+      prompt: {
+        value: prompt,
+      },
+      userChoice: {
+        value: Promise.resolve({ outcome: 'accepted' }),
+      },
+    });
+
+    fireEvent(window, installPromptEvent);
+
     // Check for PWA section header and description
     expect(screen.getByText('about.installPWATitle')).toBeInTheDocument();
     expect(screen.getByText('about.installPWADescription')).toBeInTheDocument();
     expect(screen.getByText('about.installation')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('about.installButton'));
+    await waitFor(() => expect(prompt).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument()
+    );
   });
 
   it('hides installation instructions when in standalone mode', () => {
@@ -83,10 +127,28 @@ describe('About component', () => {
     expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument();
   });
 
+  it('hides installation instructions when iOS reports standalone mode', () => {
+    Object.defineProperty(window.navigator, 'standalone', {
+      configurable: true,
+      value: true,
+    });
+
+    render(<About />);
+    expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument();
+  });
+
+  it('hides installation instructions when app has been installed previously', () => {
+    window.localStorage.setItem('pwa:installed', 'true');
+
+    render(<About />);
+    expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument();
+  });
+
   it('displays diagnostics information correctly', () => {
     render(<About />);
-    // Version should include the SHA
-    const versionCell = screen.getByText(/v2\.0\.1/);
+    const versionCell = screen.getByText(
+      (_content, element) => element?.textContent === `v${TEST_APP_VERSION} ()`
+    );
     expect(versionCell).toBeInTheDocument();
   });
 
@@ -100,8 +162,8 @@ describe('About component', () => {
 
   it('renders company donation link', () => {
     render(<About />);
-    const donateLink = screen.getByText('about.donate');
-    expect(donateLink).toBeInTheDocument();
+    const donateLink = screen.getByRole('link', { name: 'about.donateUrl' });
+    expect(donateLink).toHaveAttribute('href', 'https://www.ursine.llc/donate');
   });
 
   it('matches snapshot when not standalone', () => {

@@ -1,7 +1,9 @@
 {
   "app": {
     "title": "Minute Man",
-    "description": "A progressive web app for your range"
+    "description": "A progressive web app for your range",
+    "newVersionAvailable": "New version available",
+    "reload": "Reload"
   },
   "nav": {
     "zeroCalculator": "Zero Calculator",
@@ -24,7 +26,8 @@
     "loading": "Loading...",
     "edit": "Edit",
     "delete": "Delete",
-    "save": "Save"
+    "save": "Save",
+    "help": "Help"
   },
   "units": {
     "yards": "Yards",
@@ -52,7 +55,11 @@
     "adjustmentIncrement": "Adjustment Increment",
     "clicks": "Clicks",
     "results": "Results",
-    "invalidInput": "Please fill in at least one offset value"
+    "invalidInput": "Please fill in at least one offset value",
+    "helpOpenAria": "Open Zero Calculator help",
+    "helpDiagramAlt": "Zero Calculator point of aim and point of impact diagram",
+    "helpPointAimImpact": "Point of Aim is where you intended the shot to land. Point of Impact is where the shot actually landed.",
+    "helpOffsets": "Horizontal Offset is the left or right distance between those two points, and Vertical Offset is the up or down distance between them."
   },
   "mildotCalculator": {
     "title": "MilDot Calculator",
@@ -62,7 +69,11 @@
     "distance": "Distance",
     "results": "Results",
     "calculated": "Calculated",
-    "invalidInput": "Please provide at least two values"
+    "invalidInput": "Please provide at least two values",
+    "helpOpenAria": "Open MilDot Calculator help",
+    "helpIntro": "The MilDot Calculator relates three values: Mil Size, Physical Size, and Distance. Enter any two known values and leave the value you want to solve for blank.",
+    "helpTerms": "Mil Size is how large the target appears in your reticle, measured in mils. Physical Size is the real-world size of the target. Distance is the range from you to the target.",
+    "helpExample": "For example, if you know the target's physical size and how many mils it spans in the scope, the calculator can estimate distance."
   },
   "shotTimer": {
     "title": "Shot Timer",
@@ -94,7 +105,12 @@
     "soundLevelDetails": "Sound Level (RMS: {{rms}}/255 | Threshold: {{threshold}})",
     "currentSettings": "Current Settings",
     "detectionError": "Detection Error",
-    "consoleHint": "Check the browser console (F12) for more details. Make sure this site is HTTPS (not HTTP)."
+    "consoleHint": "Check the browser console (F12) for more details. Make sure this site is HTTPS (not HTTP).",
+    "helpOpenAria": "Open Shot Timer help",
+    "helpIntro": "Shot Timer listens through the microphone while the timer is running and records sharp sound spikes as shots.",
+    "helpStartMode": "Start Mode controls when the start beep happens: Instant starts immediately, Delayed waits briefly, and Random waits a random interval before the beep.",
+    "helpTimerMode": "Timer Mode controls what is measured. Split Timer records each detected shot as a split. Par Timer counts down from the par time. First Shot stops on the first detected shot.",
+    "helpSensitivity": "Sensitivity adjusts the sound threshold for detection. Increase sensitivity if shots are missed, and lower it if background noise is being counted as shots."
   },
   "rangeConditions": {
     "title": "Range Conditions",
@@ -113,8 +129,6 @@
     "humidity": "Humidity",
     "pressure": "Barometric Pressure",
     "condition": "Condition",
-    "sunrise": "Sunrise",
-    "sunset": "Sunset",
     "lastUpdated": "Last Updated",
     "noData": "No weather data available. Enter a location to get started.",
     "mph": "mph",
@@ -141,7 +155,7 @@
       "german": "German",
       "polish": "Polish"
     },
-    "navBurger": "Hamburger Menu Icon",
+    "navBurger": "NavBurger™",
     "dark": "Dark",
     "light": "Light",
     "rangerGreen": "Ranger Green",
@@ -173,13 +187,13 @@
   "about": {
     "title": "About Minute Man",
     "version": "Version",
-    "description": "A progressive web app for useful utilities at the range",
+    "description": "A progressive web app for useful utilities at the range.",
     "features": "Features",
     "installation": "Installation",
     "android": "Android",
     "ios": "iOS",
-    "installAndroid": "Tap the install button in the navigation bar",
-    "installIos": "Tap Share, then Add to Home Screen",
+    "installAndroid": "Tap the install button in the navigation bar.",
+    "installIos": "Tap Share, then Add to Home Screen.",
     "privacy": "This app stores all data locally on your device. No data is collected or sent to any server.",
     "buyMeCoffee": "Like this app? Buy me a coffee!",
     "aboutTitle": "About",
@@ -192,7 +206,7 @@
     "donate": "If you really liked it, you can donate at",
     "donateUrl": "ursine.llc/donate",
     "installPWATitle": "Install App",
-    "installPWADescription": "Install this app on your device for faster access and offline use",
+    "installPWADescription": "Install this app on your device for faster access and offline use.",
     "installButton": "Install",
     "dismissButton": "Dismiss",
     "diagnosticVersion": "Version",
@@ -202,7 +216,9 @@
     "diagnosticMode": "Mode",
     "diagnosticModeStandalone": "Standalone",
     "diagnosticModeWeb": "Web",
-    "diagnosticPlatform": "Platform"
+    "diagnosticPlatform": "Platform",
+    "shareTitle": "Share this app with the below QR code.",
+    "shareQrAlt": "QR code for sharing Minute Man"
   },
   "validation": {
     "required": "This field is required",

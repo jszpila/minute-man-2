@@ -384,8 +384,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r5q:"
-                    id=":r5q:-label"
+                    for=":r71:"
+                    id=":r71:-label"
                   >
                     settings.defaultZeroDistance
                   </label>
@@ -393,10 +393,10 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":r5q:-helper-text"
+                      aria-describedby=":r71:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r5q:"
+                      id=":r71:"
                       max="500"
                       min="25"
                       step="25"
@@ -418,7 +418,7 @@ exports[`Settings component matches snapshot 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":r5q:-helper-text"
+                    id=":r71:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -537,8 +537,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r5s:"
-                    id=":r5s:-label"
+                    for=":r73:"
+                    id=":r73:-label"
                   >
                     settings.defaultMilSize
                   </label>
@@ -548,7 +548,7 @@ exports[`Settings component matches snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r5s:"
+                      id=":r73:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -573,8 +573,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r5t:"
-                    id=":r5t:-label"
+                    for=":r74:"
+                    id=":r74:-label"
                   >
                     settings.defaultPhysicalSize
                   </label>
@@ -584,7 +584,7 @@ exports[`Settings component matches snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r5t:"
+                      id=":r74:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -609,8 +609,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r5u:"
-                    id=":r5u:-label"
+                    for=":r75:"
+                    id=":r75:-label"
                   >
                     settings.defaultDistance
                   </label>
@@ -620,7 +620,7 @@ exports[`Settings component matches snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r5u:"
+                      id=":r75:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -805,8 +805,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r61:"
-                    id=":r61:-label"
+                    for=":r78:"
+                    id=":r78:-label"
                   >
                     settings.defaultParTime
                   </label>
@@ -814,10 +814,10 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":r61:-helper-text"
+                      aria-describedby=":r78:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r61:"
+                      id=":r78:"
                       max="600"
                       min="1"
                       step="1"
@@ -839,7 +839,7 @@ exports[`Settings component matches snapshot 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":r61:-helper-text"
+                    id=":r78:-helper-text"
                   >
                     settings.seconds
                   </p>
@@ -1328,8 +1328,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r67:"
-                    id=":r67:-label"
+                    for=":r7e:"
+                    id=":r7e:-label"
                   >
                     settings.defaultZeroDistance
                   </label>
@@ -1337,10 +1337,10 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":r67:-helper-text"
+                      aria-describedby=":r7e:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r67:"
+                      id=":r7e:"
                       max="500"
                       min="25"
                       step="25"
@@ -1362,7 +1362,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":r67:-helper-text"
+                    id=":r7e:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -1481,8 +1481,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r69:"
-                    id=":r69:-label"
+                    for=":r7g:"
+                    id=":r7g:-label"
                   >
                     settings.defaultMilSize
                   </label>
@@ -1492,7 +1492,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r69:"
+                      id=":r7g:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -1517,8 +1517,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r6a:"
-                    id=":r6a:-label"
+                    for=":r7h:"
+                    id=":r7h:-label"
                   >
                     settings.defaultPhysicalSize
                   </label>
@@ -1528,7 +1528,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r6a:"
+                      id=":r7h:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -1553,8 +1553,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r6b:"
-                    id=":r6b:-label"
+                    for=":r7i:"
+                    id=":r7i:-label"
                   >
                     settings.defaultDistance
                   </label>
@@ -1564,7 +1564,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r6b:"
+                      id=":r7i:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -1749,8 +1749,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":r6e:"
-                    id=":r6e:-label"
+                    for=":r7l:"
+                    id=":r7l:-label"
                   >
                     settings.defaultParTime
                   </label>
@@ -1758,10 +1758,10 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":r6e:-helper-text"
+                      aria-describedby=":r7l:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":r6e:"
+                      id=":r7l:"
                       max="600"
                       min="1"
                       step="1"
@@ -1783,7 +1783,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":r6e:-helper-text"
+                    id=":r7l:-helper-text"
                   >
                     settings.seconds
                   </p>

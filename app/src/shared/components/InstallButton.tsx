@@ -1,46 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { triggerInstallPrompt, isInstallPromptAvailable } from '../utils/pwaUtils';
+import { triggerInstallPrompt } from '../utils/pwaUtils';
+import { usePwaInstallPromptVisibility } from '../hooks/usePwaInstallPromptVisibility';
 
 const InstallButton: React.FC = () => {
   const { t } = useTranslation();
-  const [showInstall, setShowInstall] = useState(false);
+  const shouldShowInstallPrompt = usePwaInstallPromptVisibility();
 
-  useEffect(() => {
-    // Listen for install prompt availability
-    const handleInstallPromptAvailable = () => {
-      setShowInstall(true);
-    };
-
-    const handleAppInstalled = () => {
-      setShowInstall(false);
-    };
-
-    window.addEventListener('pwa:install-prompt-available', handleInstallPromptAvailable);
-    window.addEventListener('pwa:app-installed', handleAppInstalled);
-
-    // Check if prompt is already available on mount
-    if (isInstallPromptAvailable()) {
-      setShowInstall(true);
-    }
-
-    return () => {
-      window.removeEventListener('pwa:install-prompt-available', handleInstallPromptAvailable);
-      window.removeEventListener('pwa:app-installed', handleAppInstalled);
-    };
-  }, []);
-
-  if (!showInstall) {
+  if (!shouldShowInstallPrompt) {
     return null;
   }
 
   const handleInstallClick = async () => {
-    const success = await triggerInstallPrompt();
-    if (success) {
-      setShowInstall(false);
-    }
+    await triggerInstallPrompt();
   };
 
   return (

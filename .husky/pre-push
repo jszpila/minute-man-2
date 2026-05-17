@@ -1,0 +1,3 @@
+cd app
+npm test -- --runInBand
+npm run typecheck

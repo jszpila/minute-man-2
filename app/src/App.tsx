@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider, useAppContext } from './shared/context/AppContext';
 import { ThemeProvider } from './shared/theme/ThemeProvider';
 import RootLayout from './shared/components/RootLayout';
+import NewVersionSnackbar from './shared/components/NewVersionSnackbar';
 import { ZeroCalculator } from './features/zero-calculator';
 import { MilDotCalculator } from './features/mildot-calculator';
 import { RangeConditions } from './features/range-conditions';
@@ -37,6 +38,7 @@ const AppContent: React.FC = () => {
       <Router>
         <AppRoutes />
       </Router>
+      <NewVersionSnackbar />
     </ThemeProvider>
   );
 };

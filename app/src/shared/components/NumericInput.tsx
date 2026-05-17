@@ -34,7 +34,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
 }) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      let inputValue = e.target.value;
+      const inputValue = e.target.value;
 
       // Allow empty string
       if (inputValue === '') {

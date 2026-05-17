@@ -62,6 +62,38 @@ const SettingsSection: React.FC<{
   );
 };
 
+const requestLocationPermission = async (): Promise<boolean> => {
+  if (!navigator.geolocation) {
+    return false;
+  }
+
+  if (navigator.permissions?.query) {
+    try {
+      const permission = await navigator.permissions.query({ name: 'geolocation' });
+      if (permission.state === 'granted') {
+        return true;
+      }
+      if (permission.state === 'denied') {
+        return false;
+      }
+    } catch {
+      // Fall through to getCurrentPosition for browsers with partial Permissions API support.
+    }
+  }
+
+  return new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition(
+      () => resolve(true),
+      () => resolve(false),
+      {
+        enableHighAccuracy: false,
+        maximumAge: 15 * 60 * 1000,
+        timeout: 8000,
+      }
+    );
+  });
+};
+
 const Settings: React.FC = () => {
   const { t } = useTranslation();
   const {
@@ -175,21 +207,31 @@ const Settings: React.FC = () => {
   type TimerMode = 'par' | 'split' | 'firstShot';
   type StartMode = 'instant' | 'delayed' | 'random';
 
-  const [shotTimerDefaultStartMode, setShotTimerDefaultStartMode] = React.useState<StartMode>(() => {
-    return getStorageItem<StartMode>(StorageKeys.SHOT_TIMER_DEFAULT_START_MODE, 'instant') || 'instant';
-  });
+  const [shotTimerDefaultStartMode, setShotTimerDefaultStartMode] = React.useState<StartMode>(
+    () => {
+      return (
+        getStorageItem<StartMode>(StorageKeys.SHOT_TIMER_DEFAULT_START_MODE, 'instant') || 'instant'
+      );
+    }
+  );
 
-  const [shotTimerDefaultTimerMode, setShotTimerDefaultTimerMode] = React.useState<TimerMode>(() => {
-    return getStorageItem<TimerMode>(StorageKeys.SHOT_TIMER_DEFAULT_TIMER_MODE, 'split') || 'split';
-  });
+  const [shotTimerDefaultTimerMode, setShotTimerDefaultTimerMode] = React.useState<TimerMode>(
+    () => {
+      return (
+        getStorageItem<TimerMode>(StorageKeys.SHOT_TIMER_DEFAULT_TIMER_MODE, 'split') || 'split'
+      );
+    }
+  );
 
   const [shotTimerDefaultParTime, setShotTimerDefaultParTime] = React.useState<number>(() => {
     return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME, 5000) || 5000;
   });
 
-  const [shotTimerDefaultSensitivity, setShotTimerDefaultSensitivity] = React.useState<number>(() => {
-    return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, 50) || 50;
-  });
+  const [shotTimerDefaultSensitivity, setShotTimerDefaultSensitivity] = React.useState<number>(
+    () => {
+      return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, 50) || 50;
+    }
+  );
 
   const handleShotTimerStartModeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
     const value = e.target.value as StartMode;
@@ -207,6 +249,18 @@ const Settings: React.FC = () => {
     const value = Math.max(1, parseInt(e.target.value) || 1) * 1000;
     setShotTimerDefaultParTime(value);
     setStorageItem(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME, value);
+  };
+
+  const handleShowWeatherInAppBarChange = async (showWeather: boolean) => {
+    if (!showWeather) {
+      setShowWeatherInAppBar(false);
+      return;
+    }
+
+    const hasLocationPermission = await requestLocationPermission();
+    if (hasLocationPermission) {
+      setShowWeatherInAppBar(true);
+    }
   };
 
   // Sensitivity testing
@@ -290,10 +344,7 @@ const Settings: React.FC = () => {
 
           <FormControlLabel
             control={
-              <Switch
-                checked={navBurger}
-                onChange={(e) => setNavBurger(e.target.checked)}
-              />
+              <Switch checked={navBurger} onChange={(e) => setNavBurger(e.target.checked)} />
             }
             label={t('settings.navBurger')}
           />
@@ -302,7 +353,9 @@ const Settings: React.FC = () => {
             control={
               <Switch
                 checked={showWeatherInAppBar}
-                onChange={(e) => setShowWeatherInAppBar(e.target.checked)}
+                onChange={(e) => {
+                  void handleShowWeatherInAppBarChange(e.target.checked);
+                }}
               />
             }
             label={t('settings.showWeatherInAppBar')}
@@ -519,7 +572,10 @@ const Settings: React.FC = () => {
                     sx={{
                       height: '100%',
                       width: `${(currentRMSLevel / 255) * 100}%`,
-                      backgroundColor: currentRMSLevel > 10 + (100 - shotTimerDefaultSensitivity) * 0.4 ? '#4caf50' : '#2196f3',
+                      backgroundColor:
+                        currentRMSLevel > 10 + (100 - shotTimerDefaultSensitivity) * 0.4
+                          ? '#4caf50'
+                          : '#2196f3',
                       transition: 'width 0.05s linear',
                     }}
                   />
