@@ -92,6 +92,8 @@
     "estimateNotice": "Esta es una estimación simplificada, no una solución balística completa.",
     "helpOpenAria": "Abrir ayuda de la Calculadora de Retención",
     "helpZeroDistance": "La Distancia de Cero es donde el punto de mira y el punto de impacto deben coincidir.",
+    "helpDiagramIntro": "Tu línea de mira comienza por encima del cañón, por lo que a distancias muy cortas el proyectil aún puede estar por debajo del punto de mira. La calculadora estima este desplazamiento de corta distancia usando tu distancia de cero y altura sobre el cañón.",
+    "helpDiagramDisclaimer": "Este diagrama está simplificado para mayor claridad y no representa una trayectoria balística completa.",
     "helpTargetDistance": "La Distancia al Objetivo es la distancia actual al objetivo que quieres alcanzar.",
     "helpHeightOverBore": "La Altura Sobre el Cañón es la distancia vertical entre el centro de la mira y el centro del cañón.",
     "helpFirearmProfile": "Los perfiles proporcionan valores predeterminados razonables de altura sobre el cañón.",

@@ -17,6 +17,7 @@ import { useAppContext } from '../../shared/context/AppContext';
 import Modal from '../../shared/components/Modal';
 import FixedButtonFooter from '../../shared/components/FixedButtonFooter';
 import NumericInput from '../../shared/components/NumericInput';
+import HoldoverHelpDiagram from './components/HoldoverHelpDiagram';
 import {
   calculateHoldoverMoa,
   calculateHoldoverMrad,
@@ -412,6 +413,11 @@ const HoldoverCalculator: React.FC = () => {
       <Modal open={helpModalOpen} title={t('common.help')} onClose={() => setHelpModalOpen(false)}>
         <Stack spacing={2} sx={{ mt: 1 }}>
           <Typography variant="body2">{t('holdoverCalculator.helpZeroDistance')}</Typography>
+          <Typography variant="body2">{t('holdoverCalculator.helpDiagramIntro')}</Typography>
+          <HoldoverHelpDiagram />
+          <Typography variant="caption" color="textSecondary">
+            {t('holdoverCalculator.helpDiagramDisclaimer')}
+          </Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpTargetDistance')}</Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpHeightOverBore')}</Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpFirearmProfile')}</Typography>

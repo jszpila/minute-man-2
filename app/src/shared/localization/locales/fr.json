@@ -92,6 +92,8 @@
     "estimateNotice": "Ceci est une estimation simplifiée, pas une solution balistique complète.",
     "helpOpenAria": "Ouvrir l'aide de la Calculatrice de Contre-visée",
     "helpZeroDistance": "La Distance de Zéro est celle où le point visé et le point d'impact doivent coïncider.",
+    "helpDiagramIntro": "Votre ligne de visée commence au-dessus du canon ; à très courte distance, le projectile peut donc encore se trouver sous votre point visé. La calculatrice estime ce décalage de courte distance à partir de votre distance de zéro et de la hauteur au-dessus du canon.",
+    "helpDiagramDisclaimer": "Ce schéma est simplifié pour plus de clarté et ne représente pas une trajectoire balistique complète.",
     "helpTargetDistance": "La Distance de la Cible est la distance actuelle de la cible à engager.",
     "helpHeightOverBore": "La Hauteur au-dessus du Canon est la distance verticale entre l'axe de la visée et l'axe du canon.",
     "helpFirearmProfile": "Les profils fournissent des valeurs de hauteur de visée adaptées aux configurations courantes.",

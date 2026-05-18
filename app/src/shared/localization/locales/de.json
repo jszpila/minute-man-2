@@ -92,6 +92,8 @@
     "estimateNotice": "Dies ist eine vereinfachte Schätzung, keine vollständige Ballistiklösung.",
     "helpOpenAria": "Hilfe zum Haltepunkt-Rechner öffnen",
     "helpZeroDistance": "Die Nullpunkt-Entfernung ist die Entfernung, bei der Zielpunkt und Treffpunkt übereinstimmen.",
+    "helpDiagramIntro": "Die Visierlinie beginnt oberhalb des Laufs, daher kann das Projektil auf sehr kurze Distanz noch unter dem Zielpunkt liegen. Der Rechner schätzt diesen Nahbereichsversatz anhand deiner Nullpunkt-Entfernung und Visierhöhe über Lauf.",
+    "helpDiagramDisclaimer": "Dieses Diagramm ist zur Verdeutlichung vereinfacht und stellt keine vollständige ballistische Flugbahn dar.",
     "helpTargetDistance": "Die Zielentfernung ist die aktuelle Entfernung zum Ziel.",
     "helpHeightOverBore": "Die Visierhöhe über Lauf ist die vertikale Entfernung zwischen Visierachse und Laufachse.",
     "helpFirearmProfile": "Profile liefern sinnvolle Standardwerte für übliche Waffenkonfigurationen.",

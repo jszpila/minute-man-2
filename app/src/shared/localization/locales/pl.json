@@ -92,6 +92,8 @@
     "estimateNotice": "To uproszczone oszacowanie, nie pełne rozwiązanie balistyczne.",
     "helpOpenAria": "Otwórz pomoc Kalkulatora Poprawki Celowania",
     "helpZeroDistance": "Dystans Zerowania to odległość, na której punkt celowania i punkt trafienia powinny się pokrywać.",
+    "helpDiagramIntro": "Linia celowania zaczyna się nad lufą, więc na bardzo krótkim dystansie pocisk może nadal znajdować się poniżej punktu celowania. Kalkulator szacuje to przesunięcie z bliska na podstawie dystansu zerowania i wysokości nad lufą.",
+    "helpDiagramDisclaimer": "Ten diagram jest uproszczony dla czytelności i nie przedstawia pełnej trajektorii balistycznej.",
     "helpTargetDistance": "Dystans do Celu to aktualna odległość do celu.",
     "helpHeightOverBore": "Wysokość nad Lufą to pionowa odległość między osią przyrządów celowniczych a osią lufy.",
     "helpFirearmProfile": "Profile zapewniają sensowne wartości domyślne dla typowych konfiguracji broni.",

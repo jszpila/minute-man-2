@@ -92,6 +92,8 @@
     "estimateNotice": "This is a simplified estimate, not a full ballistic solution.",
     "helpOpenAria": "Open Holdover Calculator help",
     "helpZeroDistance": "Zero Distance is where point of aim and point of impact should align.",
+    "helpDiagramIntro": "Your sight line starts above the barrel, so at very close distances the projectile may still be below your point of aim. The calculator estimates this close-range offset using your zero distance and height over bore.",
+    "helpDiagramDisclaimer": "This diagram is simplified for clarity and does not represent a full ballistic trajectory.",
     "helpTargetDistance": "Target Distance is the current distance to the target you intend to engage.",
     "helpHeightOverBore": "Height Over Bore is the vertical distance between the centerline of the optic or sights and the centerline of the barrel.",
     "helpFirearmProfile": "Profiles provide sensible default height-over-bore values for common firearm configurations.",
