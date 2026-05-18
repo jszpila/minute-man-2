@@ -35,6 +35,9 @@ import {
   getFrequencyRatio,
   analyzeShotCharacteristics,
   applyNoiseGate,
+  calculatePeakAmplitude,
+  DEFAULT_SHOT_TIMER_SENSITIVITY,
+  getShotDetectionThreshold,
 } from '../../shared/utils/audioDetectionUtils';
 
 type TimerMode = 'par' | 'split' | 'firstShot';
@@ -42,6 +45,9 @@ type StartMode = 'instant' | 'delayed' | 'random';
 
 const SHOT_TIMER_MODE_KEY = 'SHOT_TIMER_MODE';
 const SHOT_TIMER_START_MODE_KEY = 'SHOT_TIMER_START_MODE';
+const BEEP_DETECTION_LOCKOUT_MS = 300;
+const DETECTION_DEBOUNCE_MS = 150;
+const DETECTION_FLASH_MS = 250;
 
 const ShotTimer: React.FC = () => {
   const { t } = useTranslation();
@@ -59,6 +65,7 @@ const ShotTimer: React.FC = () => {
 
   const [elapsedMs, setElapsedMs] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isStarting, setIsStarting] = useState(false);
   const [parTimeMs, setParTimeMs] = useState(() => {
     // Load default par time from Settings
     return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME, 5000) || 5000;
@@ -69,11 +76,17 @@ const ShotTimer: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
   const [sensitivity, setSensitivity] = useState(() => {
     // Load default sensitivity from Settings
-    return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, 50) || 50;
+    return (
+      getStorageItem<number>(
+        StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY,
+        DEFAULT_SHOT_TIMER_SENSITIVITY
+      ) || DEFAULT_SHOT_TIMER_SENSITIVITY
+    );
   });
   const [audioAnalyser, setAudioAnalyser] = useState<AudioAnalyser | null>(null);
   const [detectionError, setDetectionError] = useState<string | null>(null);
   const [currentRMSLevel, setCurrentRMSLevel] = useState(0);
+  const [showDetectionFlash, setShowDetectionFlash] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
 
@@ -85,6 +98,14 @@ const ShotTimer: React.FC = () => {
   const detectionRAFRef = useRef<number | null>(null);
   const isRunningRef = useRef(false); // Track running state for detection loop
   const analyserRef = useRef<AudioAnalyser | null>(null); // Store current analyser for visualization
+  const beepLockoutUntilRef = useRef(0);
+  const startSequenceRef = useRef(0);
+  const detectionFlashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const playTimerBeep = React.useCallback(async () => {
+    beepLockoutUntilRef.current = Date.now() + BEEP_DETECTION_LOCKOUT_MS;
+    await playBeep();
+  }, []);
 
   // Auto-request microphone permission on mount
   useEffect(() => {
@@ -131,18 +152,18 @@ const ShotTimer: React.FC = () => {
       elapsedMs < 100 // Within first 100ms of running
     ) {
       // Beep at start
-      playBeep();
+      playTimerBeep();
       parTimeStartBeepedRef.current = true;
     }
-  }, [timerMode, isRunning, elapsedMs]);
+  }, [timerMode, isRunning, elapsedMs, playTimerBeep]);
 
   // Beep when par time is reached (end)
   useEffect(() => {
     if (timerMode === 'par' && isRunning && elapsedMs >= parTimeMs && !parTimeBeepedRef.current) {
-      playBeep();
+      playTimerBeep();
       parTimeBeepedRef.current = true;
     }
-  }, [timerMode, isRunning, elapsedMs, parTimeMs]);
+  }, [timerMode, isRunning, elapsedMs, parTimeMs, playTimerBeep]);
 
   // Timer interval
   useEffect(() => {
@@ -189,26 +210,35 @@ const ShotTimer: React.FC = () => {
   }, [isRunning, timerMode, parTimeMs]);
 
   const handleStart = async () => {
-    if (isRunning) return;
+    if (isRunning || isStarting) return;
+
+    const startSequence = startSequenceRef.current + 1;
+    startSequenceRef.current = startSequence;
+    setIsStarting(true);
 
     // Handle start mode delays (with optional beep)
     if (startMode === 'delayed') {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      await playBeep();
+      if (startSequenceRef.current !== startSequence) return;
+      await playTimerBeep();
     } else if (startMode === 'random') {
       const randomDelay = Math.random() * 3000 + 2000;
       await new Promise((resolve) => setTimeout(resolve, randomDelay));
-      await playBeep();
+      if (startSequenceRef.current !== startSequence) return;
+      await playTimerBeep();
     } else {
       // instant
-      await playBeep();
+      await playTimerBeep();
     }
+
+    if (startSequenceRef.current !== startSequence) return;
 
     // Reset refs and start timer
     parTimeStartBeepedRef.current = false;
-    startTimeRef.current = null;
+    startTimeRef.current = Date.now();
     isRunningRef.current = true; // Set running ref IMMEDIATELY
     setIsRunning(true); // Also update state for UI
+    setIsStarting(false);
 
     // Always start shot detection when timer starts
     try {
@@ -233,15 +263,23 @@ const ShotTimer: React.FC = () => {
       }, 50);
 
       // Start continuous shot detection loop
-      // Convert sensitivity (0-100) to noise gate threshold (5-50)
-      // Higher sensitivity = lower threshold = more responsive
-      const noiseGateThreshold = 5 + (100 - sensitivity) * 0.45;
+      const noiseGateThreshold = getShotDetectionThreshold(sensitivity);
 
       let lastDetectionTime = 0;
       let lastRMS = 0;
-      let baselineRMS = 30; // Start with reasonable baseline
+      let baselineRMS = 30;
+      let baselinePeak = 8;
       let baselineSamples = 0;
-      let loopCount = 0;
+      const audioDebugEnabled =
+        window.location.hostname === 'localhost' &&
+        window.localStorage.getItem('mm_shotTimerAudioDebug') === 'true';
+      const logAudioDebug = (reason: string, values: Record<string, unknown>) => {
+        if (!audioDebugEnabled) return;
+        console.debug('[ShotTimer audio]', {
+          reason,
+          ...values,
+        });
+      };
 
       const detectShotLoop = () => {
         if (!analyser) {
@@ -250,51 +288,88 @@ const ShotTimer: React.FC = () => {
 
         try {
           analyser.analyser.getByteFrequencyData(analyser.dataArray);
+          if (analyser.timeDomainDataArray) {
+            analyser.analyser.getByteTimeDomainData(analyser.timeDomainDataArray);
+          }
           const rms = calculateRMS(analyser.dataArray);
           const highFreqRatio = getFrequencyRatio(analyser.dataArray);
-
-          loopCount++;
+          const peakAmplitude = analyser.timeDomainDataArray
+            ? calculatePeakAmplitude(analyser.timeDomainDataArray)
+            : 0;
 
           // Build baseline during first 500ms (samples at 60fps ≈ 30 samples)
-          if (baselineSamples < 30 && rms < 60) {
-            baselineRMS = baselineRMS * 0.9 + rms * 0.1; // Exponential moving average
+          if (baselineSamples < 30 && rms < noiseGateThreshold) {
+            baselineRMS = baselineRMS * 0.9 + rms * 0.1;
+            baselinePeak = baselinePeak * 0.9 + peakAmplitude * 0.1;
             baselineSamples++;
           }
 
           const now = Date.now();
+          const debugValues = {
+            rms: Math.round(rms),
+            peak: Math.round(peakAmplitude),
+            highFreqRatio: Number(highFreqRatio.toFixed(2)),
+            baselineRMS: Math.round(baselineRMS),
+            baselinePeak: Math.round(baselinePeak),
+            threshold: Math.round(noiseGateThreshold),
+            lastRMS: Math.round(lastRMS),
+          };
 
-          // Skip if we're in beep immunity window (prevents feedback loop)
-          if (now - lastDetectionTime > 250) {
-            // Apply noise gate: only consider loud enough sounds
-            if (applyNoiseGate(rms, noiseGateThreshold)) {
-              // Analyze shot characteristics
-              const characteristics = analyzeShotCharacteristics(
-                rms,
-                lastRMS,
-                highFreqRatio,
-                baselineRMS
-              );
+          // Skip app-generated beep audio so it does not create a detection feedback loop.
+          if (now < beepLockoutUntilRef.current) {
+            logAudioDebug('beep-lockout', {
+              ...debugValues,
+              lockoutMsRemaining: Math.round(beepLockoutUntilRef.current - now),
+            });
+          } else if (now - lastDetectionTime <= DETECTION_DEBOUNCE_MS) {
+            logAudioDebug('debounce', debugValues);
+          } else if (!applyNoiseGate(rms, noiseGateThreshold)) {
+            logAudioDebug('below-threshold', debugValues);
+          } else {
+            // Analyze shot characteristics
+            const characteristics = analyzeShotCharacteristics(
+              rms,
+              lastRMS,
+              highFreqRatio,
+              baselineRMS,
+              peakAmplitude,
+              baselinePeak
+            );
 
-              // Detect shot: must have both sharp attack and high-frequency content
-              // AND be significantly above baseline RMS (2.5x threshold for low false positives)
-              const isShot =
-                characteristics.isShot && rms > baselineRMS * 2.5 && now - lastDetectionTime > 250;
+            // Detect shot: require sharp attack, high-frequency content, and a strong peak jump.
+            const hasEnoughPeak = peakAmplitude > Math.max(22, baselinePeak * 2);
+            const isShot = characteristics.isShot && rms > noiseGateThreshold && hasEnoughPeak;
 
-              if (isShot) {
-                lastDetectionTime = now;
-                // Handle based on timer mode
-                if (isRunningRef.current && startTimeRef.current !== null) {
-                  const shotTime = Date.now() - startTimeRef.current;
+            logAudioDebug(isShot ? 'detected' : 'rejected', {
+              ...debugValues,
+              hasEnoughPeak,
+              characteristics,
+            });
 
-                  if (timerMode === 'firstShot') {
-                    // For firstShot mode: STOP the timer on shot detection
-                    isRunningRef.current = false;
-                    setIsRunning(false);
-                  } else {
-                    // For other modes: record as a split
-                    setSplits((prev) => [...prev, shotTime]);
-                  }
+            if (isShot) {
+              lastDetectionTime = now;
+              setShowDetectionFlash(true);
+              if (detectionFlashTimeoutRef.current) {
+                clearTimeout(detectionFlashTimeoutRef.current);
+              }
+              detectionFlashTimeoutRef.current = setTimeout(() => {
+                setShowDetectionFlash(false);
+                detectionFlashTimeoutRef.current = null;
+              }, DETECTION_FLASH_MS);
+              // Handle based on timer mode
+              if (isRunningRef.current && startTimeRef.current !== null) {
+                const shotTime = Date.now() - startTimeRef.current;
+
+                if (timerMode === 'firstShot') {
+                  // For firstShot mode: STOP the timer on shot detection
+                  isRunningRef.current = false;
+                  setIsRunning(false);
+                } else {
+                  // For other modes: record as a split
+                  setSplits((prev) => [...prev, shotTime]);
                 }
+              } else {
+                logAudioDebug('detected-before-timer-started', debugValues);
               }
             }
           }
@@ -316,11 +391,14 @@ const ShotTimer: React.FC = () => {
       setDetectionError(errorMsg);
       setIsListening(false);
       setCurrentRMSLevel(0);
+      setShowDetectionFlash(false);
     }
   };
 
   const handleStop = () => {
-    if (isRunning) {
+    if (isRunning || isStarting) {
+      startSequenceRef.current++;
+      setIsStarting(false);
       setIsRunning(false);
       isRunningRef.current = false;
       // Clean up audio detection when paused
@@ -330,6 +408,7 @@ const ShotTimer: React.FC = () => {
         analyserRef.current = null;
         setIsListening(false);
         setCurrentRMSLevel(0);
+        setShowDetectionFlash(false);
       }
       if (visualizationRef.current) {
         clearInterval(visualizationRef.current);
@@ -338,10 +417,17 @@ const ShotTimer: React.FC = () => {
         cancelAnimationFrame(detectionRAFRef.current);
         detectionRAFRef.current = null;
       }
+      if (detectionFlashTimeoutRef.current) {
+        clearTimeout(detectionFlashTimeoutRef.current);
+        detectionFlashTimeoutRef.current = null;
+      }
+      setShowDetectionFlash(false);
     }
   };
 
   const handleReset = () => {
+    startSequenceRef.current++;
+    setIsStarting(false);
     setIsRunning(false);
     isRunningRef.current = false;
     setElapsedMs(0);
@@ -357,6 +443,7 @@ const ShotTimer: React.FC = () => {
       analyserRef.current = null;
       setIsListening(false);
       setCurrentRMSLevel(0);
+      setShowDetectionFlash(false);
     }
     if (visualizationRef.current) {
       clearInterval(visualizationRef.current);
@@ -365,6 +452,10 @@ const ShotTimer: React.FC = () => {
     if (detectionRAFRef.current) {
       cancelAnimationFrame(detectionRAFRef.current);
       detectionRAFRef.current = null;
+    }
+    if (detectionFlashTimeoutRef.current) {
+      clearTimeout(detectionFlashTimeoutRef.current);
+      detectionFlashTimeoutRef.current = null;
     }
   };
 
@@ -424,9 +515,17 @@ const ShotTimer: React.FC = () => {
                 <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
                   {t('shotTimer.soundLevelDetails', {
                     rms: Math.round(currentRMSLevel),
-                    threshold: Math.round(10 + (100 - sensitivity) * 0.4),
+                    threshold: Math.round(getShotDetectionThreshold(sensitivity)),
                   })}
                 </Typography>
+                {showDetectionFlash && (
+                  <Typography
+                    variant="caption"
+                    sx={{ display: 'block', mb: 1, color: 'success.main', fontWeight: 'bold' }}
+                  >
+                    {t('shotTimer.soundDetected')}
+                  </Typography>
+                )}
                 <Box
                   sx={{
                     height: 32,
@@ -441,7 +540,7 @@ const ShotTimer: React.FC = () => {
                   <Box
                     sx={{
                       position: 'absolute',
-                      left: `${((10 + (100 - sensitivity) * 0.4) / 255) * 100}%`,
+                      left: `${(getShotDetectionThreshold(sensitivity) / 255) * 100}%`,
                       top: 0,
                       bottom: 0,
                       width: '2px',
@@ -455,7 +554,9 @@ const ShotTimer: React.FC = () => {
                       height: '100%',
                       width: `${(currentRMSLevel / 255) * 100}%`,
                       backgroundColor:
-                        currentRMSLevel > 10 + (100 - sensitivity) * 0.4 ? '#4caf50' : '#2196f3',
+                        currentRMSLevel > getShotDetectionThreshold(sensitivity)
+                          ? '#4caf50'
+                          : '#2196f3',
                       transition: 'width 0.05s linear',
                     }}
                   />
@@ -617,7 +718,7 @@ const ShotTimer: React.FC = () => {
             {t('common.reset')}
           </Button>
 
-          {!isRunning ? (
+          {!isRunning && !isStarting ? (
             <Button
               variant="contained"
               startIcon={<PlayArrowIcon />}

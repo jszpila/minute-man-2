@@ -1,4 +1,12 @@
-import { getRMSLevel, calculateRMS, requestMicrophoneAccess } from './audioDetectionUtils';
+import {
+  getRMSLevel,
+  calculateRMS,
+  calculatePeakAmplitude,
+  requestMicrophoneAccess,
+  analyzeShotCharacteristics,
+  getShotDetectionThreshold,
+  DEFAULT_SHOT_TIMER_SENSITIVITY,
+} from './audioDetectionUtils';
 
 describe('audioDetectionUtils', () => {
   // Mock AudioContext and related APIs
@@ -35,6 +43,58 @@ describe('audioDetectionUtils', () => {
     });
   });
 
+  describe('calculatePeakAmplitude', () => {
+    it('returns the largest distance from the silent midpoint', () => {
+      const dataArray = new Uint8Array([128, 138, 90, 200]);
+      expect(calculatePeakAmplitude(dataArray)).toBe(72);
+    });
+
+    it('returns 0 for empty arrays', () => {
+      expect(calculatePeakAmplitude(new Uint8Array([]))).toBe(0);
+    });
+  });
+
+  describe('shot detection thresholds', () => {
+    it('uses a conservative default sensitivity', () => {
+      expect(DEFAULT_SHOT_TIMER_SENSITIVITY).toBe(20);
+    });
+
+    it('raises the RMS threshold when sensitivity is lower', () => {
+      expect(getShotDetectionThreshold(20)).toBeGreaterThan(getShotDetectionThreshold(80));
+    });
+
+    it('clamps sensitivity values before calculating threshold', () => {
+      expect(getShotDetectionThreshold(-20)).toBe(getShotDetectionThreshold(0));
+      expect(getShotDetectionThreshold(120)).toBe(getShotDetectionThreshold(100));
+    });
+  });
+
+  describe('analyzeShotCharacteristics', () => {
+    it('requires a sharp baseline jump and high-frequency content', () => {
+      const result = analyzeShotCharacteristics(95, 40, 0.6, 22, 48, 8);
+
+      expect(result.hasSharpAttack).toBe(true);
+      expect(result.hasHighFrequencyContent).toBe(true);
+      expect(result.isShot).toBe(true);
+    });
+
+    it('accepts a clap-like peak even when the frame-to-frame RMS jump is modest', () => {
+      const result = analyzeShotCharacteristics(55, 44, 0.42, 20, 34, 7);
+
+      expect(result.hasSharpAttack).toBe(true);
+      expect(result.hasHighFrequencyContent).toBe(true);
+      expect(result.isShot).toBe(true);
+    });
+
+    it('does not treat steady room noise as a shot', () => {
+      const result = analyzeShotCharacteristics(58, 54, 0.35, 45, 12, 10);
+
+      expect(result.hasSharpAttack).toBe(false);
+      expect(result.hasHighFrequencyContent).toBe(false);
+      expect(result.isShot).toBe(false);
+    });
+  });
+
   describe('getRMSLevel', () => {
     it('returns a number between 0-255', () => {
       const mockAnalyser = {
@@ -46,6 +106,7 @@ describe('audioDetectionUtils', () => {
           }),
         } as any,
         dataArray: new Uint8Array(3),
+        timeDomainDataArray: new Uint8Array(3),
         mediaStream: {} as any,
       };
 
@@ -62,6 +123,7 @@ describe('audioDetectionUtils', () => {
           }),
         } as any,
         dataArray: new Uint8Array(1024),
+        timeDomainDataArray: new Uint8Array(1024),
         mediaStream: {} as any,
       };
 

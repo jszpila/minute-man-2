@@ -144,6 +144,7 @@
     "splitsTab": "Splits",
     "soundLevel": "Schallpegel",
     "soundLevelDetails": "Schallpegel (RMS: {{rms}}/255 | Schwelle: {{threshold}})",
+    "soundDetected": "Split erkannt",
     "currentSettings": "Aktuelle Einstellungen",
     "detectionError": "Erkennungsfehler",
     "consoleHint": "Überprüfe die Browser-Konsole (F12) für weitere Details. Stelle sicher, dass diese Website HTTPS ist (nicht HTTP).",

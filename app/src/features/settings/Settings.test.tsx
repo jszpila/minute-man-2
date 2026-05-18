@@ -30,7 +30,16 @@ jest.mock('../../shared/context/AppContext', () => ({
   }),
 }));
 
-jest.mock('../../shared/utils/audioDetectionUtils');
+jest.mock('../../shared/utils/audioDetectionUtils', () => {
+  const actual = jest.requireActual('../../shared/utils/audioDetectionUtils');
+  return {
+    ...actual,
+    requestMicrophoneAccess: jest.fn(),
+    createAudioAnalyser: jest.fn(),
+    stopListening: jest.fn(),
+    getRMSLevel: jest.fn(),
+  };
+});
 jest.mock('../../shared/utils/storage', () => ({
   getStorageItem: jest.fn((_key, defaultValue) => defaultValue),
   setStorageItem: jest.fn(),

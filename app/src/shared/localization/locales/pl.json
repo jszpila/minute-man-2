@@ -144,6 +144,7 @@
     "splitsTab": "Podziały",
     "soundLevel": "Poziom Dźwięku",
     "soundLevelDetails": "Poziom Dźwięku (RMS: {{rms}}/255 | Próg: {{threshold}})",
+    "soundDetected": "Wykryto podział",
     "currentSettings": "Bieżące Ustawienia",
     "detectionError": "Błąd Wykrywania",
     "consoleHint": "Sprawdź konsolę przeglądarki (F12) aby uzyskać więcej szczegółów. Upewnij się, że ta witryna to HTTPS (nie HTTP).",

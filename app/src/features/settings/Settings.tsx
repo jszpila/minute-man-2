@@ -46,6 +46,8 @@ import {
   createAudioAnalyser,
   stopListening,
   getRMSLevel,
+  DEFAULT_SHOT_TIMER_SENSITIVITY,
+  getShotDetectionThreshold,
 } from '../../shared/utils/audioDetectionUtils';
 
 const SettingsSection: React.FC<{
@@ -384,7 +386,12 @@ const Settings: React.FC = () => {
 
   const [shotTimerDefaultSensitivity, setShotTimerDefaultSensitivity] = React.useState<number>(
     () => {
-      return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, 50) || 50;
+      return (
+        getStorageItem<number>(
+          StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY,
+          DEFAULT_SHOT_TIMER_SENSITIVITY
+        ) || DEFAULT_SHOT_TIMER_SENSITIVITY
+      );
     }
   );
 
@@ -801,7 +808,7 @@ const Settings: React.FC = () => {
                 <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
                   {t('shotTimer.soundLevelDetails', {
                     rms: Math.round(currentRMSLevel),
-                    threshold: Math.round(10 + (100 - shotTimerDefaultSensitivity) * 0.4),
+                    threshold: Math.round(getShotDetectionThreshold(shotTimerDefaultSensitivity)),
                   })}
                 </Typography>
                 <Box
@@ -818,7 +825,7 @@ const Settings: React.FC = () => {
                   <Box
                     sx={{
                       position: 'absolute',
-                      left: `${((10 + (100 - shotTimerDefaultSensitivity) * 0.4) / 255) * 100}%`,
+                      left: `${(getShotDetectionThreshold(shotTimerDefaultSensitivity) / 255) * 100}%`,
                       top: 0,
                       bottom: 0,
                       width: '2px',
@@ -832,7 +839,7 @@ const Settings: React.FC = () => {
                       height: '100%',
                       width: `${(currentRMSLevel / 255) * 100}%`,
                       backgroundColor:
-                        currentRMSLevel > 10 + (100 - shotTimerDefaultSensitivity) * 0.4
+                        currentRMSLevel > getShotDetectionThreshold(shotTimerDefaultSensitivity)
                           ? '#4caf50'
                           : '#2196f3',
                       transition: 'width 0.05s linear',

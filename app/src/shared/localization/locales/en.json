@@ -144,6 +144,7 @@
     "splitsTab": "Splits",
     "soundLevel": "Sound Level",
     "soundLevelDetails": "Sound Level (RMS: {{rms}}/255 | Threshold: {{threshold}})",
+    "soundDetected": "Split detected",
     "currentSettings": "Current Settings",
     "detectionError": "Detection Error",
     "consoleHint": "Check the browser console (F12) for more details. Make sure this site is HTTPS (not HTTP).",

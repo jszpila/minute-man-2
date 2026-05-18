@@ -144,6 +144,7 @@
     "splitsTab": "Divisions",
     "soundLevel": "Niveau Sonore",
     "soundLevelDetails": "Niveau Sonore (RMS : {{rms}}/255 | Seuil : {{threshold}})",
+    "soundDetected": "Division détectée",
     "currentSettings": "Paramètres Actuels",
     "detectionError": "Erreur de Détection",
     "consoleHint": "Vérifiez la console du navigateur (F12) pour plus de détails. Assurez-vous que ce site est en HTTPS (pas HTTP).",
