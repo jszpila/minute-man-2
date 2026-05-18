@@ -13,18 +13,6 @@ export interface NoiseProfile {
   timestamp: number;
 }
 
-// Track beep playback to avoid feedback detection
-let lastBeepPlayTime = 0;
-const BEEP_IMMUNITY_WINDOW_MS = 350; // Ignore audio within this window after beep plays
-
-/**
- * Mark that a beep has been played (called from beepUtils.ts)
- * This prevents the microphone from picking up the beep as a shot
- */
-export const markBeepPlayed = (): void => {
-  lastBeepPlayTime = Date.now();
-};
-
 /**
  * Request microphone access from the user
  */
