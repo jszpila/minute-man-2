@@ -38,6 +38,10 @@ jest.mock('../../shared/utils/storage', () => ({
     ZERO_DISTANCE_DEFAULT: 'mm_zeroDistanceDefault',
     ADJUSTMENT_TYPE_DEFAULT: 'mm_adjustmentTypeDefault',
     ADJUSTMENT_INCREMENT_DEFAULT: 'mm_adjustmentIncrementDefault',
+    HOLDOVER_ZERO_DISTANCE_DEFAULT: 'mm_holdoverZeroDistanceDefault',
+    HOLDOVER_PROFILE_DEFAULT: 'mm_holdoverProfileDefault',
+    HOLDOVER_HEIGHT_OVER_BORE_DEFAULT: 'mm_holdoverHeightOverBoreDefault',
+    HOLDOVER_OUTPUT_UNIT_DEFAULT: 'mm_holdoverOutputUnitDefault',
     MILDOT_SIZE_DEFAULT: 'mm_mildotSizeDefault',
     MILDOT_PHYSICAL_SIZE_DEFAULT: 'mm_mildotPhysicalSizeDefault',
     MILDOT_DISTANCE_DEFAULT: 'mm_mildotDistanceDefault',
@@ -62,6 +66,20 @@ jest.mock('../../shared/utils/calculations', () => ({
   },
   DEFAULT_ZERO_ADJUSTMENT_TYPE: 'moa',
   DEFAULT_ZERO_ADJUSTMENT_INCREMENT: '0.25',
+  DEFAULT_HOLDOVER_OUTPUT_UNIT: 'physical',
+  DEFAULT_HOLDOVER_PROFILE: 'arCarbine',
+  getHoldoverProfileHeight: (profile: string, units: 'merican' | 'metric') => {
+    const heights: Record<string, number> = {
+      arCarbine: 2.5,
+      traditionalRifle: 1.5,
+      pistol: 1,
+      rimfire: 1.5,
+      custom: 2.5,
+    };
+    return units === 'metric' ? heights[profile] * 2.54 : heights[profile];
+  },
+  inchesToCentimeters: (inches: number) => inches * 2.54,
+  centimetersToInches: (cm: number) => cm / 2.54,
   ZERO_DISTANCE_LIMITS: {
     merican: {
       min: 10,
@@ -72,6 +90,26 @@ jest.mock('../../shared/utils/calculations', () => ({
       min: 9,
       max: 457,
       step: 5,
+    },
+  },
+  HOLDOVER_DISTANCE_LIMITS: {
+    zero: {
+      min: 5,
+      max: 300,
+    },
+    target: {
+      min: 1,
+      max: 300,
+    },
+  },
+  HOLDOVER_HEIGHT_LIMITS: {
+    merican: {
+      min: 0.25,
+      max: 4,
+    },
+    metric: {
+      min: 0.5,
+      max: 10,
     },
   },
 }));
@@ -223,6 +261,11 @@ describe('Settings component', () => {
   it('renders Zero Calculator Settings section', () => {
     render(<Settings />);
     expect(screen.getByText('settings.zeroCalculatorSettings')).toBeInTheDocument();
+  });
+
+  it('renders Holdover Calculator Settings section', () => {
+    render(<Settings />);
+    expect(screen.getByText('settings.holdoverCalculatorSettings')).toBeInTheDocument();
   });
 
   it('renders Zero Calculator adjustment type setting', async () => {

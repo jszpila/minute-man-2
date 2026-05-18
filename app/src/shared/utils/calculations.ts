@@ -32,6 +32,48 @@ export const ZERO_ADJUSTMENT_INCREMENTS: Record<ZeroAdjustmentType, string[]> = 
 export const DEFAULT_ZERO_ADJUSTMENT_TYPE: ZeroAdjustmentType = 'moa';
 export const DEFAULT_ZERO_ADJUSTMENT_INCREMENT = '0.25';
 
+export type HoldoverFirearmProfile =
+  | 'arCarbine'
+  | 'traditionalRifle'
+  | 'pistol'
+  | 'rimfire'
+  | 'custom';
+
+export type HoldoverOutputUnit = 'physical' | 'moa' | 'mrad';
+
+export const HOLDOVER_DISTANCE_LIMITS = {
+  zero: {
+    min: 5,
+    max: 300,
+  },
+  target: {
+    min: 1,
+    max: 300,
+  },
+} as const;
+
+export const HOLDOVER_HEIGHT_LIMITS = {
+  merican: {
+    min: 0.25,
+    max: 4,
+  },
+  metric: {
+    min: 0.5,
+    max: 10,
+  },
+} as const;
+
+export const HOLDOVER_PROFILE_HEIGHTS_INCHES: Record<HoldoverFirearmProfile, number> = {
+  arCarbine: 2.5,
+  traditionalRifle: 1.5,
+  pistol: 1,
+  rimfire: 1.5,
+  custom: 2.5,
+};
+
+export const DEFAULT_HOLDOVER_PROFILE: HoldoverFirearmProfile = 'arCarbine';
+export const DEFAULT_HOLDOVER_OUTPUT_UNIT: HoldoverOutputUnit = 'physical';
+
 /**
  * Convert yards to meters
  */
@@ -51,6 +93,16 @@ export const centimetersToInches = (cm: number): number => cm * INCHES_PER_CENTI
  * Convert inches to centimeters
  */
 export const inchesToCentimeters = (inches: number): number => inches * CENTIMETERS_PER_INCH;
+
+export const getHoldoverProfileHeight = (
+  profile: HoldoverFirearmProfile,
+  units: 'merican' | 'metric'
+): number => {
+  const heightInches = HOLDOVER_PROFILE_HEIGHTS_INCHES[profile];
+  return units === 'metric'
+    ? Math.round(inchesToCentimeters(heightInches) * 100) / 100
+    : heightInches;
+};
 
 /**
  * Calculate MOA clicks for zero adjustment
@@ -78,6 +130,33 @@ export const calculateClickValueInches = (
   }
 
   return (distanceYards / 100) * adjustmentPerClick;
+};
+
+export const calculateHoldoverOffset = (
+  heightOverBore: number,
+  targetDistance: number,
+  zeroDistance: number
+): number => {
+  if (zeroDistance === 0) {
+    return 0;
+  }
+  return heightOverBore * (targetDistance / zeroDistance - 1);
+};
+
+export const calculateHoldoverMoa = (offsetInches: number, distanceYards: number): number => {
+  const inchesPerMoa = (distanceYards * 1.047) / 100;
+  if (inchesPerMoa === 0) {
+    return 0;
+  }
+  return offsetInches / inchesPerMoa;
+};
+
+export const calculateHoldoverMrad = (offsetInches: number, distanceYards: number): number => {
+  const inchesPerMrad = (distanceYards * 3.6) / 100;
+  if (inchesPerMrad === 0) {
+    return 0;
+  }
+  return offsetInches / inchesPerMrad;
 };
 
 /**

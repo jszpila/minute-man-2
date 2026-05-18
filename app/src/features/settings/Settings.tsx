@@ -28,8 +28,19 @@ import {
   DEFAULT_ZERO_ADJUSTMENT_TYPE,
   DEFAULT_ZERO_ADJUSTMENT_INCREMENT,
   ZERO_DISTANCE_LIMITS,
+  HOLDOVER_DISTANCE_LIMITS,
+  HOLDOVER_HEIGHT_LIMITS,
+  DEFAULT_HOLDOVER_OUTPUT_UNIT,
+  DEFAULT_HOLDOVER_PROFILE,
+  getHoldoverProfileHeight,
+  inchesToCentimeters,
+  centimetersToInches,
 } from '../../shared/utils/calculations';
-import type { ZeroAdjustmentType } from '../../shared/utils/calculations';
+import type {
+  HoldoverFirearmProfile,
+  HoldoverOutputUnit,
+  ZeroAdjustmentType,
+} from '../../shared/utils/calculations';
 import {
   requestMicrophoneAccess,
   createAudioAnalyser,
@@ -104,6 +115,16 @@ const requestLocationPermission = async (): Promise<boolean> => {
 
 const isZeroAdjustmentType = (value: unknown): value is ZeroAdjustmentType =>
   value === 'moa' || value === 'mrad';
+
+const isHoldoverProfile = (value: unknown): value is HoldoverFirearmProfile =>
+  value === 'arCarbine' ||
+  value === 'traditionalRifle' ||
+  value === 'pistol' ||
+  value === 'rimfire' ||
+  value === 'custom';
+
+const isHoldoverOutputUnit = (value: unknown): value is HoldoverOutputUnit =>
+  value === 'physical' || value === 'moa' || value === 'mrad';
 
 const getDefaultIncrementForType = (adjustmentType: ZeroAdjustmentType) =>
   adjustmentType === DEFAULT_ZERO_ADJUSTMENT_TYPE ? DEFAULT_ZERO_ADJUSTMENT_INCREMENT : '0.1';
@@ -230,6 +251,89 @@ const Settings: React.FC = () => {
     setStorageItem(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT, nextIncrement);
   };
 
+  const [holdoverZeroDistance, setHoldoverZeroDistance] = React.useState<number>(() => {
+    return getStorageItem<number>(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT, 50) || 50;
+  });
+
+  const [holdoverProfile, setHoldoverProfile] = React.useState<HoldoverFirearmProfile>(() => {
+    const saved = getStorageItem<HoldoverFirearmProfile>(
+      StorageKeys.HOLDOVER_PROFILE_DEFAULT,
+      DEFAULT_HOLDOVER_PROFILE
+    );
+    return isHoldoverProfile(saved) ? saved : DEFAULT_HOLDOVER_PROFILE;
+  });
+
+  const [holdoverHeightOverBore, setHoldoverHeightOverBore] = React.useState<number>(() => {
+    const savedProfile = getStorageItem<HoldoverFirearmProfile>(
+      StorageKeys.HOLDOVER_PROFILE_DEFAULT,
+      DEFAULT_HOLDOVER_PROFILE
+    );
+    const profile = isHoldoverProfile(savedProfile) ? savedProfile : DEFAULT_HOLDOVER_PROFILE;
+    return (
+      getStorageItem<number>(
+        StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT,
+        getHoldoverProfileHeight(profile, units)
+      ) || getHoldoverProfileHeight(profile, units)
+    );
+  });
+
+  const [holdoverOutputUnit, setHoldoverOutputUnit] = React.useState<HoldoverOutputUnit>(() => {
+    const saved = getStorageItem<HoldoverOutputUnit>(StorageKeys.HOLDOVER_OUTPUT_UNIT_DEFAULT);
+    if (isHoldoverOutputUnit(saved)) return saved;
+    return DEFAULT_HOLDOVER_OUTPUT_UNIT;
+  });
+
+  const holdoverPrevUnitsRef = React.useRef<'merican' | 'metric'>(units);
+
+  React.useEffect(() => {
+    if (holdoverPrevUnitsRef.current === units) return;
+
+    const convertedZeroDistance =
+      units === 'metric'
+        ? Math.round(yardsToMeters(holdoverZeroDistance) * 100) / 100
+        : Math.round(metersToYards(holdoverZeroDistance) * 100) / 100;
+    const convertedHeight =
+      units === 'metric'
+        ? Math.round(inchesToCentimeters(holdoverHeightOverBore) * 100) / 100
+        : Math.round(centimetersToInches(holdoverHeightOverBore) * 100) / 100;
+    setHoldoverZeroDistance(convertedZeroDistance);
+    setHoldoverHeightOverBore(convertedHeight);
+    setStorageItem(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT, convertedZeroDistance);
+    setStorageItem(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT, convertedHeight);
+    holdoverPrevUnitsRef.current = units;
+  }, [units, holdoverHeightOverBore, holdoverZeroDistance]);
+
+  const handleHoldoverZeroDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setHoldoverZeroDistance(value);
+      setStorageItem(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT, value);
+    }
+  };
+
+  const handleHoldoverProfileChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as HoldoverFirearmProfile;
+    const nextHeight = getHoldoverProfileHeight(value, units);
+    setHoldoverProfile(value);
+    setHoldoverHeightOverBore(nextHeight);
+    setStorageItem(StorageKeys.HOLDOVER_PROFILE_DEFAULT, value);
+    setStorageItem(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT, nextHeight);
+  };
+
+  const handleHoldoverHeightOverBoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setHoldoverHeightOverBore(value);
+      setStorageItem(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT, value);
+    }
+  };
+
+  const handleHoldoverOutputUnitChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as HoldoverOutputUnit;
+    setHoldoverOutputUnit(value);
+    setStorageItem(StorageKeys.HOLDOVER_OUTPUT_UNIT_DEFAULT, value);
+  };
+
   const handleMilSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
@@ -321,6 +425,10 @@ const Settings: React.FC = () => {
   const sensitivityVisualizationRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
   const zeroDistanceLimits =
     units === 'metric' ? ZERO_DISTANCE_LIMITS.metric : ZERO_DISTANCE_LIMITS.merican;
+  const holdoverHeightLimits =
+    units === 'metric' ? HOLDOVER_HEIGHT_LIMITS.metric : HOLDOVER_HEIGHT_LIMITS.merican;
+  const holdoverDistanceUnit = units === 'metric' ? t('units.meters') : t('units.yards');
+  const holdoverHeightUnit = units === 'metric' ? t('units.centimeters') : t('units.inches');
 
   return (
     <Box>
@@ -468,6 +576,83 @@ const Settings: React.FC = () => {
                   {adjustmentType === 'moa' ? t('settings.moaClick') : t('settings.mradClick')}
                 </MenuItem>
               ))}
+            </Select>
+          </FormControl>
+        </Stack>
+      </SettingsSection>
+
+      {/* Holdover Calculator Settings */}
+      <SettingsSection title={t('settings.holdoverCalculatorSettings')} defaultExpanded={false}>
+        <Stack spacing={2}>
+          <TextField
+            label={t('settings.defaultHoldoverZeroDistance')}
+            type="number"
+            value={holdoverZeroDistance}
+            onChange={handleHoldoverZeroDistanceChange}
+            inputProps={{
+              min: HOLDOVER_DISTANCE_LIMITS.zero.min,
+              max: HOLDOVER_DISTANCE_LIMITS.zero.max,
+              step: 1,
+            }}
+            fullWidth
+            helperText={t('settings.minMaxHelper', {
+              min: HOLDOVER_DISTANCE_LIMITS.zero.min,
+              max: HOLDOVER_DISTANCE_LIMITS.zero.max,
+              unit: holdoverDistanceUnit,
+            })}
+          />
+
+          <FormControl fullWidth>
+            <InputLabel id="settings-holdover-profile-label">
+              {t('settings.defaultHoldoverProfile')}
+            </InputLabel>
+            <Select
+              labelId="settings-holdover-profile-label"
+              value={holdoverProfile}
+              label={t('settings.defaultHoldoverProfile')}
+              onChange={handleHoldoverProfileChange as any}
+            >
+              <MenuItem value="arCarbine">{t('holdoverCalculator.profiles.arCarbine')}</MenuItem>
+              <MenuItem value="traditionalRifle">
+                {t('holdoverCalculator.profiles.traditionalRifle')}
+              </MenuItem>
+              <MenuItem value="pistol">{t('holdoverCalculator.profiles.pistol')}</MenuItem>
+              <MenuItem value="rimfire">{t('holdoverCalculator.profiles.rimfire')}</MenuItem>
+              <MenuItem value="custom">{t('holdoverCalculator.profiles.custom')}</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            label={t('settings.defaultHoldoverHeightOverBore')}
+            type="number"
+            value={holdoverHeightOverBore}
+            onChange={handleHoldoverHeightOverBoreChange}
+            inputProps={{
+              min: holdoverHeightLimits.min,
+              max: holdoverHeightLimits.max,
+              step: 0.01,
+            }}
+            fullWidth
+            helperText={t('settings.minMaxHelper', {
+              min: holdoverHeightLimits.min,
+              max: holdoverHeightLimits.max,
+              unit: holdoverHeightUnit,
+            })}
+          />
+
+          <FormControl fullWidth>
+            <InputLabel id="settings-holdover-output-unit-label">
+              {t('settings.defaultHoldoverOutputUnit')}
+            </InputLabel>
+            <Select
+              labelId="settings-holdover-output-unit-label"
+              value={holdoverOutputUnit}
+              label={t('settings.defaultHoldoverOutputUnit')}
+              onChange={handleHoldoverOutputUnitChange as any}
+            >
+              <MenuItem value="physical">{holdoverHeightUnit}</MenuItem>
+              <MenuItem value="moa">{t('settings.moa')}</MenuItem>
+              <MenuItem value="mrad">{t('settings.mrad')}</MenuItem>
             </Select>
           </FormControl>
         </Stack>

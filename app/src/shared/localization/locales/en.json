@@ -7,6 +7,7 @@
   },
   "nav": {
     "zeroCalculator": "Zero Calculator",
+    "holdoverCalculator": "Holdover Calculator",
     "mildotCalculator": "MilDot Calculator",
     "shotTimer": "Shot Timer",
     "rangeConditions": "Range Conditions",
@@ -77,6 +78,41 @@
     "helpIntro": "The MilDot Calculator relates three values: Mil Size, Physical Size, and Distance. Enter any two known values and leave the value you want to solve for blank.",
     "helpTerms": "Mil Size is how large the target appears in your reticle, measured in mils. Physical Size is the real-world size of the target. Distance is the range from you to the target.",
     "helpExample": "For example, if you know the target's physical size and how many mils it spans in the scope, the calculator can estimate distance."
+  },
+  "holdoverCalculator": {
+    "title": "Holdover Calculator",
+    "description": "Estimate practical sight-height holdovers",
+    "zeroDistance": "Zero Distance",
+    "targetDistance": "Target Distance",
+    "heightOverBore": "Height Over Bore",
+    "firearmProfile": "Firearm Profile",
+    "outputUnit": "Output Unit",
+    "results": "Results",
+    "invalidInput": "Please correct the highlighted fields",
+    "estimateNotice": "This is a simplified estimate, not a full ballistic solution.",
+    "helpOpenAria": "Open Holdover Calculator help",
+    "helpZeroDistance": "Zero Distance is where point of aim and point of impact should align.",
+    "helpTargetDistance": "Target Distance is the current distance to the target you intend to engage.",
+    "helpHeightOverBore": "Height Over Bore is the vertical distance between the centerline of the optic or sights and the centerline of the barrel.",
+    "helpFirearmProfile": "Profiles provide sensible default height-over-bore values for common firearm configurations.",
+    "helpOutputUnit": "Output Unit controls whether the hold is shown as physical offset, MOA, or MRAD.",
+    "resultSummary": "At {{targetDistance}} {{distanceUnit}} with a {{zeroDistance}} {{distanceUnit}} zero and {{heightOverBore}} {{heightUnit}} sight height, your impact is estimated to be {{impactAmount}} {{outputUnit}} {{impactDirection}}.",
+    "holdSummary": "Hold approximately {{holdAmount}} {{outputUnit}} {{holdDirection}}.",
+    "physicalOffsetSummary": "Physical offset estimate: {{impactAmount}} {{outputUnit}} {{impactDirection}}.",
+    "inputSummary": "Firearm profile: {{firearmProfile}}.",
+    "disclaimer": "This is a simplified estimate based on sight height and zero distance. It does not account for bullet drop, ammunition, velocity, or environmental conditions.",
+    "directions": {
+      "high": "high",
+      "low": "low",
+      "deadOn": "dead on"
+    },
+    "profiles": {
+      "arCarbine": "AR / Carbine",
+      "traditionalRifle": "Traditional Rifle",
+      "pistol": "Pistol",
+      "rimfire": "Rimfire",
+      "custom": "Custom"
+    }
   },
   "shotTimer": {
     "title": "Shot Timer",
@@ -171,6 +207,7 @@
     "merican": "'Merican",
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Zero Calculator",
+    "holdoverCalculatorSettings": "Holdover Calculator",
     "mildotCalculatorSettings": "MilDot Calculator",
     "shotTimerSettings": "Shot Timer",
     "defaultZeroDistance": "Default Zero Distance",
@@ -181,6 +218,10 @@
     "mrad": "MIL/MRAD",
     "moaClick": "MOA/Click",
     "mradClick": "MIL/Click",
+    "defaultHoldoverZeroDistance": "Default Zero Distance",
+    "defaultHoldoverProfile": "Default Firearm Profile",
+    "defaultHoldoverHeightOverBore": "Default Height Over Bore",
+    "defaultHoldoverOutputUnit": "Default Output Unit",
     "defaultMilSize": "Default Mils",
     "defaultPhysicalSize": "Default Physical Size",
     "defaultDistance": "Default Distance",

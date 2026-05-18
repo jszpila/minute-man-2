@@ -7,6 +7,7 @@
   },
   "nav": {
     "zeroCalculator": "Nullpunkt-Rechner",
+    "holdoverCalculator": "Haltepunkt-Rechner",
     "mildotCalculator": "MilDot-Rechner",
     "shotTimer": "Schusschronometer",
     "rangeConditions": "Platzbedingungen",
@@ -77,6 +78,41 @@
     "helpIntro": "Der MilDot-Rechner verbindet drei Werte: Mil-Größe, physische Größe und Entfernung. Geben Sie zwei bekannte Werte ein und lassen Sie den zu berechnenden Wert leer.",
     "helpTerms": "Die Mil-Größe beschreibt, wie groß das Ziel im Absehen erscheint, gemessen in Mils. Die physische Größe ist die tatsächliche Größe des Ziels. Die Entfernung ist die Strecke von Ihnen zum Ziel.",
     "helpExample": "Wenn Sie zum Beispiel die physische Größe des Ziels kennen und wissen, wie viele Mils es im Zielfernrohr einnimmt, kann der Rechner die Entfernung schätzen."
+  },
+  "holdoverCalculator": {
+    "title": "Haltepunkt-Rechner",
+    "description": "Schätzt praktische Haltepunkte anhand der Visierhöhe",
+    "zeroDistance": "Nullpunkt-Entfernung",
+    "targetDistance": "Zielentfernung",
+    "heightOverBore": "Visierhöhe über Lauf",
+    "firearmProfile": "Waffenprofil",
+    "outputUnit": "Ausgabeeinheit",
+    "results": "Ergebnisse",
+    "invalidInput": "Bitte korrigieren Sie die markierten Felder",
+    "estimateNotice": "Dies ist eine vereinfachte Schätzung, keine vollständige Ballistiklösung.",
+    "helpOpenAria": "Hilfe zum Haltepunkt-Rechner öffnen",
+    "helpZeroDistance": "Die Nullpunkt-Entfernung ist die Entfernung, bei der Zielpunkt und Treffpunkt übereinstimmen.",
+    "helpTargetDistance": "Die Zielentfernung ist die aktuelle Entfernung zum Ziel.",
+    "helpHeightOverBore": "Die Visierhöhe über Lauf ist die vertikale Entfernung zwischen Visierachse und Laufachse.",
+    "helpFirearmProfile": "Profile liefern sinnvolle Standardwerte für übliche Waffenkonfigurationen.",
+    "helpOutputUnit": "Die Ausgabeeinheit steuert, ob der Haltepunkt als physischer Versatz, MOA oder MRAD angezeigt wird.",
+    "resultSummary": "Bei {{targetDistance}} {{distanceUnit}} mit einem {{zeroDistance}} {{distanceUnit}} Nullpunkt und {{heightOverBore}} {{heightUnit}} Visierhöhe wird der Treffpunkt auf {{impactAmount}} {{outputUnit}} {{impactDirection}} geschätzt.",
+    "holdSummary": "Halte ungefähr {{holdAmount}} {{outputUnit}} {{holdDirection}}.",
+    "physicalOffsetSummary": "Physischer Versatz geschätzt: {{impactAmount}} {{outputUnit}} {{impactDirection}}.",
+    "inputSummary": "Waffenprofil: {{firearmProfile}}.",
+    "disclaimer": "Dies ist eine vereinfachte Schätzung basierend auf Visierhöhe und Nullpunkt-Entfernung. Sie berücksichtigt keinen Geschossabfall, keine Munition, Geschwindigkeit oder Umweltbedingungen.",
+    "directions": {
+      "high": "hoch",
+      "low": "tief",
+      "deadOn": "genau"
+    },
+    "profiles": {
+      "arCarbine": "AR / Karabiner",
+      "traditionalRifle": "Traditionelles Gewehr",
+      "pistol": "Pistole",
+      "rimfire": "Randfeuer",
+      "custom": "Benutzerdefiniert"
+    }
   },
   "shotTimer": {
     "title": "Schusschronometer",
@@ -171,6 +207,7 @@
     "merican": "'Merican",
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Nullpunkt-Rechner",
+    "holdoverCalculatorSettings": "Haltepunkt-Rechner",
     "mildotCalculatorSettings": "MilDot-Rechner",
     "shotTimerSettings": "Schusschronometer",
     "defaultZeroDistance": "Standard-Nullpunkt-Entfernung",
@@ -181,6 +218,10 @@
     "mrad": "MIL/MRAD",
     "moaClick": "MOA/Klick",
     "mradClick": "MIL/Klick",
+    "defaultHoldoverZeroDistance": "Standard-Nullpunkt-Entfernung",
+    "defaultHoldoverProfile": "Standard-Waffenprofil",
+    "defaultHoldoverHeightOverBore": "Standard-Visierhöhe über Lauf",
+    "defaultHoldoverOutputUnit": "Standard-Ausgabeeinheit",
     "defaultMilSize": "Standard Mils",
     "defaultPhysicalSize": "Standard-physische Größe",
     "defaultDistance": "Standard-Entfernung",

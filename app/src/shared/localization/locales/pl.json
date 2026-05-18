@@ -7,6 +7,7 @@
   },
   "nav": {
     "zeroCalculator": "Kalkulator Zerowania",
+    "holdoverCalculator": "Kalkulator Poprawki Celowania",
     "mildotCalculator": "Kalkulator MilDot",
     "shotTimer": "Stoper Strzelów",
     "rangeConditions": "Warunki na Polu",
@@ -77,6 +78,41 @@
     "helpIntro": "Kalkulator MilDot łączy trzy wartości: rozmiar w milach, rozmiar fizyczny i dystans. Wprowadź dwie znane wartości i pozostaw puste pole wartości, którą chcesz obliczyć.",
     "helpTerms": "Rozmiar w milach określa, jak duży cel wydaje się w siatce celowniczej, mierzony w milach. Rozmiar fizyczny to rzeczywisty rozmiar celu. Dystans to odległość od Ciebie do celu.",
     "helpExample": "Na przykład, jeśli znasz fizyczny rozmiar celu i liczbę milów, które zajmuje w lunecie, kalkulator może oszacować dystans."
+  },
+  "holdoverCalculator": {
+    "title": "Kalkulator Poprawki Celowania",
+    "description": "Szacuje praktyczne poprawki wynikające z wysokości przyrządów",
+    "zeroDistance": "Dystans Zerowania",
+    "targetDistance": "Dystans do Celu",
+    "heightOverBore": "Wysokość nad Lufą",
+    "firearmProfile": "Profil Broni",
+    "outputUnit": "Jednostka Wyniku",
+    "results": "Wyniki",
+    "invalidInput": "Popraw zaznaczone pola",
+    "estimateNotice": "To uproszczone oszacowanie, nie pełne rozwiązanie balistyczne.",
+    "helpOpenAria": "Otwórz pomoc Kalkulatora Poprawki Celowania",
+    "helpZeroDistance": "Dystans Zerowania to odległość, na której punkt celowania i punkt trafienia powinny się pokrywać.",
+    "helpTargetDistance": "Dystans do Celu to aktualna odległość do celu.",
+    "helpHeightOverBore": "Wysokość nad Lufą to pionowa odległość między osią przyrządów celowniczych a osią lufy.",
+    "helpFirearmProfile": "Profile zapewniają sensowne wartości domyślne dla typowych konfiguracji broni.",
+    "helpOutputUnit": "Jednostka Wyniku określa, czy poprawka jest pokazana jako przesunięcie fizyczne, MOA czy MRAD.",
+    "resultSummary": "Na {{targetDistance}} {{distanceUnit}} przy zerze {{zeroDistance}} {{distanceUnit}} i wysokości celownika {{heightOverBore}} {{heightUnit}}, punkt trafienia szacowany jest jako {{impactAmount}} {{outputUnit}} {{impactDirection}}.",
+    "holdSummary": "Przytrzymaj około {{holdAmount}} {{outputUnit}} {{holdDirection}}.",
+    "physicalOffsetSummary": "Szacowane przesunięcie fizyczne: {{impactAmount}} {{outputUnit}} {{impactDirection}}.",
+    "inputSummary": "Profil broni: {{firearmProfile}}.",
+    "disclaimer": "To uproszczone oszacowanie oparte na wysokości celownika i dystansie zerowania. Nie uwzględnia opadu pocisku, amunicji, prędkości ani warunków środowiskowych.",
+    "directions": {
+      "high": "wysoko",
+      "low": "nisko",
+      "deadOn": "w punkt"
+    },
+    "profiles": {
+      "arCarbine": "AR / Karabinek",
+      "traditionalRifle": "Karabin Tradycyjny",
+      "pistol": "Pistolet",
+      "rimfire": "Boczny Zapłon",
+      "custom": "Niestandardowy"
+    }
   },
   "shotTimer": {
     "title": "Stoper Strzelów",
@@ -171,6 +207,7 @@
     "merican": "'Merican",
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Kalkulator Zerowania",
+    "holdoverCalculatorSettings": "Kalkulator Poprawki Celowania",
     "mildotCalculatorSettings": "Kalkulator MilDot",
     "shotTimerSettings": "Stoper Strzelów",
     "defaultZeroDistance": "Domyślny Dystans Zerowania",
@@ -181,6 +218,10 @@
     "mrad": "MIL/MRAD",
     "moaClick": "MOA/Klik",
     "mradClick": "MIL/Klik",
+    "defaultHoldoverZeroDistance": "Domyślny Dystans Zerowania",
+    "defaultHoldoverProfile": "Domyślny Profil Broni",
+    "defaultHoldoverHeightOverBore": "Domyślna Wysokość nad Lufą",
+    "defaultHoldoverOutputUnit": "Domyślna Jednostka Wyniku",
     "defaultMilSize": "Domyślne Mils",
     "defaultPhysicalSize": "Domyślny Rozmiar Fizyczny",
     "defaultDistance": "Domyślny Dystans",
