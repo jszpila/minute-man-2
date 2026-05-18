@@ -65,18 +65,63 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
         style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
       >
         <div
-          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+          class="MuiCardHeader-root css-ubxeev-MuiCardHeader-root"
         >
-          <h6
-            class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
+          <div
+            class="MuiCardHeader-avatar css-1r9wl67-MuiCardHeader-avatar"
           >
-            about.shareTitle
-          </h6>
-          <img
-            alt="about.shareQrAlt"
-            class="MuiBox-root css-1uipide"
-            src="/assets/minman-v2-qr.png"
-          />
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4lqpac-MuiSvgIcon-root"
+              data-testid="ExpandMoreIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+          >
+            <span
+              class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
+            >
+              about.shareTitle
+            </span>
+          </div>
+        </div>
+        <div
+          class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-qr6njo-MuiCollapse-root"
+          style="min-height: 0px;"
+        >
+          <div
+            class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
+          >
+            <div
+              class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
+            >
+              <div
+                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+              >
+                <div
+                  class="MuiStack-root css-6rg9iv-MuiStack-root"
+                >
+                  <p
+                    class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+                  >
+                    about.shareDescription
+                  </p>
+                  <img
+                    alt="about.shareQrAlt"
+                    class="MuiBox-root css-1700ck4"
+                    src="/assets/minman-v2-qr.png"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -109,88 +154,6 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
             >
               about.diagnosticsTitle
             </span>
-          </div>
-        </div>
-        <div
-          class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-cwrbtg-MuiCollapse-root"
-          style="min-height: 0px;"
-        >
-          <div
-            class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
-          >
-            <div
-              class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
-            >
-              <div
-                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
-              >
-                <table
-                  class="MuiTable-root css-1dwe2ef-MuiTable-root"
-                >
-                  <tbody
-                    class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
-                  >
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-13fv10z-MuiTableCell-root"
-                      >
-                        about.diagnosticVersion
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      >
-                        v
-                        0.0.0-test
-                         (
-                        )
-                      </td>
-                    </tr>
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-                      >
-                        about.diagnosticNetwork
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      >
-                        about.diagnosticNetworkConnected
-                      </td>
-                    </tr>
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-                      >
-                        about.diagnosticMode
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      >
-                        about.diagnosticModeStandalone
-                      </td>
-                    </tr>
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-                      >
-                        about.diagnosticPlatform
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      />
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -264,18 +227,91 @@ exports[`About component matches snapshot when not standalone 1`] = `
         style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
       >
         <div
-          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+          class="MuiCardHeader-root css-ubxeev-MuiCardHeader-root"
         >
-          <h6
-            class="MuiTypography-root MuiTypography-h6 css-1hd3wng-MuiTypography-root"
+          <div
+            class="MuiCardHeader-avatar css-1r9wl67-MuiCardHeader-avatar"
           >
-            about.shareTitle
-          </h6>
-          <img
-            alt="about.shareQrAlt"
-            class="MuiBox-root css-1uipide"
-            src="/assets/minman-v2-qr.png"
-          />
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4lqpac-MuiSvgIcon-root"
+              data-testid="ExpandMoreIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+          >
+            <span
+              class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
+            >
+              about.installPWATitle
+            </span>
+          </div>
+        </div>
+        <div
+          class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-qr6njo-MuiCollapse-root"
+          style="min-height: 0px;"
+        >
+          <div
+            class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
+          >
+            <div
+              class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
+            >
+              <div
+                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+              >
+                <div
+                  class="MuiStack-root css-1sazv7p-MuiStack-root"
+                >
+                  <p
+                    class="MuiTypography-root MuiTypography-body2 css-956xpl-MuiTypography-root"
+                  >
+                    about.installPWADescription
+                  </p>
+                  <div
+                    class="MuiStack-root css-1pxjrel-MuiStack-root"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-1a40gj6-MuiTypography-root"
+                    >
+                      about.installation
+                    </p>
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+                    >
+                      <span
+                        class="MuiBox-root css-1vg6q84"
+                      >
+                        about.android
+                        :
+                      </span>
+                       
+                      about.installAndroid
+                    </p>
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+                    >
+                      <span
+                        class="MuiBox-root css-1vg6q84"
+                      >
+                        about.ios
+                        :
+                      </span>
+                       
+                      about.installIos
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -283,50 +319,62 @@ exports[`About component matches snapshot when not standalone 1`] = `
         style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
       >
         <div
-          class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+          class="MuiCardHeader-root css-ubxeev-MuiCardHeader-root"
         >
-          <h6
-            class="MuiTypography-root MuiTypography-h6 css-18xxwmt-MuiTypography-root"
-          >
-            about.installPWATitle
-          </h6>
-          <p
-            class="MuiTypography-root MuiTypography-body2 css-956xpl-MuiTypography-root"
-          >
-            about.installPWADescription
-          </p>
           <div
-            class="MuiStack-root css-1pxjrel-MuiStack-root"
+            class="MuiCardHeader-avatar css-1r9wl67-MuiCardHeader-avatar"
           >
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-1a40gj6-MuiTypography-root"
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-4lqpac-MuiSvgIcon-root"
+              data-testid="ExpandMoreIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
             >
-              about.installation
-            </p>
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+              <path
+                d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+          >
+            <span
+              class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
             >
-              <span
-                class="MuiBox-root css-1vg6q84"
+              about.shareTitle
+            </span>
+          </div>
+        </div>
+        <div
+          class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-qr6njo-MuiCollapse-root"
+          style="min-height: 0px;"
+        >
+          <div
+            class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
+          >
+            <div
+              class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
+            >
+              <div
+                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
               >
-                about.android
-                :
-              </span>
-               
-              about.installAndroid
-            </p>
-            <p
-              class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
-            >
-              <span
-                class="MuiBox-root css-1vg6q84"
-              >
-                about.ios
-                :
-              </span>
-               
-              about.installIos
-            </p>
+                <div
+                  class="MuiStack-root css-6rg9iv-MuiStack-root"
+                >
+                  <p
+                    class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
+                  >
+                    about.shareDescription
+                  </p>
+                  <img
+                    alt="about.shareQrAlt"
+                    class="MuiBox-root css-1700ck4"
+                    src="/assets/minman-v2-qr.png"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -360,88 +408,6 @@ exports[`About component matches snapshot when not standalone 1`] = `
             >
               about.diagnosticsTitle
             </span>
-          </div>
-        </div>
-        <div
-          class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-cwrbtg-MuiCollapse-root"
-          style="min-height: 0px;"
-        >
-          <div
-            class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
-          >
-            <div
-              class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
-            >
-              <div
-                class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
-              >
-                <table
-                  class="MuiTable-root css-1dwe2ef-MuiTable-root"
-                >
-                  <tbody
-                    class="MuiTableBody-root css-gmh7jj-MuiTableBody-root"
-                  >
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-13fv10z-MuiTableCell-root"
-                      >
-                        about.diagnosticVersion
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      >
-                        v
-                        0.0.0-test
-                         (
-                        )
-                      </td>
-                    </tr>
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-                      >
-                        about.diagnosticNetwork
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      >
-                        about.diagnosticNetworkConnected
-                      </td>
-                    </tr>
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-                      >
-                        about.diagnosticMode
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      >
-                        about.diagnosticModeWeb
-                      </td>
-                    </tr>
-                    <tr
-                      class="MuiTableRow-root css-1xtozoh-MuiTableRow-root"
-                    >
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-qq3g53-MuiTableCell-root"
-                      >
-                        about.diagnosticPlatform
-                      </td>
-                      <td
-                        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1dc80h3-MuiTableCell-root"
-                      />
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
         </div>
       </div>

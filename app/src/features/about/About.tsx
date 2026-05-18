@@ -24,12 +24,44 @@ import {
 } from '../../shared/hooks/usePwaInstallPromptVisibility';
 import packageJson from '../../../package.json';
 
+const AboutSection: React.FC<{
+  title: string;
+  children: React.ReactNode;
+  defaultExpanded?: boolean;
+}> = ({ title, children, defaultExpanded = true }) => {
+  const [expanded, setExpanded] = React.useState(defaultExpanded);
+
+  return (
+    <Card>
+      <CardHeader
+        title={title}
+        onClick={() => setExpanded(!expanded)}
+        sx={{
+          cursor: 'pointer',
+          backgroundColor: 'action.hover',
+          '&:hover': { backgroundColor: 'action.selected' },
+        }}
+        avatar={
+          <ExpandMoreIcon
+            sx={{
+              transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.3s',
+            }}
+          />
+        }
+      />
+      <Collapse in={expanded} unmountOnExit>
+        <CardContent>{children}</CardContent>
+      </Collapse>
+    </Card>
+  );
+};
+
 export const About: React.FC = () => {
   const { t } = useTranslation();
   const isInstalled = usePwaInstalledState();
   const shouldShowInstallPrompt = usePwaInstallPromptVisibility();
   const isStandAlone = isRunningAsInstalled();
-  const [diagnosticsExpanded, setDiagnosticsExpanded] = React.useState(false);
 
   const handleInstall = async () => {
     await triggerInstallPrompt();
@@ -66,32 +98,9 @@ export const About: React.FC = () => {
           </Typography>
         </Box>
 
-        <Card>
-          <CardContent>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              {t('about.shareTitle')}
-            </Typography>
-            <Box
-              component="img"
-              src="/assets/minman-v2-qr.png"
-              alt={t('about.shareQrAlt')}
-              sx={{
-                display: 'block',
-                width: '100%',
-                maxWidth: 240,
-                height: 'auto',
-                mx: 'auto',
-              }}
-            />
-          </CardContent>
-        </Card>
-
         {!isInstalled && (
-          <Card>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 1 }}>
-                {t('about.installPWATitle')}
-              </Typography>
+          <AboutSection title={t('about.installPWATitle')}>
+            <Stack spacing={2}>
               <Typography variant="body2" sx={{ mb: 2 }}>
                 {t('about.installPWADescription')}
               </Typography>
@@ -117,69 +126,65 @@ export const About: React.FC = () => {
                   {t('about.installButton')}
                 </Button>
               )}
-            </CardContent>
-          </Card>
+            </Stack>
+          </AboutSection>
         )}
 
-        <Card>
-          <CardHeader
-            title={t('about.diagnosticsTitle')}
-            onClick={() => setDiagnosticsExpanded(!diagnosticsExpanded)}
-            sx={{
-              cursor: 'pointer',
-              backgroundColor: 'action.hover',
-              '&:hover': { backgroundColor: 'action.selected' },
-            }}
-            avatar={
-              <ExpandMoreIcon
-                sx={{
-                  transform: diagnosticsExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s',
-                }}
-              />
-            }
-          />
-          <Collapse in={diagnosticsExpanded}>
-            <CardContent>
-              <Table sx={{ '& td': { border: 'none', px: 0, py: 1 } }}>
-                <TableBody>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
-                      {t('about.diagnosticVersion')}
-                    </TableCell>
-                    <TableCell>
-                      v{packageJson.version} ({GitInfo.sha})
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>
-                      {t('about.diagnosticNetwork')}
-                    </TableCell>
-                    <TableCell>
-                      {navigator.onLine
-                        ? t('about.diagnosticNetworkConnected')
-                        : t('about.diagnosticNetworkNotConnected')}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticMode')}</TableCell>
-                    <TableCell>
-                      {isStandAlone
-                        ? t('about.diagnosticModeStandalone')
-                        : t('about.diagnosticModeWeb')}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>
-                      {t('about.diagnosticPlatform')}
-                    </TableCell>
-                    <TableCell>{navigator.platform}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Collapse>
-        </Card>
+        <AboutSection title={t('about.shareTitle')}>
+          <Stack spacing={2} alignItems="center">
+            <Typography variant="body2">{t('about.shareDescription')}</Typography>
+            <Box
+              component="img"
+              src="/assets/minman-v2-qr.png"
+              alt={t('about.shareQrAlt')}
+              width={656}
+              height={656}
+              sx={{
+                display: 'block',
+                width: '100%',
+                maxWidth: 240,
+                aspectRatio: '1 / 1',
+                height: 'auto',
+                mx: 'auto',
+              }}
+            />
+          </Stack>
+        </AboutSection>
+
+        <AboutSection title={t('about.diagnosticsTitle')} defaultExpanded={false}>
+          <Table sx={{ '& td': { border: 'none', px: 0, py: 1 } }}>
+            <TableBody>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
+                  {t('about.diagnosticVersion')}
+                </TableCell>
+                <TableCell>
+                  v{packageJson.version} ({GitInfo.sha})
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticNetwork')}</TableCell>
+                <TableCell>
+                  {navigator.onLine
+                    ? t('about.diagnosticNetworkConnected')
+                    : t('about.diagnosticNetworkNotConnected')}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticMode')}</TableCell>
+                <TableCell>
+                  {isStandAlone
+                    ? t('about.diagnosticModeStandalone')
+                    : t('about.diagnosticModeWeb')}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticPlatform')}</TableCell>
+                <TableCell>{navigator.platform}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </AboutSection>
       </Stack>
     </Box>
   );

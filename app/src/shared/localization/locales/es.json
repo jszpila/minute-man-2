@@ -268,7 +268,8 @@
     "diagnosticModeStandalone": "Independiente",
     "diagnosticModeWeb": "Web",
     "diagnosticPlatform": "Plataforma",
-    "shareTitle": "Comparte esta app con el siguiente código QR.",
+    "shareTitle": "Compartir",
+    "shareDescription": "Comparte esta app con el siguiente código QR.",
     "shareQrAlt": "Código QR para compartir Minute Man"
   },
   "validation": {
