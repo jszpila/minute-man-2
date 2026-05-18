@@ -1,11 +1,5 @@
 import React, { type ReactNode } from 'react';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
 interface ModalProps {
   open: boolean;
@@ -36,11 +30,20 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      PaperProps={{
+        sx: {
+          maxHeight: 'calc(100dvh - 32px)',
+          display: 'flex',
+        },
+      }}
+    >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent sx={{ pt: 2 }}>
-        {children}
-      </DialogContent>
+      <DialogContent sx={{ pt: 2, overflowY: 'auto' }}>{children}</DialogContent>
       <DialogActions>
         {showCancel && <Button onClick={onClose}>{cancelText}</Button>}
         {onConfirm && (

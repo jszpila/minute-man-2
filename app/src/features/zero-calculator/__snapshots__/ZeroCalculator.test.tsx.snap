@@ -471,7 +471,7 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
       <div
         aria-labelledby=":r2f:"
         aria-modal="true"
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-d52eqq-MuiPaper-root-MuiDialog-paper"
         role="dialog"
         style="--Paper-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);"
       >
@@ -482,7 +482,7 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
           common.error
         </h2>
         <div
-          class="MuiDialogContent-root css-1foygqf-MuiDialogContent-root"
+          class="MuiDialogContent-root css-18oq4sp-MuiDialogContent-root"
         >
           zeroCalculator.invalidInput
         </div>
@@ -978,7 +978,7 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
       <div
         aria-labelledby=":r1v:"
         aria-modal="true"
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-d52eqq-MuiPaper-root-MuiDialog-paper"
         role="dialog"
         style="--Paper-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);"
       >
@@ -989,243 +989,224 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
           common.help
         </h2>
         <div
-          class="MuiDialogContent-root css-1foygqf-MuiDialogContent-root"
+          class="MuiDialogContent-root css-18oq4sp-MuiDialogContent-root"
         >
           <div
             class="MuiStack-root css-x6fbp7-MuiStack-root"
           >
             <div
-              class="MuiBox-root css-81wawu"
+              class="MuiBox-root css-1ykdma4"
             >
-              <svg
-                aria-labelledby="poa-poi-diagram-title poa-poi-diagram-desc"
-                role="img"
-                style="display: block; width: 100%; height: auto;"
-                viewBox="0 0 400 300"
+              <div
+                class="MuiBox-root css-1h3vr77"
               >
-                <title
-                  id="poa-poi-diagram-title"
+                <svg
+                  aria-labelledby="poa-poi-diagram-title poa-poi-diagram-desc"
+                  role="img"
+                  style="display: block; width: 100%; height: auto;"
+                  viewBox="0 0 400 300"
                 >
-                  Point of aim and point of impact diagram
-                </title>
-                <desc
-                  id="poa-poi-diagram-desc"
-                >
-                  Diagram showing a target center as the point of aim and a shot group offset from it as the point of impact, with horizontal and vertical offset arrows.
-                </desc>
-                <defs>
-                  <marker
-                    id="poa-poi-arrow"
-                    markerHeight="8"
-                    markerUnits="strokeWidth"
-                    markerWidth="8"
-                    orient="auto"
-                    refX="4"
-                    refY="4"
+                  <title
+                    id="poa-poi-diagram-title"
                   >
-                    <path
-                      d="M0,0 L8,4 L0,8 z"
-                      fill="rgba(0, 0, 0, 0.6)"
+                    Point of aim and point of impact diagram
+                  </title>
+                  <desc
+                    id="poa-poi-diagram-desc"
+                  >
+                    Diagram showing a target center as the point of aim and a shot group offset from it as the point of impact, with horizontal and vertical offset lines.
+                  </desc>
+                  <rect
+                    fill="#fff"
+                    height="284"
+                    opacity="0.96"
+                    rx="8"
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1"
+                    width="384"
+                    x="8"
+                    y="8"
+                  />
+                  <circle
+                    cx="170"
+                    cy="160"
+                    fill="none"
+                    r="52"
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="170"
+                    cy="160"
+                    fill="none"
+                    r="28"
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.5"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.5"
+                    x1="108"
+                    x2="232"
+                    y1="160"
+                    y2="160"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.5"
+                    x1="170"
+                    x2="170"
+                    y1="98"
+                    y2="222"
+                  />
+                  <circle
+                    cx="170"
+                    cy="160"
+                    fill="#0288d1"
+                    r="6"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-dasharray="5 5"
+                    stroke-width="1.5"
+                    x1="170"
+                    x2="260"
+                    y1="160"
+                    y2="95"
+                  />
+                  <circle
+                    cx="254"
+                    cy="90"
+                    fill="#7b1fa2"
+                    r="5"
+                  />
+                  <circle
+                    cx="267"
+                    cy="96"
+                    fill="#7b1fa2"
+                    r="5"
+                  />
+                  <circle
+                    cx="258"
+                    cy="105"
+                    fill="#7b1fa2"
+                    r="5"
+                  />
+                  <circle
+                    cx="260"
+                    cy="97"
+                    fill="none"
+                    r="19"
+                    stroke="#7b1fa2"
+                    stroke-width="2.2"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.3"
+                    x1="170"
+                    x2="170"
+                    y1="160"
+                    y2="210"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.3"
+                    x1="260"
+                    x2="260"
+                    y1="95"
+                    y2="210"
+                  />
+                  <line
+                    stroke="#1b5e20"
+                    stroke-width="3"
+                    x1="176"
+                    x2="254"
+                    y1="210"
+                    y2="210"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.3"
+                    x1="260"
+                    x2="300"
+                    y1="95"
+                    y2="95"
+                  />
+                  <line
+                    stroke="rgba(0, 0, 0, 0.6)"
+                    stroke-width="1.3"
+                    x1="170"
+                    x2="300"
+                    y1="160"
+                    y2="160"
+                  />
+                  <line
+                    stroke="#e65100"
+                    stroke-width="3"
+                    x1="300"
+                    x2="300"
+                    y1="101"
+                    y2="154"
+                  />
+                </svg>
+                <div
+                  aria-label="Diagram legend"
+                  class="MuiBox-root css-1rgzhrf"
+                >
+                  <div
+                    class="MuiBox-root css-1o3x4gz"
+                  >
+                    <div
+                      aria-hidden="true"
+                      class="MuiBox-root css-19hqxdc"
                     />
-                  </marker>
-                </defs>
-                <rect
-                  fill="#fff"
-                  height="284"
-                  opacity="0.96"
-                  rx="8"
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1"
-                  width="384"
-                  x="8"
-                  y="8"
-                />
-                <circle
-                  cx="170"
-                  cy="160"
-                  fill="none"
-                  r="52"
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="170"
-                  cy="160"
-                  fill="none"
-                  r="28"
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.5"
-                />
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.5"
-                  x1="108"
-                  x2="232"
-                  y1="160"
-                  y2="160"
-                />
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.5"
-                  x1="170"
-                  x2="170"
-                  y1="98"
-                  y2="222"
-                />
-                <circle
-                  cx="170"
-                  cy="160"
-                  fill="#1976d2"
-                  r="5"
-                />
-                <text
-                  fill="rgba(0, 0, 0, 0.87)"
-                  font-size="14"
-                  x="118"
-                  y="88"
-                >
-                  Point of Aim
-                </text>
-                <line
-                  stroke="#1976d2"
-                  stroke-width="1.8"
-                  x1="160"
-                  x2="169"
-                  y1="94"
-                  y2="151"
-                />
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-dasharray="5 5"
-                  stroke-width="1.5"
-                  x1="170"
-                  x2="260"
-                  y1="160"
-                  y2="95"
-                />
-                <circle
-                  cx="254"
-                  cy="90"
-                  fill="rgba(0, 0, 0, 0.87)"
-                  r="5"
-                />
-                <circle
-                  cx="267"
-                  cy="96"
-                  fill="rgba(0, 0, 0, 0.87)"
-                  r="5"
-                />
-                <circle
-                  cx="258"
-                  cy="105"
-                  fill="rgba(0, 0, 0, 0.87)"
-                  r="5"
-                />
-                <circle
-                  cx="260"
-                  cy="97"
-                  fill="none"
-                  r="18"
-                  stroke="rgba(0, 0, 0, 0.87)"
-                  stroke-width="1.5"
-                />
-                <text
-                  fill="rgba(0, 0, 0, 0.87)"
-                  font-size="14"
-                  x="272"
-                  y="66"
-                >
-                  Point of Impact
-                </text>
-                <line
-                  stroke="rgba(0, 0, 0, 0.87)"
-                  stroke-width="1.8"
-                  x1="260"
-                  x2="260"
-                  y1="70"
-                  y2="82"
-                />
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.3"
-                  x1="170"
-                  x2="170"
-                  y1="160"
-                  y2="210"
-                />
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.3"
-                  x1="260"
-                  x2="260"
-                  y1="95"
-                  y2="210"
-                />
-                <line
-                  marker-end="url(#poa-poi-arrow)"
-                  marker-start="url(#poa-poi-arrow)"
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="2"
-                  x1="176"
-                  x2="254"
-                  y1="210"
-                  y2="210"
-                />
-                <text
-                  fill="rgba(0, 0, 0, 0.87)"
-                  font-size="14"
-                  text-anchor="middle"
-                  x="215"
-                  y="235"
-                >
-                  Horizontal Offset
-                </text>
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.3"
-                  x1="260"
-                  x2="300"
-                  y1="95"
-                  y2="95"
-                />
-                <line
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="1.3"
-                  x1="170"
-                  x2="300"
-                  y1="160"
-                  y2="160"
-                />
-                <line
-                  marker-end="url(#poa-poi-arrow)"
-                  marker-start="url(#poa-poi-arrow)"
-                  stroke="rgba(0, 0, 0, 0.6)"
-                  stroke-width="2"
-                  x1="300"
-                  x2="300"
-                  y1="101"
-                  y2="154"
-                />
-                <text
-                  fill="rgba(0, 0, 0, 0.87)"
-                  font-size="14"
-                  text-anchor="middle"
-                  transform="rotate(-90 326 128)"
-                  x="326"
-                  y="128"
-                >
-                  Vertical Offset
-                </text>
-                <text
-                  fill="rgba(0, 0, 0, 0.6)"
-                  font-size="11"
-                  text-anchor="middle"
-                  x="200"
-                  y="276"
-                >
-                  Use the center of the shot group as the Point of Impact.
-                </text>
-              </svg>
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap css-3grywy-MuiTypography-root"
+                    >
+                      zeroCalculator.pointOfAim
+                    </p>
+                  </div>
+                  <div
+                    class="MuiBox-root css-1o3x4gz"
+                  >
+                    <div
+                      aria-hidden="true"
+                      class="MuiBox-root css-cskmt3"
+                    />
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap css-3grywy-MuiTypography-root"
+                    >
+                      zeroCalculator.pointOfImpact
+                    </p>
+                  </div>
+                  <div
+                    class="MuiBox-root css-1o3x4gz"
+                  >
+                    <div
+                      aria-hidden="true"
+                      class="MuiBox-root css-1wam0ew"
+                    />
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap css-3grywy-MuiTypography-root"
+                    >
+                      zeroCalculator.horizontalOffset
+                    </p>
+                  </div>
+                  <div
+                    class="MuiBox-root css-1o3x4gz"
+                  >
+                    <div
+                      aria-hidden="true"
+                      class="MuiBox-root css-dr2ab5"
+                    />
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 MuiTypography-noWrap css-3grywy-MuiTypography-root"
+                    >
+                      zeroCalculator.verticalOffset
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
             <p
               class="MuiTypography-root MuiTypography-body2 css-7ctihp-MuiTypography-root"
@@ -1736,7 +1717,7 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
       <div
         aria-labelledby=":r2s:"
         aria-modal="true"
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-d52eqq-MuiPaper-root-MuiDialog-paper"
         role="dialog"
         style="--Paper-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);"
       >
@@ -1747,7 +1728,7 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
           zeroCalculator.results
         </h2>
         <div
-          class="MuiDialogContent-root css-1foygqf-MuiDialogContent-root"
+          class="MuiDialogContent-root css-18oq4sp-MuiDialogContent-root"
         >
           <div
             class="MuiStack-root css-11zvfn9-MuiStack-root"

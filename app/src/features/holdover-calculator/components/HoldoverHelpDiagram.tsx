@@ -1,166 +1,195 @@
-import { Box, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export function HoldoverHelpDiagram() {
+  const { t } = useTranslation();
   const theme = useTheme();
-  const strokeColor = theme.palette.text.primary;
-  const mutedStrokeColor = theme.palette.text.secondary;
-  const backgroundColor = theme.palette.background.paper;
-  const accentColor = theme.palette.primary.main;
+  const labels = theme.palette.text.primary;
+  const muted = theme.palette.text.secondary;
+  const background = theme.palette.background.paper;
+  const sightLine =
+    theme.palette.mode === 'dark' ? theme.palette.info.light : theme.palette.info.main;
+  const projectile = theme.palette.error.main;
+  const heightMarker =
+    theme.palette.mode === 'dark' ? theme.palette.warning.light : theme.palette.warning.dark;
+  const zeroMarker =
+    theme.palette.mode === 'dark' ? theme.palette.success.light : theme.palette.success.dark;
+  const impactMarker =
+    theme.palette.mode === 'dark' ? theme.palette.secondary.light : theme.palette.secondary.dark;
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 480, mx: 'auto' }}>
-      <svg
-        viewBox="0 0 400 300"
-        role="img"
-        aria-labelledby="holdover-diagram-title holdover-diagram-desc"
-        style={{ display: 'block', width: '100%', height: 'auto' }}
+    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 760,
+          flex: '0 1 760px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
       >
-        <title id="holdover-diagram-title">Holdover and sight height diagram</title>
-        <desc id="holdover-diagram-desc">
-          Diagram showing a sight line above a projectile path. At close range, the projectile path
-          is below the sight line before intersecting it at the zero distance.
-        </desc>
-        <defs>
-          <marker
-            id="holdover-arrow"
-            markerWidth="8"
-            markerHeight="8"
-            refX="4"
-            refY="4"
-            orient="auto"
-            markerUnits="strokeWidth"
-          >
-            <path d="M0,0 L8,4 L0,8 z" fill={mutedStrokeColor} />
-          </marker>
-          <marker
-            id="holdover-arrow-accent"
-            markerWidth="8"
-            markerHeight="8"
-            refX="4"
-            refY="4"
-            orient="auto"
-            markerUnits="strokeWidth"
-          >
-            <path d="M0,0 L8,4 L0,8 z" fill={accentColor} />
-          </marker>
-        </defs>
-
-        <rect
-          x="8"
-          y="8"
-          width="384"
-          height="284"
-          rx="8"
-          fill={backgroundColor}
-          stroke={mutedStrokeColor}
-          strokeWidth="1"
-          opacity="0.96"
-        />
-
-        <path
-          d="M34 174 H118 L138 156 H168 L188 174 H210"
-          fill="none"
-          stroke={strokeColor}
-          strokeWidth="3"
-          strokeLinejoin="round"
-        />
-        <rect
-          x="58"
-          y="132"
-          width="44"
-          height="18"
-          rx="3"
-          fill="none"
-          stroke={strokeColor}
-          strokeWidth="3"
-        />
-        <line x1="80" y1="150" x2="80" y2="174" stroke={strokeColor} strokeWidth="3" />
-        <circle cx="70" cy="155" r="4" fill={strokeColor} />
-        <circle cx="70" cy="105" r="4" fill={accentColor} />
-
-        <line x1="70" y1="105" x2="360" y2="105" stroke={accentColor} strokeWidth="2.5" />
-        <text x="206" y="94" textAnchor="middle" fill={strokeColor} fontSize="14">
-          Sight Line
-        </text>
-
-        <path
-          d="M70 155 C125 150 205 125 330 105"
-          fill="none"
-          stroke={strokeColor}
-          strokeWidth="2.5"
-          strokeDasharray="6 5"
-        />
-        <text x="214" y="142" textAnchor="middle" fill={strokeColor} fontSize="14">
-          Projectile Path
-        </text>
-
-        <line
-          x1="48"
-          y1="109"
-          x2="48"
-          y2="151"
-          stroke={mutedStrokeColor}
-          strokeWidth="2"
-          markerStart="url(#holdover-arrow)"
-          markerEnd="url(#holdover-arrow)"
-        />
-        <line x1="58" y1="105" x2="76" y2="105" stroke={mutedStrokeColor} strokeWidth="1.5" />
-        <line x1="58" y1="155" x2="76" y2="155" stroke={mutedStrokeColor} strokeWidth="1.5" />
-        <text
-          x="24"
-          y="132"
-          transform="rotate(-90 24 132)"
-          textAnchor="middle"
-          fill={strokeColor}
-          fontSize="13"
+        <svg
+          viewBox="0 0 760 280"
+          role="img"
+          aria-labelledby="holdover-diagram-title holdover-diagram-desc"
+          style={{ display: 'block', width: '100%', height: 'auto' }}
         >
-          Height Over Bore
-        </text>
+          <title id="holdover-diagram-title">Holdover and sight height diagram</title>
+          <desc id="holdover-diagram-desc">
+            Diagram showing an optic above a muzzle with a sight line, a projectile path rising
+            toward the point of aim, a zeroed distance marker, and a close-range point of impact.
+          </desc>
+          <rect
+            x="12"
+            y="12"
+            width="736"
+            height="256"
+            rx="8"
+            fill={background}
+            stroke={muted}
+            strokeWidth="1"
+            opacity="0.96"
+          />
 
-        <line x1="155" y1="82" x2="155" y2="190" stroke={mutedStrokeColor} strokeWidth="2" />
-        <circle cx="155" cy="105" r="13" fill="none" stroke={accentColor} strokeWidth="2" />
-        <line x1="145" y1="105" x2="165" y2="105" stroke={accentColor} strokeWidth="1.5" />
-        <line x1="155" y1="95" x2="155" y2="115" stroke={accentColor} strokeWidth="1.5" />
-        <circle cx="155" cy="143" r="4.5" fill={strokeColor} />
-        <line
-          x1="172"
-          y1="112"
-          x2="172"
-          y2="139"
-          stroke={mutedStrokeColor}
-          strokeWidth="1.8"
-          markerEnd="url(#holdover-arrow)"
-        />
-        <text x="155" y="207" textAnchor="middle" fill={strokeColor} fontSize="13">
-          Close Range Impact
-        </text>
+          <rect
+            x="64"
+            y="88"
+            width="122"
+            height="48"
+            rx="4"
+            fill={background}
+            stroke={labels}
+            strokeWidth="2.5"
+          />
+          <text x="112" y="119" textAnchor="middle" fill={labels} fontSize="24" fontWeight="600">
+            Optic
+          </text>
 
-        <line x1="330" y1="82" x2="330" y2="190" stroke={mutedStrokeColor} strokeWidth="2" />
-        <circle cx="330" cy="105" r="13" fill="none" stroke={accentColor} strokeWidth="2" />
-        <line x1="320" y1="105" x2="340" y2="105" stroke={accentColor} strokeWidth="1.5" />
-        <line x1="330" y1="95" x2="330" y2="115" stroke={accentColor} strokeWidth="1.5" />
-        <circle cx="330" cy="105" r="4.5" fill={strokeColor} />
+          <rect
+            x="82"
+            y="154"
+            width="122"
+            height="42"
+            rx="4"
+            fill={background}
+            stroke={labels}
+            strokeWidth="2.5"
+          />
+          <text x="143" y="182" textAnchor="middle" fill={labels} fontSize="24" fontWeight="600">
+            Muzzle
+          </text>
 
-        <line
-          x1="78"
-          y1="232"
-          x2="322"
-          y2="232"
-          stroke={mutedStrokeColor}
-          strokeWidth="2"
-          markerStart="url(#holdover-arrow)"
-          markerEnd="url(#holdover-arrow)"
-        />
-        <line x1="70" y1="220" x2="70" y2="242" stroke={mutedStrokeColor} strokeWidth="1.5" />
-        <line x1="330" y1="220" x2="330" y2="242" stroke={mutedStrokeColor} strokeWidth="1.5" />
-        <text x="200" y="256" textAnchor="middle" fill={strokeColor} fontSize="14">
-          Zero Distance
-        </text>
+          <line x1="186" y1="112" x2="650" y2="112" stroke={sightLine} strokeWidth="3.4" />
 
-        <text x="200" y="278" textAnchor="middle" fill={mutedStrokeColor} fontSize="11">
-          At close distances, impacts may occur below the point of aim due to sight height.
-        </text>
-      </svg>
+          <path
+            d="M204 175 C346 174 492 142 650 112"
+            fill="none"
+            stroke={projectile}
+            strokeWidth="3.8"
+            strokeLinecap="round"
+          />
+
+          <line
+            x1="220"
+            y1="112"
+            x2="220"
+            y2="175"
+            stroke={heightMarker}
+            strokeWidth="3.5"
+            strokeDasharray="7 6"
+          />
+          <line x1="204" y1="250" x2="650" y2="250" stroke={zeroMarker} strokeWidth="3.5" />
+          <g aria-hidden="true">
+            <circle cx="404" cy="154" r="14" fill="none" stroke={impactMarker} strokeWidth="3" />
+            <line x1="396" y1="146" x2="412" y2="162" stroke={impactMarker} strokeWidth="3" />
+            <line x1="412" y1="146" x2="396" y2="162" stroke={impactMarker} strokeWidth="3" />
+          </g>
+
+          <circle cx="650" cy="112" r="32" fill="none" stroke={labels} strokeWidth="6" />
+          <circle cx="650" cy="112" r="5" fill={labels} />
+          <text x="650" y="55" textAnchor="middle" fill={labels} fontSize="24">
+            {t('holdoverCalculator.diagramPointOfAim')}
+          </text>
+        </svg>
+        <Box
+          aria-label="Diagram legend"
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))' },
+            columnGap: 3,
+            rowGap: 1,
+            mt: 1,
+            px: 1,
+          }}
+        >
+          <LegendLine color={sightLine} label={t('holdoverCalculator.diagramSightLine')} />
+          <LegendLine color={projectile} label={t('holdoverCalculator.diagramProjectilePath')} />
+          <LegendLine color={heightMarker} label={t('holdoverCalculator.heightOverBore')} dotted />
+          <LegendLine color={zeroMarker} label={t('holdoverCalculator.zeroDistance')} />
+          <LegendImpact color={impactMarker} label={t('holdoverCalculator.diagramPointOfImpact')} />
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+function LegendLine({
+  color,
+  label,
+  dotted = false,
+}: {
+  color: string;
+  label: string;
+  dotted?: boolean;
+}) {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
+      <Box
+        aria-hidden="true"
+        sx={{
+          width: 38,
+          borderTop: `3px ${dotted ? 'dotted' : 'solid'} ${color}`,
+          flex: '0 0 auto',
+        }}
+      />
+      <Typography variant="body2" noWrap>
+        {label}
+      </Typography>
+    </Box>
+  );
+}
+
+function LegendImpact({ color, label }: { color: string; label: string }) {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
+      <Box
+        aria-hidden="true"
+        sx={{
+          position: 'relative',
+          width: 18,
+          height: 18,
+          border: `2px solid ${color}`,
+          borderRadius: '50%',
+          flex: '0 0 auto',
+          '&::before, &::after': {
+            content: '""',
+            position: 'absolute',
+            left: 3,
+            right: 3,
+            top: '50%',
+            borderTop: `2px solid ${color}`,
+          },
+          '&::before': {
+            transform: 'rotate(45deg)',
+          },
+          '&::after': {
+            transform: 'rotate(-45deg)',
+          },
+        }}
+      />
+      <Typography variant="body2" noWrap>
+        {label}
+      </Typography>
     </Box>
   );
 }
