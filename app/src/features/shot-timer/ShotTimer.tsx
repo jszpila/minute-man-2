@@ -32,7 +32,6 @@ import {
   stopListening,
   getRMSLevel,
   calculateRMS,
-  calculateHighFrequencyContent,
   getFrequencyRatio,
   analyzeShotCharacteristics,
   applyNoiseGate,

@@ -26,13 +26,6 @@ export const markBeepPlayed = (): void => {
 };
 
 /**
- * Check if we're currently in beep immunity window
- */
-const isInBeepImmunityWindow = (): boolean => {
-  return Date.now() - lastBeepPlayTime < BEEP_IMMUNITY_WINDOW_MS;
-};
-
-/**
  * Request microphone access from the user
  */
 export const requestMicrophoneAccess = async (): Promise<MediaStream> => {
