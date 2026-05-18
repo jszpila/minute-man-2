@@ -57,6 +57,15 @@ describe('About component', () => {
     expect(companyElements.length).toBeGreaterThan(0);
   });
 
+  it('renders Open Meteo weather attribution', () => {
+    render(<About />);
+    expect(screen.getByText(/about\.weatherDataProvidedBy/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'about.openMeteo' })).toHaveAttribute(
+      'href',
+      'https://open-meteo.com/'
+    );
+  });
+
   it('renders diagnostics as a collapsed card', () => {
     render(<About />);
     expect(screen.getByText('about.diagnosticsTitle')).toBeInTheDocument();

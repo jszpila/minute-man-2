@@ -44,6 +44,21 @@ exports[`About component matches snapshot when in standalone mode 1`] = `
           </a>
           .
         </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+        >
+          about.weatherDataProvidedBy
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="https://open-meteo.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            about.openMeteo
+          </a>
+          .
+        </p>
       </div>
       <div
         class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1j74uew-MuiPaper-root-MuiCard-root"
@@ -225,6 +240,21 @@ exports[`About component matches snapshot when not standalone 1`] = `
             href="mailto:contact@ursine.llc"
           >
             about.contactEmail
+          </a>
+          .
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+        >
+          about.weatherDataProvidedBy
+           
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1orsvah-MuiTypography-root-MuiLink-root"
+            href="https://open-meteo.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            about.openMeteo
           </a>
           .
         </p>

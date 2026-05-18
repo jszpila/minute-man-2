@@ -94,7 +94,7 @@ exports[`RangeConditions matches snapshot after loading current location weather
             10:00 AM
           </span>
           <div
-            class="MuiBox-root css-1xw0jqp"
+            class="MuiBox-root css-f8arnd"
           >
             <div
               class="MuiBox-root css-0"
@@ -110,6 +110,35 @@ exports[`RangeConditions matches snapshot after loading current location weather
                 72
                 °
                 F
+              </h6>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body2 css-1a1whku-MuiTypography-root"
+              >
+                rangeConditions.humidity
+              </p>
+              <h6
+                class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
+              >
+                50
+                %
+              </h6>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body2 css-1a1whku-MuiTypography-root"
+              >
+                rangeConditions.condition
+              </p>
+              <h6
+                class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
+              >
+                Sunny
               </h6>
             </div>
             <div
@@ -148,13 +177,14 @@ exports[`RangeConditions matches snapshot after loading current location weather
               <p
                 class="MuiTypography-root MuiTypography-body2 css-1a1whku-MuiTypography-root"
               >
-                rangeConditions.humidity
+                rangeConditions.elevation
               </p>
               <h6
                 class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
               >
-                50
-                %
+                594
+                 
+                units.feet
               </h6>
             </div>
             <div
@@ -170,20 +200,6 @@ exports[`RangeConditions matches snapshot after loading current location weather
               >
                 1012
                  mb
-              </h6>
-            </div>
-            <div
-              class="MuiBox-root css-0"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body2 css-1a1whku-MuiTypography-root"
-              >
-                rangeConditions.condition
-              </p>
-              <h6
-                class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
-              >
-                Sunny
               </h6>
             </div>
           </div>

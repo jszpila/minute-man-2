@@ -26,6 +26,7 @@ const cachedWeather: CachedWeatherData = {
   windDirection: 'N',
   humidity: 50,
   pressure: 1012,
+  elevation: 594,
   description: 'Sunny',
   lastUpdated: '10:00 AM',
   lat: 41,

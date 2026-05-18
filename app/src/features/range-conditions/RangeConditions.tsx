@@ -26,6 +26,7 @@ interface WeatherData {
   windDirection: string;
   humidity: number;
   pressure: number;
+  elevation: number;
   description: string;
   lastUpdated: string;
   lat: number;
@@ -50,6 +51,7 @@ const RangeConditions: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [locationInput, setLocationInput] = useState('');
   const [useGeolocation, setUseGeolocation] = useState(true);
+  const elevationUnit = units === 'metric' ? t('units.meters') : t('units.feet');
 
   // Load cached weather on mount
   useEffect(() => {
@@ -197,7 +199,14 @@ const RangeConditions: React.FC = () => {
                 {t('rangeConditions.lastUpdated')}: {weather.lastUpdated}
               </Typography>
 
-              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+                  columnGap: 1,
+                  rowGap: 0.75,
+                }}
+              >
                 <Box>
                   <Typography variant="body2" color="textSecondary">
                     {t('rangeConditions.temperature')}
@@ -205,6 +214,20 @@ const RangeConditions: React.FC = () => {
                   <Typography variant="h6">
                     {Math.round(weather.temperature)}°{weather.temperatureUnit}
                   </Typography>
+                </Box>
+
+                <Box>
+                  <Typography variant="body2" color="textSecondary">
+                    {t('rangeConditions.humidity')}
+                  </Typography>
+                  <Typography variant="h6">{weather.humidity}%</Typography>
+                </Box>
+
+                <Box>
+                  <Typography variant="body2" color="textSecondary">
+                    {t('rangeConditions.condition')}
+                  </Typography>
+                  <Typography variant="h6">{weather.description}</Typography>
                 </Box>
 
                 <Box>
@@ -226,23 +249,18 @@ const RangeConditions: React.FC = () => {
 
                 <Box>
                   <Typography variant="body2" color="textSecondary">
-                    {t('rangeConditions.humidity')}
+                    {t('rangeConditions.elevation')}
                   </Typography>
-                  <Typography variant="h6">{weather.humidity}%</Typography>
+                  <Typography variant="h6">
+                    {Math.round(weather.elevation)} {elevationUnit}
+                  </Typography>
                 </Box>
 
                 <Box>
                   <Typography variant="body2" color="textSecondary">
                     {t('rangeConditions.pressure')}
                   </Typography>
-                  <Typography variant="h6">{weather.pressure} mb</Typography>
-                </Box>
-
-                <Box>
-                  <Typography variant="body2" color="textSecondary">
-                    {t('rangeConditions.condition')}
-                  </Typography>
-                  <Typography variant="h6">{weather.description}</Typography>
+                  <Typography variant="h6">{Math.round(weather.pressure)} mb</Typography>
                 </Box>
               </Box>
             </Stack>

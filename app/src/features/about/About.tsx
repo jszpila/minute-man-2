@@ -56,6 +56,14 @@ export const About: React.FC = () => {
             {t('about.contactUs')}{' '}
             <Link href="mailto:contact@ursine.llc">{t('about.contactEmail')}</Link>.
           </Typography>
+
+          <Typography variant="body1">
+            {t('about.weatherDataProvidedBy')}{' '}
+            <Link href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">
+              {t('about.openMeteo')}
+            </Link>
+            .
+          </Typography>
         </Box>
 
         <Card>
