@@ -18,6 +18,7 @@ import { useAppContext } from '../../shared/context/AppContext';
 import Modal from '../../shared/components/Modal';
 import FixedButtonFooter from '../../shared/components/FixedButtonFooter';
 import NumericInput from '../../shared/components/NumericInput';
+import PoaPoiHelpDiagram from './components/PoaPoiHelpDiagram';
 import {
   calculateZeroClicks,
   calculateClickValueInches,
@@ -47,8 +48,6 @@ interface ZeroCalculatorResult {
   verticalClicks: number;
   verticalDirection: string;
 }
-
-const HELP_DIAGRAM_SRC = '/assets/zero-calculator-diagram.png';
 
 const isZeroAdjustmentType = (value: unknown): value is ZeroAdjustmentType =>
   value === 'moa' || value === 'mrad';
@@ -109,11 +108,6 @@ const ZeroCalculator: React.FC = () => {
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [result, setResult] = useState<ZeroCalculatorResult | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-
-  useEffect(() => {
-    const helpDiagram = new Image();
-    helpDiagram.src = HELP_DIAGRAM_SRC;
-  }, []);
 
   // Sync zero distance with storage when settings change
   useEffect(() => {
@@ -395,17 +389,7 @@ const ZeroCalculator: React.FC = () => {
       {/* Help Modal */}
       <Modal open={helpModalOpen} title={t('common.help')} onClose={() => setHelpModalOpen(false)}>
         <Stack spacing={2} sx={{ mt: 1 }}>
-          <Box
-            component="img"
-            src={HELP_DIAGRAM_SRC}
-            alt={t('zeroCalculator.helpDiagramAlt')}
-            sx={{
-              display: 'block',
-              width: '100%',
-              height: 'auto',
-              borderRadius: 1,
-            }}
-          />
+          <PoaPoiHelpDiagram />
           <Typography variant="body2">{t('zeroCalculator.helpPointAimImpact')}</Typography>
           <Typography variant="body2">{t('zeroCalculator.helpPointImpactGroup')}</Typography>
           <Typography variant="body2">{t('zeroCalculator.helpOffsets')}</Typography>

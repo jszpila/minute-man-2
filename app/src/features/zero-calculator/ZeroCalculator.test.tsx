@@ -42,10 +42,11 @@ describe('ZeroCalculator', () => {
     await user.click(screen.getByLabelText('zeroCalculator.helpOpenAria'));
 
     expect(screen.getByRole('heading', { name: 'common.help' })).toBeInTheDocument();
-    expect(screen.getByAltText('zeroCalculator.helpDiagramAlt')).toHaveAttribute(
-      'src',
-      '/assets/zero-calculator-diagram.png'
-    );
+    expect(screen.getByRole('img', { name: /point of aim and point of impact diagram/i }));
+    expect(screen.getByText('Point of Aim')).toBeInTheDocument();
+    expect(screen.getByText('Point of Impact')).toBeInTheDocument();
+    expect(screen.getByText('Horizontal Offset')).toBeInTheDocument();
+    expect(screen.getByText('Vertical Offset')).toBeInTheDocument();
     expect(screen.getByText('zeroCalculator.helpPointAimImpact')).toBeInTheDocument();
     expect(screen.getByText('zeroCalculator.helpPointImpactGroup')).toBeInTheDocument();
     expect(screen.getByText('zeroCalculator.helpOffsets')).toBeInTheDocument();
