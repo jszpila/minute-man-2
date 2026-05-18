@@ -32,6 +32,7 @@ describe('RangeConditions', () => {
       windDirection: 'N',
       humidity: 50,
       pressure: 1012,
+      elevation: 594,
       description: 'Sunny',
       lastUpdated: '10:00 AM',
       lat: 41,
@@ -83,6 +84,9 @@ describe('RangeConditions', () => {
     await waitFor(() => {
       expect(screen.getByText('72°F')).toBeInTheDocument();
     });
+    expect(screen.getByText('50%')).toBeInTheDocument();
+    expect(screen.getByText('1012 mb')).toBeInTheDocument();
+    expect(screen.getByText('594 units.feet')).toBeInTheDocument();
 
     expect(container).toMatchSnapshot();
   });

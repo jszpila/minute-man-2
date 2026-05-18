@@ -38,6 +38,7 @@ describe('ZeroCalculator', () => {
       '/assets/zero-calculator-diagram.png'
     );
     expect(screen.getByText('zeroCalculator.helpPointAimImpact')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.helpPointImpactGroup')).toBeInTheDocument();
     expect(screen.getByText('zeroCalculator.helpOffsets')).toBeInTheDocument();
   });
 

@@ -32,6 +32,7 @@
   "units": {
     "yards": "Yardas",
     "meters": "Metros",
+    "feet": "Pies",
     "inches": "PUL",
     "centimeters": "CM",
     "distance": "Distancia",
@@ -59,6 +60,7 @@
     "helpOpenAria": "Abrir ayuda de la Calculadora de Cero",
     "helpDiagramAlt": "Diagrama de punto de mira y punto de impacto de la Calculadora de Cero",
     "helpPointAimImpact": "El Punto de Mira es donde pretendías que impactara el disparo. El Punto de Impacto es donde realmente impactó.",
+    "helpPointImpactGroup": "Al medir el Punto de Impacto, usa aproximadamente el centro de un grupo de disparos en lugar de un solo agujero.",
     "helpOffsets": "El Desplazamiento Horizontal es la distancia a la izquierda o derecha entre esos dos puntos, y el Desplazamiento Vertical es la distancia hacia arriba o abajo entre ellos."
   },
   "mildotCalculator": {
@@ -127,7 +129,8 @@
     "windSpeed": "Velocidad del Viento",
     "windDirection": "Dirección del Viento",
     "humidity": "Humedad",
-    "pressure": "Presión Barométrica",
+    "pressure": "BMP",
+    "elevation": "Elevación",
     "condition": "Condición",
     "lastUpdated": "Última Actualización",
     "noData": "Sin datos del clima disponibles. Ingresa una ubicación para comenzar.",
@@ -203,8 +206,8 @@
     "ursineSoftware": "Ursine Software",
     "contactUs": "¿Necesitas ayuda? Contáctanos en",
     "contactEmail": "contact@ursine.llc",
-    "donate": "Si realmente te gustó, puedes donar en",
-    "donateUrl": "ursine.llc/donate",
+    "weatherDataProvidedBy": "Datos meteorológicos proporcionados por",
+    "openMeteo": "Open Meteo",
     "installPWATitle": "Instalar Aplicación",
     "installPWADescription": "Instala esta aplicación en tu dispositivo para acceso más rápido y uso sin conexión.",
     "installButton": "Instalar",

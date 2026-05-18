@@ -32,6 +32,7 @@
   "units": {
     "yards": "Yards",
     "meters": "Meters",
+    "feet": "Feet",
     "inches": "IN",
     "centimeters": "CM",
     "distance": "Distance",
@@ -59,6 +60,7 @@
     "helpOpenAria": "Open Zero Calculator help",
     "helpDiagramAlt": "Zero Calculator point of aim and point of impact diagram",
     "helpPointAimImpact": "Point of Aim is where you intended the shot to land. Point of Impact is where the shot actually landed.",
+    "helpPointImpactGroup": "When measuring Point of Impact, use roughly the center of a group of shots instead of a single hole.",
     "helpOffsets": "Horizontal Offset is the left or right distance between those two points, and Vertical Offset is the up or down distance between them."
   },
   "mildotCalculator": {
@@ -127,7 +129,8 @@
     "windSpeed": "Wind Speed",
     "windDirection": "Wind Direction",
     "humidity": "Humidity",
-    "pressure": "Barometric Pressure",
+    "pressure": "BMP",
+    "elevation": "Elevation",
     "condition": "Condition",
     "lastUpdated": "Last Updated",
     "noData": "No weather data available. Enter a location to get started.",
@@ -203,8 +206,8 @@
     "ursineSoftware": "Ursine Software",
     "contactUs": "Need help? Hit us up at",
     "contactEmail": "contact@ursine.llc",
-    "donate": "If you really liked it, you can donate at",
-    "donateUrl": "ursine.llc/donate",
+    "weatherDataProvidedBy": "Weather data provided by",
+    "openMeteo": "Open Meteo",
     "installPWATitle": "Install App",
     "installPWADescription": "Install this app on your device for faster access and offline use.",
     "installButton": "Install",

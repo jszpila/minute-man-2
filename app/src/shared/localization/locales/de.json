@@ -32,6 +32,7 @@
   "units": {
     "yards": "Yards",
     "meters": "Meter",
+    "feet": "Fuß",
     "inches": "ZO",
     "centimeters": "CM",
     "distance": "Entfernung",
@@ -59,6 +60,7 @@
     "helpOpenAria": "Hilfe zum Nullpunkt-Rechner öffnen",
     "helpDiagramAlt": "Diagramm für Zielpunkt und Treffpunkt im Nullpunkt-Rechner",
     "helpPointAimImpact": "Der Zielpunkt ist die Stelle, an der der Schuss landen sollte. Der Treffpunkt ist die Stelle, an der der Schuss tatsächlich gelandet ist.",
+    "helpPointImpactGroup": "Messen Sie den Treffpunkt ungefähr in der Mitte einer Schussgruppe, nicht anhand eines einzelnen Lochs.",
     "helpOffsets": "Die horizontale Abweichung ist die Links- oder Rechtsentfernung zwischen diesen zwei Punkten, und die vertikale Abweichung ist die Auf- oder Abwärtsentfernung zwischen ihnen."
   },
   "mildotCalculator": {
@@ -127,7 +129,8 @@
     "windSpeed": "Windgeschwindigkeit",
     "windDirection": "Windrichtung",
     "humidity": "Luftfeuchtigkeit",
-    "pressure": "Luftdruck",
+    "pressure": "BMP",
+    "elevation": "Höhe",
     "condition": "Bedingung",
     "lastUpdated": "Zuletzt aktualisiert",
     "noData": "Keine Wetterdaten verfügbar. Geben Sie einen Ort ein, um zu beginnen.",
@@ -203,8 +206,8 @@
     "ursineSoftware": "Ursine Software",
     "contactUs": "Brauchst du Hilfe? Schreib uns unter",
     "contactEmail": "contact@ursine.llc",
-    "donate": "Wenn es dir wirklich gefallen hat, kannst du unter",
-    "donateUrl": "ursine.llc/donate",
+    "weatherDataProvidedBy": "Wetterdaten bereitgestellt von",
+    "openMeteo": "Open Meteo",
     "installPWATitle": "App Installieren",
     "installPWADescription": "Installieren Sie diese App auf Ihrem Gerät für schnelleren Zugriff und Offline-Nutzung.",
     "installButton": "Installieren",

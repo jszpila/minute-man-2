@@ -10,6 +10,9 @@ export interface BeforeInstallPromptEvent extends Event {
 declare global {
   interface Navigator {
     standalone?: boolean;
+    getInstalledRelatedApps?: () => Promise<
+      Array<{ platform?: string; url?: string; id?: string }>
+    >;
   }
 }
 
@@ -40,6 +43,9 @@ const setStoredInstalledState = (installed: boolean) => {
     // Storage can be blocked in private contexts; runtime signals still apply.
   }
 };
+
+const getDisplayModeMediaQueries = () =>
+  INSTALLED_DISPLAY_MODES.map((displayMode) => window.matchMedia(`(display-mode: ${displayMode})`));
 
 export const hasStoredInstalledState = (): boolean => {
   try {
@@ -132,11 +138,20 @@ export const setupInstallPrompt = () => {
     console.log('[PWA] Install prompt triggered');
     // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
-    setStoredInstalledState(false);
-    // Store the event for later use
-    deferredPrompt = e as BeforeInstallPromptEvent;
-    // Signal that install prompt is available
-    window.dispatchEvent(new CustomEvent('pwa:install-prompt-available'));
+    isInstalledAsync().then((installed) => {
+      if (installed) {
+        deferredPrompt = null;
+        setStoredInstalledState(true);
+        window.dispatchEvent(new CustomEvent(INSTALL_PROMPT_UNAVAILABLE_EVENT));
+        return;
+      }
+
+      setStoredInstalledState(false);
+      // Store the event for later use
+      deferredPrompt = e as BeforeInstallPromptEvent;
+      // Signal that install prompt is available
+      window.dispatchEvent(new CustomEvent('pwa:install-prompt-available'));
+    });
   });
 
   // Handle app installed
@@ -201,6 +216,25 @@ export const isInstalled = (): boolean => {
   return isRunningAsInstalled() || hasStoredInstalledState();
 };
 
+export const isInstalledAsync = async (): Promise<boolean> => {
+  if (isInstalled()) {
+    return true;
+  }
+
+  try {
+    const relatedApps = await window.navigator.getInstalledRelatedApps?.();
+    const hasInstalledRelatedApp = Boolean(relatedApps?.length);
+    if (hasInstalledRelatedApp) {
+      setStoredInstalledState(true);
+      return true;
+    }
+  } catch {
+    // This Chromium-only API can reject when unavailable or unsupported by the manifest.
+  }
+
+  return isRunningAsInstalled();
+};
+
 /**
  * Check if the current browser needs manual install instructions because it
  * does not expose the beforeinstallprompt flow.
@@ -233,9 +267,27 @@ export const isRunningAsInstalled = (): boolean => {
     return false;
   }
 
-  return INSTALLED_DISPLAY_MODES.some(
-    (displayMode) => window.matchMedia(`(display-mode: ${displayMode})`).matches
-  );
+  return getDisplayModeMediaQueries().some((mediaQuery) => mediaQuery.matches);
 };
 
 export const isStandalone = isRunningAsInstalled;
+
+export const addInstalledStateChangeListeners = (listener: () => void): (() => void) => {
+  const mediaQueries = typeof window.matchMedia === 'function' ? getDisplayModeMediaQueries() : [];
+
+  mediaQueries.forEach((mediaQuery) => {
+    mediaQuery.addEventListener?.('change', listener);
+    mediaQuery.addListener?.(listener);
+  });
+  window.addEventListener('focus', listener);
+  document.addEventListener('visibilitychange', listener);
+
+  return () => {
+    mediaQueries.forEach((mediaQuery) => {
+      mediaQuery.removeEventListener?.('change', listener);
+      mediaQuery.removeListener?.(listener);
+    });
+    window.removeEventListener('focus', listener);
+    document.removeEventListener('visibilitychange', listener);
+  };
+};

@@ -8,6 +8,11 @@ export interface AudioAnalyser {
   mediaStream: MediaStream;
 }
 
+export interface NoiseProfile {
+  baselineRMS: number;
+  timestamp: number;
+}
+
 /**
  * Request microphone access from the user
  */
@@ -15,13 +20,15 @@ export const requestMicrophoneAccess = async (): Promise<MediaStream> => {
   try {
     // Check if mediaDevices is available
     if (!navigator.mediaDevices) {
-      throw new Error('navigator.mediaDevices is not available. HTTPS required for microphone access.');
+      throw new Error(
+        'navigator.mediaDevices is not available. HTTPS required for microphone access.'
+      );
     }
-    
+
     if (!navigator.mediaDevices.getUserMedia) {
       throw new Error('getUserMedia is not available in this browser.');
     }
-    
+
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: false,
@@ -46,9 +53,10 @@ const getAudioContext = (): AudioContext => {
   if (sharedAudioContext) {
     return sharedAudioContext;
   }
-  
+
   try {
-    const AudioContextClass = (window.AudioContext || (window as any).webkitAudioContext) as typeof AudioContext;
+    const AudioContextClass = (window.AudioContext ||
+      (window as any).webkitAudioContext) as typeof AudioContext;
     if (!AudioContextClass) {
       throw new Error('AudioContext not supported in this browser');
     }
@@ -66,7 +74,7 @@ export const createAudioAnalyser = (
 ): AudioAnalyser => {
   try {
     const audioContext = getAudioContext();
-    
+
     const analyser = audioContext.createAnalyser();
     analyser.fftSize = fftSize;
 
@@ -84,11 +92,11 @@ export const createAudioAnalyser = (
         throw new Error('Unable to create media stream source');
       }
     }
-    
+
     // CRITICAL: Connect source -> analyser -> destination
     // The analyser must be connected to destination to process audio
     source.connect(analyser);
-    
+
     analyser.connect(audioContext.destination);
 
     const bufferLength = analyser.frequencyBinCount;
@@ -116,6 +124,92 @@ export const calculateRMS = (dataArray: any): number => {
   }
   const rms = Math.sqrt(sum / dataArray.length);
   return rms;
+};
+
+/**
+ * Calculate high-frequency content (indicates sharp attacks like shots/claps)
+ * Gunshots and claps have significant energy in higher frequencies
+ * Returns 0-255 representing high-frequency amplitude
+ */
+export const calculateHighFrequencyContent = (dataArray: Uint8Array): number => {
+  if (dataArray.length === 0) {
+    return 0;
+  }
+
+  // Focus on the upper 40% of frequency bins (higher frequencies)
+  // where shots/claps have more distinctive signatures
+  const startBin = Math.floor(dataArray.length * 0.6);
+  const endBin = dataArray.length;
+
+  let sum = 0;
+  for (let i = startBin; i < endBin; i++) {
+    const value = dataArray[i];
+    sum += value * value;
+  }
+
+  const highFreqRMS = Math.sqrt(sum / (endBin - startBin));
+  return highFreqRMS;
+};
+
+/**
+ * Calculate frequency ratio: high-frequency to total energy
+ * Speech has more low-frequency content, shots/claps have more high-frequency
+ * Returns 0-1 ratio (higher = more likely a shot/clap)
+ */
+export const getFrequencyRatio = (dataArray: Uint8Array): number => {
+  const totalRMS = calculateRMS(dataArray);
+  const highFreqRMS = calculateHighFrequencyContent(dataArray);
+
+  if (totalRMS === 0) return 0;
+  return highFreqRMS / totalRMS;
+};
+
+/**
+ * Detect characteristics of a gunshot/clap:
+ * - Sharp attack (rapid amplitude increase)
+ * - Higher frequency content than speech
+ * - Peak within a short window
+ */
+interface ShotCharacteristics {
+  hasSharpAttack: boolean;
+  hasHighFrequencyContent: boolean;
+  isShot: boolean;
+  confidence: number; // 0-1
+}
+
+export const analyzeShotCharacteristics = (
+  currentRMS: number,
+  lastRMS: number,
+  highFreqRatio: number,
+  baselineRMS: number
+): ShotCharacteristics => {
+  // Sharp attack: RMS increases by at least 30 points in one frame (more stringent)
+  // Requires very rapid onset characteristic of shots/claps
+  const rmsIncrease = currentRMS - lastRMS;
+  const hasSharpAttack = rmsIncrease > 30 || (rmsIncrease > 20 && currentRMS > baselineRMS * 2.5);
+
+  // High-frequency content: ratio > 0.42 indicates strong high-freq signature
+  // More conservative than speech threshold to filter out noise
+  const hasHighFrequencyContent = highFreqRatio > 0.42;
+
+  // Combine both characteristics for better confidence
+  const isShot = hasSharpAttack && hasHighFrequencyContent;
+  const confidence = (hasSharpAttack ? 0.5 : 0) + (hasHighFrequencyContent ? 0.5 : 0);
+
+  return {
+    hasSharpAttack,
+    hasHighFrequencyContent,
+    isShot,
+    confidence,
+  };
+};
+
+/**
+ * Apply simple noise gate: ignore audio below a certain amplitude
+ * Helps filter out room noise and low-level background sound
+ */
+export const applyNoiseGate = (rms: number, threshold: number): boolean => {
+  return rms > threshold;
 };
 
 /**

@@ -57,9 +57,24 @@ describe('About component', () => {
     expect(companyElements.length).toBeGreaterThan(0);
   });
 
-  it('renders diagnostics table when not standalone', () => {
+  it('renders Open Meteo weather attribution', () => {
+    render(<About />);
+    expect(screen.getByText(/about\.weatherDataProvidedBy/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'about.openMeteo' })).toHaveAttribute(
+      'href',
+      'https://open-meteo.com/'
+    );
+  });
+
+  it('renders diagnostics as a collapsed card', () => {
     render(<About />);
     expect(screen.getByText('about.diagnosticsTitle')).toBeInTheDocument();
+    expect(screen.queryByText('about.diagnosticVersion')).not.toBeVisible();
+  });
+
+  it('expands diagnostics details when clicked', () => {
+    render(<About />);
+    fireEvent.click(screen.getByText('about.diagnosticsTitle'));
     expect(screen.getByText('about.diagnosticVersion')).toBeInTheDocument();
     expect(screen.getByText('about.diagnosticNetwork')).toBeInTheDocument();
     expect(screen.getByText('about.diagnosticMode')).toBeInTheDocument();
@@ -75,9 +90,11 @@ describe('About component', () => {
     );
   });
 
-  it('hides installation instructions in a browser tab until install is available', () => {
+  it('shows installation instructions in a browser tab without a native install prompt', () => {
     render(<About />);
-    expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument();
+    expect(screen.getByText('about.installPWATitle')).toBeInTheDocument();
+    expect(screen.getByText('about.installPWADescription')).toBeInTheDocument();
+    expect(screen.queryByText('about.installButton')).not.toBeInTheDocument();
   });
 
   it('shows installation instructions when install is available', async () => {
@@ -101,11 +118,10 @@ describe('About component', () => {
     expect(screen.getByText('about.installPWATitle')).toBeInTheDocument();
     expect(screen.getByText('about.installPWADescription')).toBeInTheDocument();
     expect(screen.getByText('about.installation')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('about.installButton')).toBeInTheDocument());
     fireEvent.click(screen.getByText('about.installButton'));
     await waitFor(() => expect(prompt).toHaveBeenCalled());
-    await waitFor(() =>
-      expect(screen.queryByText('about.installPWATitle')).not.toBeInTheDocument()
-    );
+    await waitFor(() => expect(screen.queryByText('about.installButton')).not.toBeInTheDocument());
   });
 
   it('hides installation instructions when in standalone mode', () => {
@@ -146,6 +162,7 @@ describe('About component', () => {
 
   it('displays diagnostics information correctly', () => {
     render(<About />);
+    fireEvent.click(screen.getByText('about.diagnosticsTitle'));
     const versionCell = screen.getByText(
       (_content, element) => element?.textContent === `v${TEST_APP_VERSION} ()`
     );
@@ -154,16 +171,11 @@ describe('About component', () => {
 
   it('shows network status in diagnostics', () => {
     render(<About />);
+    fireEvent.click(screen.getByText('about.diagnosticsTitle'));
     const networkLabel = screen.getByText('about.diagnosticNetwork');
     expect(networkLabel).toBeInTheDocument();
     // Network status cell should be near the label
     expect(networkLabel.closest('tr')).toBeInTheDocument();
-  });
-
-  it('renders company donation link', () => {
-    render(<About />);
-    const donateLink = screen.getByRole('link', { name: 'about.donateUrl' });
-    expect(donateLink).toHaveAttribute('href', 'https://www.ursine.llc/donate');
   });
 
   it('matches snapshot when not standalone', () => {

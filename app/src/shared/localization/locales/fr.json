@@ -32,6 +32,7 @@
   "units": {
     "yards": "Verges",
     "meters": "Mètres",
+    "feet": "Pieds",
     "inches": "PO",
     "centimeters": "CM",
     "distance": "Distance",
@@ -59,6 +60,7 @@
     "helpOpenAria": "Ouvrir l'aide de la Calculatrice de Zéro",
     "helpDiagramAlt": "Schéma du point visé et du point d'impact de la Calculatrice de Zéro",
     "helpPointAimImpact": "Le point visé est l'endroit où vous vouliez que le tir arrive. Le point d'impact est l'endroit où le tir est réellement arrivé.",
+    "helpPointImpactGroup": "Pour mesurer le point d'impact, utilisez approximativement le centre d'un groupement de tirs plutôt qu'un seul trou.",
     "helpOffsets": "Le décalage horizontal est la distance à gauche ou à droite entre ces deux points, et le décalage vertical est la distance vers le haut ou vers le bas entre eux."
   },
   "mildotCalculator": {
@@ -127,7 +129,8 @@
     "windSpeed": "Vitesse du Vent",
     "windDirection": "Direction du Vent",
     "humidity": "Humidité",
-    "pressure": "Pression Barométrique",
+    "pressure": "BMP",
+    "elevation": "Altitude",
     "condition": "Condition",
     "lastUpdated": "Dernière Mise à Jour",
     "noData": "Aucune donnée météo disponible. Entrez une localisation pour commencer.",
@@ -203,8 +206,8 @@
     "ursineSoftware": "Ursine Software",
     "contactUs": "Besoin d'aide? Contactez-nous à",
     "contactEmail": "contact@ursine.llc",
-    "donate": "Si vous avez vraiment aimé, vous pouvez faire un don à",
-    "donateUrl": "ursine.llc/donate",
+    "weatherDataProvidedBy": "Données météo fournies par",
+    "openMeteo": "Open Meteo",
     "installPWATitle": "Installer l'Application",
     "installPWADescription": "Installez cette application sur votre appareil pour un accès plus rapide et une utilisation hors ligne.",
     "installButton": "Installer",
