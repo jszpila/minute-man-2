@@ -18,11 +18,18 @@ import { useAppContext } from '../../shared/context/AppContext';
 import Modal from '../../shared/components/Modal';
 import FixedButtonFooter from '../../shared/components/FixedButtonFooter';
 import NumericInput from '../../shared/components/NumericInput';
+import PoaPoiHelpDiagram from './components/PoaPoiHelpDiagram';
 import {
   calculateZeroClicks,
   calculateClickValueInches,
   centimetersToInches,
+  metersToYards,
+  ZERO_ADJUSTMENT_INCREMENTS,
+  DEFAULT_ZERO_ADJUSTMENT_TYPE,
+  DEFAULT_ZERO_ADJUSTMENT_INCREMENT,
+  ZERO_DISTANCE_LIMITS,
 } from '../../shared/utils/calculations';
+import type { ZeroAdjustmentType } from '../../shared/utils/calculations';
 import { StorageKeys, getStorageItem, setStorageItem } from '../../shared/utils/storage';
 
 interface ZeroFormState {
@@ -31,6 +38,7 @@ interface ZeroFormState {
   verticalOffsetDistance: string;
   verticalOffsetDirection: 'up' | 'down';
   zeroDistance: string;
+  adjustmentType: ZeroAdjustmentType;
   adjustmentIncrement: string;
 }
 
@@ -41,7 +49,24 @@ interface ZeroCalculatorResult {
   verticalDirection: string;
 }
 
-const HELP_DIAGRAM_SRC = '/assets/zero-calculator-diagram.png';
+const isZeroAdjustmentType = (value: unknown): value is ZeroAdjustmentType =>
+  value === 'moa' || value === 'mrad';
+
+const getAdjustmentIncrementOptions = (adjustmentType: ZeroAdjustmentType) =>
+  ZERO_ADJUSTMENT_INCREMENTS[adjustmentType];
+
+const getDefaultIncrementForType = (adjustmentType: ZeroAdjustmentType) =>
+  adjustmentType === DEFAULT_ZERO_ADJUSTMENT_TYPE ? DEFAULT_ZERO_ADJUSTMENT_INCREMENT : '0.1';
+
+const normalizeAdjustmentIncrement = (
+  adjustmentType: ZeroAdjustmentType,
+  adjustmentIncrement: string | undefined
+) => {
+  const incrementOptions = getAdjustmentIncrementOptions(adjustmentType);
+  return adjustmentIncrement && incrementOptions.includes(adjustmentIncrement)
+    ? adjustmentIncrement
+    : getDefaultIncrementForType(adjustmentType);
+};
 
 const ZeroCalculator: React.FC = () => {
   const { t } = useTranslation();
@@ -49,22 +74,32 @@ const ZeroCalculator: React.FC = () => {
 
   // Load saved defaults
   const defaultZeroDistance = getStorageItem<number>(StorageKeys.ZERO_DISTANCE_DEFAULT, 100) || 100;
+  const savedDefaultAdjustmentType = getStorageItem<ZeroAdjustmentType>(
+    StorageKeys.ADJUSTMENT_TYPE_DEFAULT,
+    DEFAULT_ZERO_ADJUSTMENT_TYPE
+  );
+  const defaultAdjustmentType = isZeroAdjustmentType(savedDefaultAdjustmentType)
+    ? savedDefaultAdjustmentType
+    : DEFAULT_ZERO_ADJUSTMENT_TYPE;
   const defaultIncrement =
-    getStorageItem<string>(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT, '0.25') || '0.25';
+    getStorageItem<string>(
+      StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT,
+      getDefaultIncrementForType(defaultAdjustmentType)
+    ) || getDefaultIncrementForType(defaultAdjustmentType);
 
   // Form state
   const [formData, setFormData] = useState<ZeroFormState>(() => {
     const saved = getStorageItem<ZeroFormState>(StorageKeys.ZERO_CALC_FORM);
-    return (
-      saved || {
-        horizontalOffsetDistance: '',
-        horizontalOffsetDirection: 'left',
-        verticalOffsetDistance: '',
-        verticalOffsetDirection: 'up',
-        zeroDistance: String(defaultZeroDistance),
-        adjustmentIncrement: defaultIncrement,
-      }
-    );
+
+    return {
+      horizontalOffsetDistance: saved?.horizontalOffsetDistance || '',
+      horizontalOffsetDirection: saved?.horizontalOffsetDirection || 'left',
+      verticalOffsetDistance: saved?.verticalOffsetDistance || '',
+      verticalOffsetDirection: saved?.verticalOffsetDirection || 'up',
+      zeroDistance: String(defaultZeroDistance),
+      adjustmentType: defaultAdjustmentType,
+      adjustmentIncrement: normalizeAdjustmentIncrement(defaultAdjustmentType, defaultIncrement),
+    };
   });
 
   // Modal states
@@ -73,11 +108,6 @@ const ZeroCalculator: React.FC = () => {
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [result, setResult] = useState<ZeroCalculatorResult | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-
-  useEffect(() => {
-    const helpDiagram = new Image();
-    helpDiagram.src = HELP_DIAGRAM_SRC;
-  }, []);
 
   // Sync zero distance with storage when settings change
   useEffect(() => {
@@ -94,15 +124,23 @@ const ZeroCalculator: React.FC = () => {
   const distanceUnit = isMetric ? t('units.meters') : t('units.yards');
   const sizeUnit = isMetric ? t('units.centimeters') : t('units.inches');
 
-  // Dynamic min/max/step for zero distance based on units
-  const zeroDistanceMin = isMetric ? 23 : 25; // ~25 yards = 23 meters
-  const zeroDistanceMax = isMetric ? 457 : 500; // ~500 yards = 457 meters
-  const zeroDistanceStep = isMetric ? 1 : 25;
+  const zeroDistanceLimits = isMetric ? ZERO_DISTANCE_LIMITS.metric : ZERO_DISTANCE_LIMITS.merican;
+  const adjustmentIncrementOptions = getAdjustmentIncrementOptions(formData.adjustmentType);
 
   const handleInputChange = (field: keyof ZeroFormState, value: string | number) => {
     const newFormData = {
       ...formData,
       [field]: String(value),
+    };
+    setFormData(newFormData);
+    setStorageItem(StorageKeys.ZERO_CALC_FORM, newFormData);
+  };
+
+  const handleAdjustmentTypeChange = (adjustmentType: ZeroAdjustmentType) => {
+    const newFormData = {
+      ...formData,
+      adjustmentType,
+      adjustmentIncrement: getDefaultIncrementForType(adjustmentType),
     };
     setFormData(newFormData);
     setStorageItem(StorageKeys.ZERO_CALC_FORM, newFormData);
@@ -128,11 +166,16 @@ const ZeroCalculator: React.FC = () => {
     }
 
     try {
-      const zeroDistance = parseInt(formData.zeroDistance, 10);
-      const moaPerClick = parseFloat(formData.adjustmentIncrement);
+      const zeroDistance = parseFloat(formData.zeroDistance);
+      const zeroDistanceYards = isMetric ? metersToYards(zeroDistance) : zeroDistance;
+      const adjustmentPerClick = parseFloat(formData.adjustmentIncrement);
 
       // Calculate click value in inches
-      const clickValueInches = calculateClickValueInches(zeroDistance, moaPerClick);
+      const clickValueInches = calculateClickValueInches(
+        zeroDistanceYards,
+        adjustmentPerClick,
+        formData.adjustmentType
+      );
 
       let horizontalClicks = 0;
       let verticalClicks = 0;
@@ -188,7 +231,8 @@ const ZeroCalculator: React.FC = () => {
       verticalOffsetDistance: '',
       verticalOffsetDirection: 'up',
       zeroDistance: String(defaultZeroDistance),
-      adjustmentIncrement: defaultIncrement,
+      adjustmentType: defaultAdjustmentType,
+      adjustmentIncrement: normalizeAdjustmentIncrement(defaultAdjustmentType, defaultIncrement),
     };
     setFormData(resetData);
     setStorageItem(StorageKeys.ZERO_CALC_FORM, resetData);
@@ -286,24 +330,47 @@ const ZeroCalculator: React.FC = () => {
           value={formData.zeroDistance}
           onChange={(e) => handleInputChange('zeroDistance', e.target.value)}
           inputProps={{
-            min: zeroDistanceMin,
-            max: zeroDistanceMax,
-            step: zeroDistanceStep,
+            min: zeroDistanceLimits.min,
+            max: zeroDistanceLimits.max,
+            step: zeroDistanceLimits.step,
           }}
           fullWidth
         />
 
+        <FormControl fullWidth>
+          <InputLabel id="zero-adjustment-type-label">
+            {t('zeroCalculator.adjustmentType')}
+          </InputLabel>
+          <Select
+            labelId="zero-adjustment-type-label"
+            value={formData.adjustmentType}
+            label={t('zeroCalculator.adjustmentType')}
+            onChange={(e) => handleAdjustmentTypeChange(e.target.value as ZeroAdjustmentType)}
+          >
+            <MenuItem value="moa">{t('settings.moa')}</MenuItem>
+            <MenuItem value="mrad">{t('settings.mrad')}</MenuItem>
+          </Select>
+        </FormControl>
+
         {/* Adjustment Increment Section */}
         <FormControl fullWidth>
-          <InputLabel>{t('zeroCalculator.adjustmentIncrement')}</InputLabel>
+          <InputLabel id="zero-adjustment-increment-label">
+            {t('zeroCalculator.adjustmentIncrement')}
+          </InputLabel>
           <Select
+            labelId="zero-adjustment-increment-label"
             value={formData.adjustmentIncrement}
             label={t('zeroCalculator.adjustmentIncrement')}
             onChange={(e) => handleInputChange('adjustmentIncrement', e.target.value)}
           >
-            <MenuItem value="1">1 {t('settings.moaClick')}</MenuItem>
-            <MenuItem value="0.5">0.5 {t('settings.moaClick')}</MenuItem>
-            <MenuItem value="0.25">0.25 {t('settings.moaClick')}</MenuItem>
+            {adjustmentIncrementOptions.map((increment) => (
+              <MenuItem key={increment} value={increment}>
+                {increment}{' '}
+                {formData.adjustmentType === 'moa'
+                  ? t('settings.moaClick')
+                  : t('settings.mradClick')}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Stack>
@@ -322,17 +389,7 @@ const ZeroCalculator: React.FC = () => {
       {/* Help Modal */}
       <Modal open={helpModalOpen} title={t('common.help')} onClose={() => setHelpModalOpen(false)}>
         <Stack spacing={2} sx={{ mt: 1 }}>
-          <Box
-            component="img"
-            src={HELP_DIAGRAM_SRC}
-            alt={t('zeroCalculator.helpDiagramAlt')}
-            sx={{
-              display: 'block',
-              width: '100%',
-              height: 'auto',
-              borderRadius: 1,
-            }}
-          />
+          <PoaPoiHelpDiagram />
           <Typography variant="body2">{t('zeroCalculator.helpPointAimImpact')}</Typography>
           <Typography variant="body2">{t('zeroCalculator.helpPointImpactGroup')}</Typography>
           <Typography variant="body2">{t('zeroCalculator.helpOffsets')}</Typography>

@@ -69,7 +69,7 @@ describe('About component', () => {
   it('renders diagnostics as a collapsed card', () => {
     render(<About />);
     expect(screen.getByText('about.diagnosticsTitle')).toBeInTheDocument();
-    expect(screen.queryByText('about.diagnosticVersion')).not.toBeVisible();
+    expect(screen.queryByText('about.diagnosticVersion')).not.toBeInTheDocument();
   });
 
   it('expands diagnostics details when clicked', () => {
@@ -84,10 +84,35 @@ describe('About component', () => {
   it('renders share app QR code card', () => {
     render(<About />);
     expect(screen.getByText('about.shareTitle')).toBeInTheDocument();
+    expect(screen.getByText('about.shareDescription')).toBeInTheDocument();
     expect(screen.getByAltText('about.shareQrAlt')).toHaveAttribute(
       'src',
       '/assets/minman-v2-qr.png'
     );
+  });
+
+  it('collapses and expands the share section', async () => {
+    render(<About />);
+
+    expect(screen.getByText('about.shareDescription')).toBeVisible();
+    fireEvent.click(screen.getByText('about.shareTitle'));
+    await waitFor(() =>
+      expect(screen.queryByText('about.shareDescription')).not.toBeInTheDocument()
+    );
+    fireEvent.click(screen.getByText('about.shareTitle'));
+    expect(screen.getByText('about.shareDescription')).toBeVisible();
+  });
+
+  it('collapses and expands the install section', async () => {
+    render(<About />);
+
+    expect(screen.getByText('about.installPWADescription')).toBeVisible();
+    fireEvent.click(screen.getByText('about.installPWATitle'));
+    await waitFor(() =>
+      expect(screen.queryByText('about.installPWADescription')).not.toBeInTheDocument()
+    );
+    fireEvent.click(screen.getByText('about.installPWATitle'));
+    expect(screen.getByText('about.installPWADescription')).toBeVisible();
   });
 
   it('shows installation instructions in a browser tab without a native install prompt', () => {

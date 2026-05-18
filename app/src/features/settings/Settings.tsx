@@ -21,12 +21,33 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAppContext } from '../../shared/context/AppContext';
 import { StorageKeys, getStorageItem, setStorageItem } from '../../shared/utils/storage';
-import { yardsToMeters, metersToYards } from '../../shared/utils/calculations';
+import {
+  yardsToMeters,
+  metersToYards,
+  ZERO_ADJUSTMENT_INCREMENTS,
+  DEFAULT_ZERO_ADJUSTMENT_TYPE,
+  DEFAULT_ZERO_ADJUSTMENT_INCREMENT,
+  ZERO_DISTANCE_LIMITS,
+  HOLDOVER_DISTANCE_LIMITS,
+  HOLDOVER_HEIGHT_LIMITS,
+  DEFAULT_HOLDOVER_OUTPUT_UNIT,
+  DEFAULT_HOLDOVER_PROFILE,
+  getHoldoverProfileHeight,
+  inchesToCentimeters,
+  centimetersToInches,
+} from '../../shared/utils/calculations';
+import type {
+  HoldoverFirearmProfile,
+  HoldoverOutputUnit,
+  ZeroAdjustmentType,
+} from '../../shared/utils/calculations';
 import {
   requestMicrophoneAccess,
   createAudioAnalyser,
   stopListening,
   getRMSLevel,
+  DEFAULT_SHOT_TIMER_SENSITIVITY,
+  getShotDetectionThreshold,
 } from '../../shared/utils/audioDetectionUtils';
 
 const SettingsSection: React.FC<{
@@ -94,6 +115,32 @@ const requestLocationPermission = async (): Promise<boolean> => {
   });
 };
 
+const isZeroAdjustmentType = (value: unknown): value is ZeroAdjustmentType =>
+  value === 'moa' || value === 'mrad';
+
+const isHoldoverProfile = (value: unknown): value is HoldoverFirearmProfile =>
+  value === 'arCarbine' ||
+  value === 'traditionalRifle' ||
+  value === 'pistol' ||
+  value === 'rimfire' ||
+  value === 'custom';
+
+const isHoldoverOutputUnit = (value: unknown): value is HoldoverOutputUnit =>
+  value === 'physical' || value === 'moa' || value === 'mrad';
+
+const getDefaultIncrementForType = (adjustmentType: ZeroAdjustmentType) =>
+  adjustmentType === DEFAULT_ZERO_ADJUSTMENT_TYPE ? DEFAULT_ZERO_ADJUSTMENT_INCREMENT : '0.1';
+
+const normalizeAdjustmentIncrement = (
+  adjustmentType: ZeroAdjustmentType,
+  adjustmentIncrement: string | null
+) => {
+  const options = ZERO_ADJUSTMENT_INCREMENTS[adjustmentType];
+  return adjustmentIncrement && options.includes(adjustmentIncrement)
+    ? adjustmentIncrement
+    : getDefaultIncrementForType(adjustmentType);
+};
+
 const Settings: React.FC = () => {
   const { t } = useTranslation();
   const {
@@ -149,7 +196,25 @@ const Settings: React.FC = () => {
   }, [units, isInitialized]); // Re-run when units actually change
 
   const [adjustmentIncrement, setAdjustmentIncrementState] = React.useState<string>(() => {
-    return getStorageItem<string>(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT, '0.25') || '0.25';
+    const savedAdjustmentType = getStorageItem<ZeroAdjustmentType>(
+      StorageKeys.ADJUSTMENT_TYPE_DEFAULT,
+      DEFAULT_ZERO_ADJUSTMENT_TYPE
+    );
+    const adjustmentType = isZeroAdjustmentType(savedAdjustmentType)
+      ? savedAdjustmentType
+      : DEFAULT_ZERO_ADJUSTMENT_TYPE;
+    const savedIncrement = getStorageItem<string>(
+      StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT,
+      getDefaultIncrementForType(adjustmentType)
+    );
+    return normalizeAdjustmentIncrement(adjustmentType, savedIncrement);
+  });
+  const [adjustmentType, setAdjustmentType] = React.useState<ZeroAdjustmentType>(() => {
+    const saved = getStorageItem<ZeroAdjustmentType>(
+      StorageKeys.ADJUSTMENT_TYPE_DEFAULT,
+      DEFAULT_ZERO_ADJUSTMENT_TYPE
+    );
+    return isZeroAdjustmentType(saved) ? saved : DEFAULT_ZERO_ADJUSTMENT_TYPE;
   });
 
   // MilDot Calculator settings
@@ -177,6 +242,98 @@ const Settings: React.FC = () => {
     const value = e.target.value as string;
     setAdjustmentIncrementState(value);
     setStorageItem(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT, value);
+  };
+
+  const handleAdjustmentTypeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as ZeroAdjustmentType;
+    const nextIncrement = getDefaultIncrementForType(value);
+    setAdjustmentType(value);
+    setAdjustmentIncrementState(nextIncrement);
+    setStorageItem(StorageKeys.ADJUSTMENT_TYPE_DEFAULT, value);
+    setStorageItem(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT, nextIncrement);
+  };
+
+  const [holdoverZeroDistance, setHoldoverZeroDistance] = React.useState<number>(() => {
+    return getStorageItem<number>(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT, 50) || 50;
+  });
+
+  const [holdoverProfile, setHoldoverProfile] = React.useState<HoldoverFirearmProfile>(() => {
+    const saved = getStorageItem<HoldoverFirearmProfile>(
+      StorageKeys.HOLDOVER_PROFILE_DEFAULT,
+      DEFAULT_HOLDOVER_PROFILE
+    );
+    return isHoldoverProfile(saved) ? saved : DEFAULT_HOLDOVER_PROFILE;
+  });
+
+  const [holdoverHeightOverBore, setHoldoverHeightOverBore] = React.useState<number>(() => {
+    const savedProfile = getStorageItem<HoldoverFirearmProfile>(
+      StorageKeys.HOLDOVER_PROFILE_DEFAULT,
+      DEFAULT_HOLDOVER_PROFILE
+    );
+    const profile = isHoldoverProfile(savedProfile) ? savedProfile : DEFAULT_HOLDOVER_PROFILE;
+    return (
+      getStorageItem<number>(
+        StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT,
+        getHoldoverProfileHeight(profile, units)
+      ) || getHoldoverProfileHeight(profile, units)
+    );
+  });
+
+  const [holdoverOutputUnit, setHoldoverOutputUnit] = React.useState<HoldoverOutputUnit>(() => {
+    const saved = getStorageItem<HoldoverOutputUnit>(StorageKeys.HOLDOVER_OUTPUT_UNIT_DEFAULT);
+    if (isHoldoverOutputUnit(saved)) return saved;
+    return DEFAULT_HOLDOVER_OUTPUT_UNIT;
+  });
+
+  const holdoverPrevUnitsRef = React.useRef<'merican' | 'metric'>(units);
+
+  React.useEffect(() => {
+    if (holdoverPrevUnitsRef.current === units) return;
+
+    const convertedZeroDistance =
+      units === 'metric'
+        ? Math.round(yardsToMeters(holdoverZeroDistance) * 100) / 100
+        : Math.round(metersToYards(holdoverZeroDistance) * 100) / 100;
+    const convertedHeight =
+      units === 'metric'
+        ? Math.round(inchesToCentimeters(holdoverHeightOverBore) * 100) / 100
+        : Math.round(centimetersToInches(holdoverHeightOverBore) * 100) / 100;
+    setHoldoverZeroDistance(convertedZeroDistance);
+    setHoldoverHeightOverBore(convertedHeight);
+    setStorageItem(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT, convertedZeroDistance);
+    setStorageItem(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT, convertedHeight);
+    holdoverPrevUnitsRef.current = units;
+  }, [units, holdoverHeightOverBore, holdoverZeroDistance]);
+
+  const handleHoldoverZeroDistanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setHoldoverZeroDistance(value);
+      setStorageItem(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT, value);
+    }
+  };
+
+  const handleHoldoverProfileChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as HoldoverFirearmProfile;
+    const nextHeight = getHoldoverProfileHeight(value, units);
+    setHoldoverProfile(value);
+    setHoldoverHeightOverBore(nextHeight);
+    setStorageItem(StorageKeys.HOLDOVER_PROFILE_DEFAULT, value);
+    setStorageItem(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT, nextHeight);
+  };
+
+  const handleHoldoverHeightOverBoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setHoldoverHeightOverBore(value);
+      setStorageItem(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT, value);
+    }
+  };
+
+  const handleHoldoverOutputUnitChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as HoldoverOutputUnit;
+    setHoldoverOutputUnit(value);
+    setStorageItem(StorageKeys.HOLDOVER_OUTPUT_UNIT_DEFAULT, value);
   };
 
   const handleMilSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -229,7 +386,12 @@ const Settings: React.FC = () => {
 
   const [shotTimerDefaultSensitivity, setShotTimerDefaultSensitivity] = React.useState<number>(
     () => {
-      return getStorageItem<number>(StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY, 50) || 50;
+      return (
+        getStorageItem<number>(
+          StorageKeys.SHOT_TIMER_DEFAULT_SENSITIVITY,
+          DEFAULT_SHOT_TIMER_SENSITIVITY
+        ) || DEFAULT_SHOT_TIMER_SENSITIVITY
+      );
     }
   );
 
@@ -268,6 +430,12 @@ const Settings: React.FC = () => {
   const [currentRMSLevel, setCurrentRMSLevel] = React.useState(0);
   const sensitivityAudioAnalyserRef = React.useRef<any>(null);
   const sensitivityVisualizationRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
+  const zeroDistanceLimits =
+    units === 'metric' ? ZERO_DISTANCE_LIMITS.metric : ZERO_DISTANCE_LIMITS.merican;
+  const holdoverHeightLimits =
+    units === 'metric' ? HOLDOVER_HEIGHT_LIMITS.metric : HOLDOVER_HEIGHT_LIMITS.merican;
+  const holdoverDistanceUnit = units === 'metric' ? t('units.meters') : t('units.yards');
+  const holdoverHeightUnit = units === 'metric' ? t('units.centimeters') : t('units.inches');
 
   return (
     <Box>
@@ -372,28 +540,126 @@ const Settings: React.FC = () => {
             value={zeroDistance}
             onChange={handleZeroDistanceChange}
             inputProps={{
-              min: units === 'metric' ? 23 : 25,
-              max: units === 'metric' ? 457 : 500,
-              step: units === 'metric' ? 1 : 25,
+              min: zeroDistanceLimits.min,
+              max: zeroDistanceLimits.max,
+              step: zeroDistanceLimits.step,
             }}
             fullWidth
             helperText={t('settings.minMaxHelper', {
-              min: units === 'metric' ? 23 : 25,
-              max: units === 'metric' ? 457 : 500,
+              min: zeroDistanceLimits.min,
+              max: zeroDistanceLimits.max,
               unit: units === 'metric' ? t('units.meters') : t('units.yards'),
             })}
           />
 
           <FormControl fullWidth>
-            <InputLabel>{t('settings.defaultAdjustmentIncrement')}</InputLabel>
+            <InputLabel id="settings-default-adjustment-type-label">
+              {t('settings.defaultAdjustmentType')}
+            </InputLabel>
             <Select
+              labelId="settings-default-adjustment-type-label"
+              value={adjustmentType}
+              label={t('settings.defaultAdjustmentType')}
+              onChange={handleAdjustmentTypeChange as any}
+            >
+              <MenuItem value="moa">{t('settings.moa')}</MenuItem>
+              <MenuItem value="mrad">{t('settings.mrad')}</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel id="settings-default-adjustment-increment-label">
+              {t('settings.defaultAdjustmentIncrement')}
+            </InputLabel>
+            <Select
+              labelId="settings-default-adjustment-increment-label"
               value={adjustmentIncrement}
               label={t('settings.defaultAdjustmentIncrement')}
               onChange={handleAdjustmentIncrementChange as any}
             >
-              <MenuItem value="1">1 {t('settings.moaClick')}</MenuItem>
-              <MenuItem value="0.5">0.5 {t('settings.moaClick')}</MenuItem>
-              <MenuItem value="0.25">0.25 {t('settings.moaClick')}</MenuItem>
+              {ZERO_ADJUSTMENT_INCREMENTS[adjustmentType].map((increment) => (
+                <MenuItem key={increment} value={increment}>
+                  {increment}{' '}
+                  {adjustmentType === 'moa' ? t('settings.moaClick') : t('settings.mradClick')}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
+      </SettingsSection>
+
+      {/* Holdover Calculator Settings */}
+      <SettingsSection title={t('settings.holdoverCalculatorSettings')} defaultExpanded={false}>
+        <Stack spacing={2}>
+          <TextField
+            label={t('settings.defaultHoldoverZeroDistance')}
+            type="number"
+            value={holdoverZeroDistance}
+            onChange={handleHoldoverZeroDistanceChange}
+            inputProps={{
+              min: HOLDOVER_DISTANCE_LIMITS.zero.min,
+              max: HOLDOVER_DISTANCE_LIMITS.zero.max,
+              step: 1,
+            }}
+            fullWidth
+            helperText={t('settings.minMaxHelper', {
+              min: HOLDOVER_DISTANCE_LIMITS.zero.min,
+              max: HOLDOVER_DISTANCE_LIMITS.zero.max,
+              unit: holdoverDistanceUnit,
+            })}
+          />
+
+          <FormControl fullWidth>
+            <InputLabel id="settings-holdover-profile-label">
+              {t('settings.defaultHoldoverProfile')}
+            </InputLabel>
+            <Select
+              labelId="settings-holdover-profile-label"
+              value={holdoverProfile}
+              label={t('settings.defaultHoldoverProfile')}
+              onChange={handleHoldoverProfileChange as any}
+            >
+              <MenuItem value="arCarbine">{t('holdoverCalculator.profiles.arCarbine')}</MenuItem>
+              <MenuItem value="traditionalRifle">
+                {t('holdoverCalculator.profiles.traditionalRifle')}
+              </MenuItem>
+              <MenuItem value="pistol">{t('holdoverCalculator.profiles.pistol')}</MenuItem>
+              <MenuItem value="rimfire">{t('holdoverCalculator.profiles.rimfire')}</MenuItem>
+              <MenuItem value="custom">{t('holdoverCalculator.profiles.custom')}</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            label={t('settings.defaultHoldoverHeightOverBore')}
+            type="number"
+            value={holdoverHeightOverBore}
+            onChange={handleHoldoverHeightOverBoreChange}
+            inputProps={{
+              min: holdoverHeightLimits.min,
+              max: holdoverHeightLimits.max,
+              step: 0.01,
+            }}
+            fullWidth
+            helperText={t('settings.minMaxHelper', {
+              min: holdoverHeightLimits.min,
+              max: holdoverHeightLimits.max,
+              unit: holdoverHeightUnit,
+            })}
+          />
+
+          <FormControl fullWidth>
+            <InputLabel id="settings-holdover-output-unit-label">
+              {t('settings.defaultHoldoverOutputUnit')}
+            </InputLabel>
+            <Select
+              labelId="settings-holdover-output-unit-label"
+              value={holdoverOutputUnit}
+              label={t('settings.defaultHoldoverOutputUnit')}
+              onChange={handleHoldoverOutputUnitChange as any}
+            >
+              <MenuItem value="physical">{holdoverHeightUnit}</MenuItem>
+              <MenuItem value="moa">{t('settings.moa')}</MenuItem>
+              <MenuItem value="mrad">{t('settings.mrad')}</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -542,7 +808,7 @@ const Settings: React.FC = () => {
                 <Typography variant="caption" sx={{ display: 'block', mb: 1, fontWeight: 'bold' }}>
                   {t('shotTimer.soundLevelDetails', {
                     rms: Math.round(currentRMSLevel),
-                    threshold: Math.round(10 + (100 - shotTimerDefaultSensitivity) * 0.4),
+                    threshold: Math.round(getShotDetectionThreshold(shotTimerDefaultSensitivity)),
                   })}
                 </Typography>
                 <Box
@@ -559,7 +825,7 @@ const Settings: React.FC = () => {
                   <Box
                     sx={{
                       position: 'absolute',
-                      left: `${((10 + (100 - shotTimerDefaultSensitivity) * 0.4) / 255) * 100}%`,
+                      left: `${(getShotDetectionThreshold(shotTimerDefaultSensitivity) / 255) * 100}%`,
                       top: 0,
                       bottom: 0,
                       width: '2px',
@@ -573,7 +839,7 @@ const Settings: React.FC = () => {
                       height: '100%',
                       width: `${(currentRMSLevel / 255) * 100}%`,
                       backgroundColor:
-                        currentRMSLevel > 10 + (100 - shotTimerDefaultSensitivity) * 0.4
+                        currentRMSLevel > getShotDetectionThreshold(shotTimerDefaultSensitivity)
                           ? '#4caf50'
                           : '#2196f3',
                       transition: 'width 0.05s linear',

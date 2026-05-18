@@ -30,13 +30,27 @@ jest.mock('../../shared/context/AppContext', () => ({
   }),
 }));
 
-jest.mock('../../shared/utils/audioDetectionUtils');
+jest.mock('../../shared/utils/audioDetectionUtils', () => {
+  const actual = jest.requireActual('../../shared/utils/audioDetectionUtils');
+  return {
+    ...actual,
+    requestMicrophoneAccess: jest.fn(),
+    createAudioAnalyser: jest.fn(),
+    stopListening: jest.fn(),
+    getRMSLevel: jest.fn(),
+  };
+});
 jest.mock('../../shared/utils/storage', () => ({
   getStorageItem: jest.fn((_key, defaultValue) => defaultValue),
   setStorageItem: jest.fn(),
   StorageKeys: {
     ZERO_DISTANCE_DEFAULT: 'mm_zeroDistanceDefault',
+    ADJUSTMENT_TYPE_DEFAULT: 'mm_adjustmentTypeDefault',
     ADJUSTMENT_INCREMENT_DEFAULT: 'mm_adjustmentIncrementDefault',
+    HOLDOVER_ZERO_DISTANCE_DEFAULT: 'mm_holdoverZeroDistanceDefault',
+    HOLDOVER_PROFILE_DEFAULT: 'mm_holdoverProfileDefault',
+    HOLDOVER_HEIGHT_OVER_BORE_DEFAULT: 'mm_holdoverHeightOverBoreDefault',
+    HOLDOVER_OUTPUT_UNIT_DEFAULT: 'mm_holdoverOutputUnitDefault',
     MILDOT_SIZE_DEFAULT: 'mm_mildotSizeDefault',
     MILDOT_PHYSICAL_SIZE_DEFAULT: 'mm_mildotPhysicalSizeDefault',
     MILDOT_DISTANCE_DEFAULT: 'mm_mildotDistanceDefault',
@@ -55,6 +69,58 @@ jest.mock('../../shared/utils/storage', () => ({
 jest.mock('../../shared/utils/calculations', () => ({
   yardsToMeters: (yards: number) => yards * 0.9144,
   metersToYards: (meters: number) => meters / 0.9144,
+  ZERO_ADJUSTMENT_INCREMENTS: {
+    moa: ['1', '0.5', '0.25'],
+    mrad: ['0.1', '0.05', '0.025'],
+  },
+  DEFAULT_ZERO_ADJUSTMENT_TYPE: 'moa',
+  DEFAULT_ZERO_ADJUSTMENT_INCREMENT: '0.25',
+  DEFAULT_HOLDOVER_OUTPUT_UNIT: 'physical',
+  DEFAULT_HOLDOVER_PROFILE: 'arCarbine',
+  getHoldoverProfileHeight: (profile: string, units: 'merican' | 'metric') => {
+    const heights: Record<string, number> = {
+      arCarbine: 2.5,
+      traditionalRifle: 1.5,
+      pistol: 1,
+      rimfire: 1.5,
+      custom: 2.5,
+    };
+    return units === 'metric' ? heights[profile] * 2.54 : heights[profile];
+  },
+  inchesToCentimeters: (inches: number) => inches * 2.54,
+  centimetersToInches: (cm: number) => cm / 2.54,
+  ZERO_DISTANCE_LIMITS: {
+    merican: {
+      min: 10,
+      max: 500,
+      step: 5,
+    },
+    metric: {
+      min: 9,
+      max: 457,
+      step: 5,
+    },
+  },
+  HOLDOVER_DISTANCE_LIMITS: {
+    zero: {
+      min: 5,
+      max: 300,
+    },
+    target: {
+      min: 1,
+      max: 300,
+    },
+  },
+  HOLDOVER_HEIGHT_LIMITS: {
+    merican: {
+      min: 0.25,
+      max: 4,
+    },
+    metric: {
+      min: 0.5,
+      max: 10,
+    },
+  },
 }));
 
 describe('Settings component', () => {
@@ -204,6 +270,25 @@ describe('Settings component', () => {
   it('renders Zero Calculator Settings section', () => {
     render(<Settings />);
     expect(screen.getByText('settings.zeroCalculatorSettings')).toBeInTheDocument();
+  });
+
+  it('renders Holdover Calculator Settings section', () => {
+    render(<Settings />);
+    expect(screen.getByText('settings.holdoverCalculatorSettings')).toBeInTheDocument();
+  });
+
+  it('renders Zero Calculator adjustment type setting', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(<Settings />);
+
+    const zeroCalculatorHeader = screen.getByText('settings.zeroCalculatorSettings').closest('div');
+    if (zeroCalculatorHeader) {
+      await user.click(zeroCalculatorHeader);
+    }
+
+    expect(
+      screen.getByRole('combobox', { name: 'settings.defaultAdjustmentType' })
+    ).toHaveTextContent('settings.moa');
   });
 
   it('renders MilDot Calculator Settings section', () => {

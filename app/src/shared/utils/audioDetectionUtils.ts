@@ -5,6 +5,7 @@
 export interface AudioAnalyser {
   analyser: AnalyserNode;
   dataArray: any;
+  timeDomainDataArray: Uint8Array<ArrayBuffer>;
   mediaStream: MediaStream;
 }
 
@@ -31,8 +32,8 @@ export const requestMicrophoneAccess = async (): Promise<MediaStream> => {
 
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
-        echoCancellation: false,
-        noiseSuppression: false,
+        echoCancellation: true,
+        noiseSuppression: true,
         autoGainControl: false,
       },
     });
@@ -93,16 +94,14 @@ export const createAudioAnalyser = (
       }
     }
 
-    // CRITICAL: Connect source -> analyser -> destination
-    // The analyser must be connected to destination to process audio
+    // Feed the microphone into the analyser without monitoring it through speakers.
     source.connect(analyser);
-
-    analyser.connect(audioContext.destination);
 
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
+    const timeDomainDataArray = new Uint8Array(bufferLength);
 
-    return { analyser, dataArray, mediaStream };
+    return { analyser, dataArray, timeDomainDataArray, mediaStream };
   } catch (error) {
     console.error('Error creating audio analyser:', error);
     throw error;
@@ -124,6 +123,26 @@ export const calculateRMS = (dataArray: any): number => {
   }
   const rms = Math.sqrt(sum / dataArray.length);
   return rms;
+};
+
+/**
+ * Calculate peak amplitude from time-domain data.
+ * Returns value 0-128 where 0 is silence and 128 is full-scale.
+ */
+export const calculatePeakAmplitude = (dataArray: Uint8Array<ArrayBuffer>): number => {
+  if (dataArray.length === 0) {
+    return 0;
+  }
+
+  let peak = 0;
+  for (let i = 0; i < dataArray.length; i++) {
+    const amplitude = Math.abs(dataArray[i] - 128);
+    if (amplitude > peak) {
+      peak = amplitude;
+    }
+  }
+
+  return peak;
 };
 
 /**
@@ -181,16 +200,22 @@ export const analyzeShotCharacteristics = (
   currentRMS: number,
   lastRMS: number,
   highFreqRatio: number,
-  baselineRMS: number
+  baselineRMS: number,
+  peakAmplitude: number = 0,
+  baselinePeak: number = 0
 ): ShotCharacteristics => {
-  // Sharp attack: RMS increases by at least 30 points in one frame (more stringent)
-  // Requires very rapid onset characteristic of shots/claps
+  // Sharp attack: require a sudden jump over both the previous frame and room baseline.
   const rmsIncrease = currentRMS - lastRMS;
-  const hasSharpAttack = rmsIncrease > 30 || (rmsIncrease > 20 && currentRMS > baselineRMS * 2.5);
+  const hasRmsAttack =
+    rmsIncrease > 28 || (rmsIncrease > 16 && currentRMS > Math.max(48, baselineRMS * 2.25));
+  const hasPeakAttack =
+    peakAmplitude > Math.max(24, baselinePeak * 2.4) &&
+    currentRMS > Math.max(42, baselineRMS * 1.8);
+  const hasSharpAttack = hasRmsAttack || hasPeakAttack;
 
-  // High-frequency content: ratio > 0.42 indicates strong high-freq signature
-  // More conservative than speech threshold to filter out noise
-  const hasHighFrequencyContent = highFreqRatio > 0.42;
+  // High-frequency content: claps and snaps can vary by device, so keep this
+  // below speech-filter territory and rely on peak/threshold checks too.
+  const hasHighFrequencyContent = highFreqRatio > 0.36;
 
   // Combine both characteristics for better confidence
   const isShot = hasSharpAttack && hasHighFrequencyContent;
@@ -212,6 +237,18 @@ export const applyNoiseGate = (rms: number, threshold: number): boolean => {
   return rms > threshold;
 };
 
+export const DEFAULT_SHOT_TIMER_SENSITIVITY = 20;
+
+/**
+ * Convert the 0-100 sensitivity control into an RMS threshold.
+ * Higher sensitivity lowers the threshold. The default is intentionally
+ * conservative because ambient room noise can otherwise trigger splits.
+ */
+export const getShotDetectionThreshold = (sensitivity: number): number => {
+  const normalizedSensitivity = Math.min(100, Math.max(0, sensitivity));
+  return 35 + (100 - normalizedSensitivity) * 0.55;
+};
+
 /**
  * Detect a shot based on amplitude threshold
  * Sensitivity: 0-100 (higher = more sensitive)
@@ -223,9 +260,7 @@ export const detectShot = (
   debounceMs: number = 250
 ): Promise<void> => {
   return new Promise((resolve) => {
-    // Convert sensitivity (0-100) to threshold (20-80)
-    // More sensitive = lower threshold
-    const threshold = 20 + (100 - sensitivity) * 0.6;
+    const threshold = getShotDetectionThreshold(sensitivity);
 
     let lastDetectionTime = 0;
     let lastRMS = 0;

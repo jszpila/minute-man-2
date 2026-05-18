@@ -6,6 +6,8 @@
 let audioContext: AudioContext | null = null;
 let beepBuffer: AudioBuffer | null = null;
 
+const DEFAULT_BEEP_DURATION_RATIO = 0.5;
+
 const getAudioContext = (): AudioContext => {
   if (!audioContext) {
     audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -38,6 +40,7 @@ export const playBeep = async (): Promise<void> => {
     source.buffer = buffer;
     source.connect(ctx.destination);
     source.start(ctx.currentTime);
+    source.stop(ctx.currentTime + buffer.duration * DEFAULT_BEEP_DURATION_RATIO);
   } catch (error) {
     console.error('Failed to play beep:', error);
   }

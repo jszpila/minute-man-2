@@ -1,9 +1,10 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import ShotTimer from './ShotTimer';
 import * as audioUtils from '../../shared/utils/audioDetectionUtils';
 import * as beepUtils from '../../shared/utils/beepUtils';
+import * as storageUtils from '../../shared/utils/storage';
 
 // Mock dependencies
 jest.mock('react-i18next', () => ({
@@ -40,7 +41,26 @@ jest.mock('../../shared/utils/storage', () => ({
   },
 }));
 
-jest.mock('../../shared/utils/audioDetectionUtils');
+jest.mock('../../shared/utils/audioDetectionUtils', () => {
+  const actual = jest.requireActual('../../shared/utils/audioDetectionUtils');
+  return {
+    ...actual,
+    requestMicrophoneAccess: jest.fn(),
+    createAudioAnalyser: jest.fn(),
+    stopListening: jest.fn(),
+    getRMSLevel: jest.fn(),
+    calculateRMS: jest.fn(() => 0),
+    getFrequencyRatio: jest.fn(() => 0),
+    analyzeShotCharacteristics: jest.fn(() => ({
+      hasSharpAttack: false,
+      hasHighFrequencyContent: false,
+      isShot: false,
+      confidence: 0,
+    })),
+    applyNoiseGate: jest.fn(() => false),
+    calculatePeakAmplitude: jest.fn(() => 0),
+  };
+});
 jest.mock('../../shared/utils/beepUtils');
 jest.mock('../../shared/utils/timeUtils', () => ({
   formatTimeMMSS: (ms: number) => {
@@ -56,11 +76,13 @@ describe('ShotTimer component', () => {
   const mockAudioAnalyser = {
     analyser: {
       getByteFrequencyData: jest.fn(),
+      getByteTimeDomainData: jest.fn(),
       fftSize: 2048,
       frequencyBinCount: 1024,
       connect: jest.fn(),
     },
     dataArray: new Uint8Array(1024),
+    timeDomainDataArray: new Uint8Array(1024),
     mediaStream: {
       getTracks: jest.fn(() => [{ stop: jest.fn(), kind: 'audio' }]),
     },
@@ -69,6 +91,9 @@ describe('ShotTimer component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
+    (storageUtils.getStorageItem as jest.Mock).mockImplementation((_key, defaultValue) => {
+      return defaultValue;
+    });
 
     // Setup default mocks
     (audioUtils.requestMicrophoneAccess as jest.Mock).mockResolvedValue(
@@ -132,6 +157,82 @@ describe('ShotTimer component', () => {
 
     await waitFor(() => {
       expect(screen.getByText('shotTimer.listening')).toBeInTheDocument();
+    });
+  });
+
+  it('shows the stop button immediately during delayed start', async () => {
+    (storageUtils.getStorageItem as jest.Mock).mockImplementation((key, defaultValue) => {
+      if (key === 'SHOT_TIMER_START_MODE') return 'delayed';
+      return defaultValue;
+    });
+    const user = userEvent.setup({ delay: null });
+    render(<ShotTimer />);
+
+    await user.click(screen.getByRole('button', { name: /start|shotTimer.start/ }));
+
+    expect(screen.getByRole('button', { name: /stop|shotTimer.stop/ })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /start|shotTimer.start/ })).not.toBeInTheDocument();
+  });
+
+  it('cancels pending delayed start when reset is clicked', async () => {
+    (storageUtils.getStorageItem as jest.Mock).mockImplementation((key, defaultValue) => {
+      if (key === 'SHOT_TIMER_START_MODE') return 'delayed';
+      return defaultValue;
+    });
+    const user = userEvent.setup({ delay: null });
+    render(<ShotTimer />);
+
+    await waitFor(() => {
+      expect(audioUtils.requestMicrophoneAccess).toHaveBeenCalled();
+    });
+    jest.clearAllMocks();
+
+    await user.click(screen.getByRole('button', { name: /start|shotTimer.start/ }));
+    await user.click(screen.getByRole('button', { name: /reset|common.reset/ }));
+
+    expect(screen.getByRole('button', { name: /start|shotTimer.start/ })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /stop|shotTimer.stop/ })).not.toBeInTheDocument();
+
+    act(() => {
+      jest.advanceTimersByTime(2500);
+    });
+
+    await waitFor(() => {
+      expect(beepUtils.playBeep).not.toHaveBeenCalled();
+      expect(audioUtils.createAudioAnalyser).not.toHaveBeenCalled();
+      expect(screen.getByRole('button', { name: /start|shotTimer.start/ })).toBeInTheDocument();
+    });
+  });
+
+  it('records a split when a shot-like sound exceeds the detection threshold', async () => {
+    const user = userEvent.setup({ delay: null });
+    (audioUtils.calculateRMS as jest.Mock).mockReturnValue(85);
+    (audioUtils.getFrequencyRatio as jest.Mock).mockReturnValue(0.62);
+    (audioUtils.calculatePeakAmplitude as jest.Mock).mockReturnValue(44);
+    (audioUtils.applyNoiseGate as jest.Mock).mockReturnValue(true);
+    (audioUtils.analyzeShotCharacteristics as jest.Mock).mockReturnValue({
+      hasSharpAttack: true,
+      hasHighFrequencyContent: true,
+      isShot: true,
+      confidence: 1,
+    });
+
+    render(<ShotTimer />);
+
+    await user.click(screen.getByRole('button', { name: /start|shotTimer.start/ }));
+
+    await waitFor(() => {
+      expect(screen.getByText('shotTimer.listening')).toBeInTheDocument();
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(700);
+    });
+
+    await user.click(screen.getByText('shotTimer.splitsTab'));
+
+    await waitFor(() => {
+      expect(screen.getByText(/shotTimer\.splits \([1-9]/)).toBeInTheDocument();
     });
   });
 

@@ -6,6 +6,7 @@ import { ThemeProvider } from './shared/theme/ThemeProvider';
 import RootLayout from './shared/components/RootLayout';
 import NewVersionSnackbar from './shared/components/NewVersionSnackbar';
 import { ZeroCalculator } from './features/zero-calculator';
+import { HoldoverCalculator } from './features/holdover-calculator';
 import { MilDotCalculator } from './features/mildot-calculator';
 import { RangeConditions } from './features/range-conditions';
 import { ShotTimer } from './features/shot-timer';
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<ZeroCalculator />} />
         <Route path="/zero" element={<ZeroCalculator />} />
+        <Route path="/holdover" element={<HoldoverCalculator />} />
         <Route path="/mildot" element={<MilDotCalculator />} />
         <Route path="/shot-timer" element={<ShotTimer />} />
         <Route path="/conditions" element={<RangeConditions />} />

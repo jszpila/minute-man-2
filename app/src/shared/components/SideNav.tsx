@@ -31,6 +31,7 @@ const SideNav: React.FC<SideNavProps> = ({ open, onClose }) => {
 
   const navItems: NavItem[] = [
     { label: t('nav.zeroCalculator'), path: '/zero' },
+    { label: t('nav.holdoverCalculator'), path: '/holdover' },
     { label: t('nav.mildotCalculator'), path: '/mildot' },
     { label: t('nav.shotTimer'), path: '/shot-timer' },
     { label: t('nav.rangeConditions'), path: '/conditions' },
@@ -46,8 +47,8 @@ const SideNav: React.FC<SideNavProps> = ({ open, onClose }) => {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
-        sx={{ 
-          width: 250, 
+        sx={{
+          width: 250,
           pt: 2,
           display: 'flex',
           flexDirection: 'column',

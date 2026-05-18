@@ -73,6 +73,13 @@ describe('storage utilities', () => {
       expect(StorageKeys.SHOT_TIMER_DEFAULT_TIMER_MODE).toBeDefined();
       expect(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME).toBeDefined();
       expect(StorageKeys.ZERO_DISTANCE_DEFAULT).toBeDefined();
+      expect(StorageKeys.ADJUSTMENT_TYPE_DEFAULT).toBeDefined();
+      expect(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT).toBeDefined();
+      expect(StorageKeys.HOLDOVER_CALC_FORM).toBeDefined();
+      expect(StorageKeys.HOLDOVER_ZERO_DISTANCE_DEFAULT).toBeDefined();
+      expect(StorageKeys.HOLDOVER_PROFILE_DEFAULT).toBeDefined();
+      expect(StorageKeys.HOLDOVER_HEIGHT_OVER_BORE_DEFAULT).toBeDefined();
+      expect(StorageKeys.HOLDOVER_OUTPUT_UNIT_DEFAULT).toBeDefined();
     });
   });
 });

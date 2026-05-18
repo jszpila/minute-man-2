@@ -224,7 +224,7 @@ exports[`ShotTimer component matches snapshot 1`] = `
                 />
                 <span
                   class="MuiSlider-track css-xvk2i-MuiSlider-track"
-                  style="left: 0%; width: 50%;"
+                  style="left: 0%; width: 20%;"
                 />
                 <span
                   class="MuiSlider-mark MuiSlider-markActive css-16kozi8-MuiSlider-mark"
@@ -255,20 +255,20 @@ exports[`ShotTimer component matches snapshot 1`] = `
                 <span
                   class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-1xcmt9q-MuiSlider-thumb"
                   data-index="0"
-                  style="left: 50%;"
+                  style="left: 20%;"
                 >
                   <input
                     aria-orientation="horizontal"
                     aria-valuemax="100"
                     aria-valuemin="0"
-                    aria-valuenow="50"
+                    aria-valuenow="20"
                     data-index="0"
                     max="100"
                     min="0"
                     step="1"
                     style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                     type="range"
-                    value="50"
+                    value="20"
                   />
                   <span
                     aria-hidden="true"
@@ -280,7 +280,7 @@ exports[`ShotTimer component matches snapshot 1`] = `
                       <span
                         class="MuiSlider-valueLabelLabel"
                       >
-                        50
+                        20
                       </span>
                     </span>
                   </span>
@@ -580,7 +580,7 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
                 />
                 <span
                   class="MuiSlider-track css-xvk2i-MuiSlider-track"
-                  style="left: 0%; width: 50%;"
+                  style="left: 0%; width: 20%;"
                 />
                 <span
                   class="MuiSlider-mark MuiSlider-markActive css-16kozi8-MuiSlider-mark"
@@ -611,20 +611,20 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
                 <span
                   class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-1xcmt9q-MuiSlider-thumb"
                   data-index="0"
-                  style="left: 50%;"
+                  style="left: 20%;"
                 >
                   <input
                     aria-orientation="horizontal"
                     aria-valuemax="100"
                     aria-valuemin="0"
-                    aria-valuenow="50"
+                    aria-valuenow="20"
                     data-index="0"
                     max="100"
                     min="0"
                     step="1"
                     style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                     type="range"
-                    value="50"
+                    value="20"
                   />
                   <span
                     aria-hidden="true"
@@ -636,7 +636,7 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
                       <span
                         class="MuiSlider-valueLabelLabel"
                       >
-                        50
+                        20
                       </span>
                     </span>
                   </span>
@@ -684,7 +684,7 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
             common.reset
           </button>
           <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth Mui-focusVisible MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth css-1k9hkw1-MuiButtonBase-root-MuiButton-root"
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedError MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorError MuiButton-fullWidth Mui-focusVisible MuiButton-root MuiButton-contained MuiButton-containedError MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorError MuiButton-fullWidth css-1r5m6j1-MuiButtonBase-root-MuiButton-root"
             tabindex="0"
             type="button"
           >
@@ -694,19 +694,36 @@ exports[`ShotTimer component matches snapshot when listening 1`] = `
               <svg
                 aria-hidden="true"
                 class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                data-testid="PlayArrowIcon"
+                data-testid="PauseIcon"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M8 5v14l11-7z"
+                  d="M6 19h4V5H6zm8-14v14h4V5z"
                 />
               </svg>
             </span>
-            shotTimer.start
+            shotTimer.stop
             <span
               class="MuiTouchRipple-root css-r3djoj-MuiTouchRipple-root"
-            />
+            >
+              <span
+                class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+                style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+              >
+                <span
+                  class="MuiTouchRipple-child"
+                />
+              </span>
+              <span
+                class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible MuiTouchRipple-ripplePulsate"
+                style="width: 1px; height: 1px; top: -0.5px; left: -0.5px;"
+              >
+                <span
+                  class="MuiTouchRipple-child MuiTouchRipple-childPulsate"
+                />
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -964,7 +981,7 @@ exports[`ShotTimer component matches snapshot with help modal open 1`] = `
                   />
                   <span
                     class="MuiSlider-track css-xvk2i-MuiSlider-track"
-                    style="left: 0%; width: 50%;"
+                    style="left: 0%; width: 20%;"
                   />
                   <span
                     class="MuiSlider-mark MuiSlider-markActive css-16kozi8-MuiSlider-mark"
@@ -995,20 +1012,20 @@ exports[`ShotTimer component matches snapshot with help modal open 1`] = `
                   <span
                     class="MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary MuiSlider-thumb MuiSlider-thumbSizeMedium MuiSlider-thumbColorPrimary css-1xcmt9q-MuiSlider-thumb"
                     data-index="0"
-                    style="left: 50%;"
+                    style="left: 20%;"
                   >
                     <input
                       aria-orientation="horizontal"
                       aria-valuemax="100"
                       aria-valuemin="0"
-                      aria-valuenow="50"
+                      aria-valuenow="20"
                       data-index="0"
                       max="100"
                       min="0"
                       step="1"
                       style="border: 0px; height: 100%; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 100%; direction: ltr;"
                       type="range"
-                      value="50"
+                      value="20"
                     />
                     <span
                       aria-hidden="true"
@@ -1020,7 +1037,7 @@ exports[`ShotTimer component matches snapshot with help modal open 1`] = `
                         <span
                           class="MuiSlider-valueLabelLabel"
                         >
-                          50
+                          20
                         </span>
                       </span>
                     </span>
@@ -1114,7 +1131,7 @@ exports[`ShotTimer component matches snapshot with help modal open 1`] = `
       tabindex="-1"
     >
       <div
-        aria-labelledby=":r2q:"
+        aria-labelledby=":r3c:"
         aria-modal="true"
         class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
         role="dialog"
@@ -1122,7 +1139,7 @@ exports[`ShotTimer component matches snapshot with help modal open 1`] = `
       >
         <h2
           class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-rvoa5x-MuiTypography-root-MuiDialogTitle-root"
-          id=":r2q:"
+          id=":r3c:"
         >
           common.help
         </h2>
