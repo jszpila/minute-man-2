@@ -11,6 +11,7 @@ export const StorageKeys = {
   ZERO_CALC_FORM: 'mm_zeroCalcForm',
   MILDOT_CALC_FORM: 'mm_mildotCalcForm',
   ZERO_DISTANCE_DEFAULT: 'mm_zeroDistanceDefault',
+  ADJUSTMENT_TYPE_DEFAULT: 'mm_adjustmentTypeDefault',
   ADJUSTMENT_INCREMENT_DEFAULT: 'mm_adjustmentIncrementDefault',
   MILDOT_SIZE_DEFAULT: 'mm_mildotSizeDefault',
   MILDOT_PHYSICAL_SIZE_DEFAULT: 'mm_mildotPhysicalSizeDefault',

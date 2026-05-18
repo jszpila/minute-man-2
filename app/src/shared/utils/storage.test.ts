@@ -73,6 +73,8 @@ describe('storage utilities', () => {
       expect(StorageKeys.SHOT_TIMER_DEFAULT_TIMER_MODE).toBeDefined();
       expect(StorageKeys.SHOT_TIMER_DEFAULT_PAR_TIME).toBeDefined();
       expect(StorageKeys.ZERO_DISTANCE_DEFAULT).toBeDefined();
+      expect(StorageKeys.ADJUSTMENT_TYPE_DEFAULT).toBeDefined();
+      expect(StorageKeys.ADJUSTMENT_INCREMENT_DEFAULT).toBeDefined();
     });
   });
 });

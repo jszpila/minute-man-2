@@ -36,6 +36,7 @@ jest.mock('../../shared/utils/storage', () => ({
   setStorageItem: jest.fn(),
   StorageKeys: {
     ZERO_DISTANCE_DEFAULT: 'mm_zeroDistanceDefault',
+    ADJUSTMENT_TYPE_DEFAULT: 'mm_adjustmentTypeDefault',
     ADJUSTMENT_INCREMENT_DEFAULT: 'mm_adjustmentIncrementDefault',
     MILDOT_SIZE_DEFAULT: 'mm_mildotSizeDefault',
     MILDOT_PHYSICAL_SIZE_DEFAULT: 'mm_mildotPhysicalSizeDefault',
@@ -55,6 +56,24 @@ jest.mock('../../shared/utils/storage', () => ({
 jest.mock('../../shared/utils/calculations', () => ({
   yardsToMeters: (yards: number) => yards * 0.9144,
   metersToYards: (meters: number) => meters / 0.9144,
+  ZERO_ADJUSTMENT_INCREMENTS: {
+    moa: ['1', '0.5', '0.25'],
+    mrad: ['0.1', '0.05', '0.025'],
+  },
+  DEFAULT_ZERO_ADJUSTMENT_TYPE: 'moa',
+  DEFAULT_ZERO_ADJUSTMENT_INCREMENT: '0.25',
+  ZERO_DISTANCE_LIMITS: {
+    merican: {
+      min: 10,
+      max: 500,
+      step: 5,
+    },
+    metric: {
+      min: 9,
+      max: 457,
+      step: 5,
+    },
+  },
 }));
 
 describe('Settings component', () => {
@@ -204,6 +223,20 @@ describe('Settings component', () => {
   it('renders Zero Calculator Settings section', () => {
     render(<Settings />);
     expect(screen.getByText('settings.zeroCalculatorSettings')).toBeInTheDocument();
+  });
+
+  it('renders Zero Calculator adjustment type setting', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(<Settings />);
+
+    const zeroCalculatorHeader = screen.getByText('settings.zeroCalculatorSettings').closest('div');
+    if (zeroCalculatorHeader) {
+      await user.click(zeroCalculatorHeader);
+    }
+
+    expect(
+      screen.getByRole('combobox', { name: 'settings.defaultAdjustmentType' })
+    ).toHaveTextContent('settings.moa');
   });
 
   it('renders MilDot Calculator Settings section', () => {

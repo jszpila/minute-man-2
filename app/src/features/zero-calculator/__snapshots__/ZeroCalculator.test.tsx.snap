@@ -58,8 +58,8 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                for=":rr:"
-                id=":rr:-label"
+                for=":r24:"
+                id=":r24:-label"
               >
                 zeroCalculator.horizontalOffset (units.inches)
               </label>
@@ -69,7 +69,7 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                  id=":rr:"
+                  id=":r24:"
                   placeholder="00.00"
                   type="text"
                   value=""
@@ -160,8 +160,8 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                for=":rt:"
-                id=":rt:-label"
+                for=":r26:"
+                id=":r26:-label"
               >
                 zeroCalculator.verticalOffset (units.inches)
               </label>
@@ -171,7 +171,7 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                  id=":rt:"
+                  id=":r26:"
                   placeholder="00.00"
                   type="text"
                   value=""
@@ -260,8 +260,8 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
-            for=":rv:"
-            id=":rv:-label"
+            for=":r28:"
+            id=":r28:-label"
           >
             zeroCalculator.zeroRange (units.yards)
           </label>
@@ -271,10 +271,10 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
             <input
               aria-invalid="false"
               class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-              id=":rv:"
+              id=":r28:"
               max="500"
-              min="25"
-              step="25"
+              min="10"
+              step="5"
               type="number"
               value="100"
             />
@@ -298,6 +298,62 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
+            id="zero-adjustment-type-label"
+          >
+            zeroCalculator.adjustmentType
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-labelledby="zero-adjustment-type-label"
+              class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+              role="combobox"
+              tabindex="0"
+            >
+              settings.moa
+            </div>
+            <input
+              aria-hidden="true"
+              aria-invalid="false"
+              class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+              tabindex="-1"
+              value="moa"
+            />
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-1rfqz7c-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+              data-testid="ArrowDropDownIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+            </svg>
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-ex8a5f-MuiNotchedOutlined-root"
+              >
+                <span>
+                  zeroCalculator.adjustmentType
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <div
+          class="MuiFormControl-root MuiFormControl-fullWidth css-ytlejw-MuiFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            id="zero-adjustment-increment-label"
           >
             zeroCalculator.adjustmentIncrement
           </label>
@@ -307,11 +363,13 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
             <div
               aria-expanded="false"
               aria-haspopup="listbox"
+              aria-labelledby="zero-adjustment-increment-label"
               class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
               role="combobox"
               tabindex="0"
             >
-              0.25 
+              0.25
+               
               settings.moaClick
             </div>
             <input
@@ -411,7 +469,7 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
       tabindex="-1"
     >
       <div
-        aria-labelledby=":r15:"
+        aria-labelledby=":r2f:"
         aria-modal="true"
         class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
         role="dialog"
@@ -419,7 +477,7 @@ exports[`ZeroCalculator matches snapshot with error modal open 1`] = `
       >
         <h2
           class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-rvoa5x-MuiTypography-root-MuiDialogTitle-root"
-          id=":r15:"
+          id=":r2f:"
         >
           common.error
         </h2>
@@ -527,8 +585,8 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                for=":re:"
-                id=":re:-label"
+                for=":r1m:"
+                id=":r1m:-label"
               >
                 zeroCalculator.horizontalOffset (units.inches)
               </label>
@@ -538,7 +596,7 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                  id=":re:"
+                  id=":r1m:"
                   placeholder="00.00"
                   type="text"
                   value=""
@@ -629,8 +687,8 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                for=":rg:"
-                id=":rg:-label"
+                for=":r1o:"
+                id=":r1o:-label"
               >
                 zeroCalculator.verticalOffset (units.inches)
               </label>
@@ -640,7 +698,7 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                  id=":rg:"
+                  id=":r1o:"
                   placeholder="00.00"
                   type="text"
                   value=""
@@ -729,8 +787,8 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
-            for=":ri:"
-            id=":ri:-label"
+            for=":r1q:"
+            id=":r1q:-label"
           >
             zeroCalculator.zeroRange (units.yards)
           </label>
@@ -740,10 +798,10 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
             <input
               aria-invalid="false"
               class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-              id=":ri:"
+              id=":r1q:"
               max="500"
-              min="25"
-              step="25"
+              min="10"
+              step="5"
               type="number"
               value="100"
             />
@@ -767,6 +825,62 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
+            id="zero-adjustment-type-label"
+          >
+            zeroCalculator.adjustmentType
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-labelledby="zero-adjustment-type-label"
+              class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+              role="combobox"
+              tabindex="0"
+            >
+              settings.moa
+            </div>
+            <input
+              aria-hidden="true"
+              aria-invalid="false"
+              class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+              tabindex="-1"
+              value="moa"
+            />
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-1rfqz7c-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+              data-testid="ArrowDropDownIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+            </svg>
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-ex8a5f-MuiNotchedOutlined-root"
+              >
+                <span>
+                  zeroCalculator.adjustmentType
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <div
+          class="MuiFormControl-root MuiFormControl-fullWidth css-ytlejw-MuiFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            id="zero-adjustment-increment-label"
           >
             zeroCalculator.adjustmentIncrement
           </label>
@@ -776,11 +890,13 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
             <div
               aria-expanded="false"
               aria-haspopup="listbox"
+              aria-labelledby="zero-adjustment-increment-label"
               class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
               role="combobox"
               tabindex="0"
             >
-              0.25 
+              0.25
+               
               settings.moaClick
             </div>
             <input
@@ -860,7 +976,7 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
       tabindex="-1"
     >
       <div
-        aria-labelledby=":rm:"
+        aria-labelledby=":r1v:"
         aria-modal="true"
         class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
         role="dialog"
@@ -868,7 +984,7 @@ exports[`ZeroCalculator matches snapshot with help modal open 1`] = `
       >
         <h2
           class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-rvoa5x-MuiTypography-root-MuiDialogTitle-root"
-          id=":rm:"
+          id=":r1v:"
         >
           common.help
         </h2>
@@ -979,8 +1095,8 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="true"
-                for=":r18:"
-                id=":r18:-label"
+                for=":r2i:"
+                id=":r2i:-label"
               >
                 zeroCalculator.horizontalOffset (units.inches)
               </label>
@@ -990,7 +1106,7 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                  id=":r18:"
+                  id=":r2i:"
                   placeholder="00.00"
                   type="text"
                   value="1"
@@ -1081,8 +1197,8 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="false"
-                for=":r1a:"
-                id=":r1a:-label"
+                for=":r2k:"
+                id=":r2k:-label"
               >
                 zeroCalculator.verticalOffset (units.inches)
               </label>
@@ -1092,7 +1208,7 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                  id=":r1a:"
+                  id=":r2k:"
                   placeholder="00.00"
                   type="text"
                   value=""
@@ -1181,8 +1297,8 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
-            for=":r1c:"
-            id=":r1c:-label"
+            for=":r2m:"
+            id=":r2m:-label"
           >
             zeroCalculator.zeroRange (units.yards)
           </label>
@@ -1192,10 +1308,10 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
             <input
               aria-invalid="false"
               class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-              id=":r1c:"
+              id=":r2m:"
               max="500"
-              min="25"
-              step="25"
+              min="10"
+              step="5"
               type="number"
               value="100"
             />
@@ -1219,6 +1335,62 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
           <label
             class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="true"
+            id="zero-adjustment-type-label"
+          >
+            zeroCalculator.adjustmentType
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-labelledby="zero-adjustment-type-label"
+              class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+              role="combobox"
+              tabindex="0"
+            >
+              settings.moa
+            </div>
+            <input
+              aria-hidden="true"
+              aria-invalid="false"
+              class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+              tabindex="-1"
+              value="moa"
+            />
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-1rfqz7c-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+              data-testid="ArrowDropDownIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+            </svg>
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-ex8a5f-MuiNotchedOutlined-root"
+              >
+                <span>
+                  zeroCalculator.adjustmentType
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <div
+          class="MuiFormControl-root MuiFormControl-fullWidth css-ytlejw-MuiFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            id="zero-adjustment-increment-label"
           >
             zeroCalculator.adjustmentIncrement
           </label>
@@ -1228,11 +1400,13 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
             <div
               aria-expanded="false"
               aria-haspopup="listbox"
+              aria-labelledby="zero-adjustment-increment-label"
               class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
               role="combobox"
               tabindex="0"
             >
-              0.25 
+              0.25
+               
               settings.moaClick
             </div>
             <input
@@ -1332,7 +1506,7 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
       tabindex="-1"
     >
       <div
-        aria-labelledby=":r1h:"
+        aria-labelledby=":r2s:"
         aria-modal="true"
         class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-16htz67-MuiPaper-root-MuiDialog-paper"
         role="dialog"
@@ -1340,7 +1514,7 @@ exports[`ZeroCalculator matches snapshot with result modal open 1`] = `
       >
         <h2
           class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-rvoa5x-MuiTypography-root-MuiDialogTitle-root"
-          id=":r1h:"
+          id=":r2s:"
         >
           zeroCalculator.results
         </h2>
