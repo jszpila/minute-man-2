@@ -32,6 +32,10 @@ import {
   stopListening,
   getRMSLevel,
   calculateRMS,
+  calculateHighFrequencyContent,
+  getFrequencyRatio,
+  analyzeShotCharacteristics,
+  applyNoiseGate,
 } from '../../shared/utils/audioDetectionUtils';
 
 type TimerMode = 'par' | 'split' | 'firstShot';
@@ -230,10 +234,14 @@ const ShotTimer: React.FC = () => {
       }, 50);
 
       // Start continuous shot detection loop
-      const threshold = 10 + (100 - sensitivity) * 0.4; // Lower threshold for better clap detection
+      // Convert sensitivity (0-100) to noise gate threshold (5-50)
+      // Higher sensitivity = lower threshold = more responsive
+      const noiseGateThreshold = 5 + (100 - sensitivity) * 0.45;
+
       let lastDetectionTime = 0;
       let lastRMS = 0;
-      let consecutiveHighSamples = 0;
+      let baselineRMS = 30; // Start with reasonable baseline
+      let baselineSamples = 0;
       let loopCount = 0;
 
       const detectShotLoop = () => {
@@ -244,39 +252,50 @@ const ShotTimer: React.FC = () => {
         try {
           analyser.analyser.getByteFrequencyData(analyser.dataArray);
           const rms = calculateRMS(analyser.dataArray);
+          const highFreqRatio = getFrequencyRatio(analyser.dataArray);
 
           loopCount++;
 
-          // Detect sudden loud spike (key characteristic of claps/shots)
-          const spike = rms - lastRMS > 20 && rms > threshold;
-          const sustainedLoud = rms > threshold;
-
-          // Track consecutive high samples for more reliable detection
-          if (sustainedLoud) {
-            consecutiveHighSamples++;
-          } else {
-            consecutiveHighSamples = 0;
+          // Build baseline during first 500ms (samples at 60fps ≈ 30 samples)
+          if (baselineSamples < 30 && rms < 60) {
+            baselineRMS = baselineRMS * 0.9 + rms * 0.1; // Exponential moving average
+            baselineSamples++;
           }
 
           const now = Date.now();
-          // Trigger on: spike OR 2+ consecutive high samples
-          const isDetected =
-            (spike || consecutiveHighSamples >= 2) && now - lastDetectionTime > 250;
 
-          if (isDetected) {
-            lastDetectionTime = now;
-            consecutiveHighSamples = 0;
-            // Handle based on timer mode
-            if (isRunningRef.current && startTimeRef.current !== null) {
-              const shotTime = Date.now() - startTimeRef.current;
+          // Skip if we're in beep immunity window (prevents feedback loop)
+          if (now - lastDetectionTime > 250) {
+            // Apply noise gate: only consider loud enough sounds
+            if (applyNoiseGate(rms, noiseGateThreshold)) {
+              // Analyze shot characteristics
+              const characteristics = analyzeShotCharacteristics(
+                rms,
+                lastRMS,
+                highFreqRatio,
+                baselineRMS
+              );
 
-              if (timerMode === 'firstShot') {
-                // For firstShot mode: STOP the timer on shot detection
-                isRunningRef.current = false;
-                setIsRunning(false);
-              } else {
-                // For other modes: record as a split
-                setSplits((prev) => [...prev, shotTime]);
+              // Detect shot: must have both sharp attack and high-frequency content
+              // AND be significantly above baseline RMS (2.5x threshold for low false positives)
+              const isShot =
+                characteristics.isShot && rms > baselineRMS * 2.5 && now - lastDetectionTime > 250;
+
+              if (isShot) {
+                lastDetectionTime = now;
+                // Handle based on timer mode
+                if (isRunningRef.current && startTimeRef.current !== null) {
+                  const shotTime = Date.now() - startTimeRef.current;
+
+                  if (timerMode === 'firstShot') {
+                    // For firstShot mode: STOP the timer on shot detection
+                    isRunningRef.current = false;
+                    setIsRunning(false);
+                  } else {
+                    // For other modes: record as a split
+                    setSplits((prev) => [...prev, shotTime]);
+                  }
+                }
               }
             }
           }

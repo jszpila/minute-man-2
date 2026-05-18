@@ -3,6 +3,8 @@
  * Loads and plays the pre-recorded beep.mp3 file
  */
 
+import { markBeepPlayed } from './audioDetectionUtils';
+
 let audioContext: AudioContext | null = null;
 let beepBuffer: AudioBuffer | null = null;
 
@@ -38,6 +40,9 @@ export const playBeep = async (): Promise<void> => {
     source.buffer = buffer;
     source.connect(ctx.destination);
     source.start(ctx.currentTime);
+
+    // Mark that beep was played so audio detection ignores it
+    markBeepPlayed();
   } catch (error) {
     console.error('Failed to play beep:', error);
   }
