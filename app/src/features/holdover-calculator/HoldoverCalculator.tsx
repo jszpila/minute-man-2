@@ -415,9 +415,8 @@ const HoldoverCalculator: React.FC = () => {
           <Typography variant="body2">{t('holdoverCalculator.helpZeroDistance')}</Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpDiagramIntro')}</Typography>
           <HoldoverHelpDiagram />
-          <Typography variant="caption" color="textSecondary">
-            {t('holdoverCalculator.helpDiagramDisclaimer')}
-          </Typography>
+          <Typography variant="body2">{t('holdoverCalculator.helpCloseRangeImpact')}</Typography>
+          <Typography variant="body2">{t('holdoverCalculator.helpDiagramDisclaimer')}</Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpTargetDistance')}</Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpHeightOverBore')}</Typography>
           <Typography variant="body2">{t('holdoverCalculator.helpFirearmProfile')}</Typography>

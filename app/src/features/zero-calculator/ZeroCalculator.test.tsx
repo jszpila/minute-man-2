@@ -43,10 +43,10 @@ describe('ZeroCalculator', () => {
 
     expect(screen.getByRole('heading', { name: 'common.help' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /point of aim and point of impact diagram/i }));
-    expect(screen.getByText('Point of Aim')).toBeInTheDocument();
-    expect(screen.getByText('Point of Impact')).toBeInTheDocument();
-    expect(screen.getByText('Horizontal Offset')).toBeInTheDocument();
-    expect(screen.getByText('Vertical Offset')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.pointOfAim')).toBeInTheDocument();
+    expect(screen.getAllByText('zeroCalculator.pointOfImpact').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('zeroCalculator.horizontalOffset').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('zeroCalculator.verticalOffset').length).toBeGreaterThan(0);
     expect(screen.getByText('zeroCalculator.helpPointAimImpact')).toBeInTheDocument();
     expect(screen.getByText('zeroCalculator.helpPointImpactGroup')).toBeInTheDocument();
     expect(screen.getByText('zeroCalculator.helpOffsets')).toBeInTheDocument();

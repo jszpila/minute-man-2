@@ -3,6 +3,12 @@ import '@testing-library/jest-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import PoaPoiHelpDiagram from './PoaPoiHelpDiagram';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => key,
+  }),
+}));
+
 const renderWithTheme = (mode: 'light' | 'dark') => {
   return render(
     <ThemeProvider theme={createTheme({ palette: { mode } })}>
@@ -23,10 +29,10 @@ describe('PoaPoiHelpDiagram', () => {
   it('renders an SVG with required labels', () => {
     renderWithTheme('light');
 
-    expect(screen.getByText('Point of Aim')).toBeInTheDocument();
-    expect(screen.getByText('Point of Impact')).toBeInTheDocument();
-    expect(screen.getByText('Horizontal Offset')).toBeInTheDocument();
-    expect(screen.getByText('Vertical Offset')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.pointOfAim')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.pointOfImpact')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.horizontalOffset')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.verticalOffset')).toBeInTheDocument();
   });
 
   it('provides accessible title and description', () => {
@@ -47,6 +53,6 @@ describe('PoaPoiHelpDiagram', () => {
     expect(
       screen.getByRole('img', { name: /point of aim and point of impact diagram/i })
     ).toBeInTheDocument();
-    expect(screen.getByText('Vertical Offset')).toBeInTheDocument();
+    expect(screen.getByText('zeroCalculator.verticalOffset')).toBeInTheDocument();
   });
 });
