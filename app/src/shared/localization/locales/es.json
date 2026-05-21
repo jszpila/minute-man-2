@@ -8,6 +8,7 @@
   "nav": {
     "zeroCalculator": "Calculadora de Cero",
     "holdoverCalculator": "Calculadora de Retención",
+    "mpbrCalculator": "MPBR Práctico",
     "mildotCalculator": "Calculadora de MilDot",
     "shotTimer": "Temporizador de Disparos",
     "rangeConditions": "Condiciones del Campo",
@@ -122,6 +123,36 @@
       "custom": "Personalizado"
     }
   },
+  "mpbrCalculator": {
+    "title": "Calculadora MPBR Práctica",
+    "description": "Estima un cero práctico y el alcance máximo de punto en blanco para apuntar al centro.",
+    "profile": "Cartucho / Perfil",
+    "vitalZone": "Tamaño de Zona Vital",
+    "heightOverBore": "Altura de Mira Sobre el Cañón",
+    "results": "Resultados MPBR Prácticos",
+    "recommendedZero": "Cero Recomendado",
+    "mpbr": "Alcance Máximo de Punto en Blanco",
+    "maximumRise": "Elevación Máxima",
+    "nearZero": "Cero Cercano",
+    "farZero": "Cero Lejano",
+    "invalidInput": "Corrige los campos resaltados.",
+    "estimateNotice": "Esta calculadora usa aproximaciones simplificadas por perfil, no una solución balística completa.",
+    "vitalZoneHelp": "Área de impacto aceptable alrededor del punto de mira. Este valor permite aproximadamente ±{{half}} desde el centro.",
+    "heightOverBoreHelp": "Distancia vertical entre la línea de mira y el centro del cañón. Mín: {{min}}, Máx: {{max}}, {{unit}}.",
+    "resultExplanation": "Con esta configuración, normalmente puedes apuntar al centro desde corta distancia hasta aproximadamente {{mpbr}} {{distanceUnit}} sin una corrección significativa.",
+    "disclaimer": "Esta calculadora usa aproximaciones de trayectoria simplificadas y está destinada solo a estimaciones prácticas de campo. Los resultados reales pueden variar según la munición, configuración del arma, condiciones ambientales y entrada del tirador.",
+    "profiles": {
+      "556Nato55": "5.56 NATO 55gr",
+      "556Nato77": "5.56 NATO 77gr",
+      "308Hunting": ".308 Winchester Caza",
+      "9mmPcc": "9mm PCC",
+      "22Lr": ".22 LR",
+      "12gaSlug": "Bala 12ga",
+      "genericCarbine": "Carabina Genérica",
+      "genericHuntingRifle": "Rifle de Caza Genérico",
+      "custom": "Personalizado"
+    }
+  },
   "shotTimer": {
     "title": "Temporizador de Disparos",
     "description": "Mide el tiempo entre disparos",
@@ -217,6 +248,7 @@
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Calculadora de Cero",
     "holdoverCalculatorSettings": "Calculadora de Retención",
+    "mpbrCalculatorSettings": "MPBR Práctico",
     "mildotCalculatorSettings": "Calculadora de MilDot",
     "shotTimerSettings": "Temporizador de Disparos",
     "defaultZeroDistance": "Distancia de Cero Predeterminada",
@@ -231,6 +263,9 @@
     "defaultHoldoverProfile": "Perfil de Arma Predeterminado",
     "defaultHoldoverHeightOverBore": "Altura Sobre el Cañón Predeterminada",
     "defaultHoldoverOutputUnit": "Unidad de Salida Predeterminada",
+    "defaultMpbrProfile": "Cartucho / Perfil Predeterminado",
+    "defaultMpbrVitalZone": "Zona Vital Predeterminada",
+    "defaultMpbrHeightOverBore": "Altura de Mira Sobre el Cañón Predeterminada",
     "defaultMilSize": "Mils Predeterminados",
     "defaultPhysicalSize": "Tamaño Físico Predeterminado",
     "defaultDistance": "Distancia Predeterminada",

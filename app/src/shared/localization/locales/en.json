@@ -8,6 +8,7 @@
   "nav": {
     "zeroCalculator": "Zero Calculator",
     "holdoverCalculator": "Holdover Calculator",
+    "mpbrCalculator": "Practical MPBR",
     "mildotCalculator": "MilDot Calculator",
     "shotTimer": "Shot Timer",
     "rangeConditions": "Range Conditions",
@@ -122,6 +123,36 @@
       "custom": "Custom"
     }
   },
+  "mpbrCalculator": {
+    "title": "Practical MPBR Calculator",
+    "description": "Estimate a practical zero and maximum point blank range for center-mass holds.",
+    "profile": "Cartridge / Profile",
+    "vitalZone": "Vital Zone Size",
+    "heightOverBore": "Sight Height Over Bore",
+    "results": "Practical MPBR Results",
+    "recommendedZero": "Recommended Zero",
+    "mpbr": "Maximum Point Blank Range",
+    "maximumRise": "Maximum Rise",
+    "nearZero": "Near Zero",
+    "farZero": "Far Zero",
+    "invalidInput": "Please correct the highlighted fields.",
+    "estimateNotice": "This calculator uses simplified profile approximations, not a full ballistic solution.",
+    "vitalZoneHelp": "Acceptable impact area around point of aim. This value allows about ±{{half}} from center.",
+    "heightOverBoreHelp": "Vertical distance between the optic or sight line and barrel centerline. Min: {{min}}, Max: {{max}}, {{unit}}.",
+    "resultExplanation": "With this setup, you can generally aim center-mass from close range to approximately {{mpbr}} {{distanceUnit}} without significant hold adjustment.",
+    "disclaimer": "This calculator uses simplified trajectory approximations and is intended for practical field estimates only. Actual results may vary based on ammunition, firearm configuration, environmental conditions, and shooter input.",
+    "profiles": {
+      "556Nato55": "5.56 NATO 55gr",
+      "556Nato77": "5.56 NATO 77gr",
+      "308Hunting": ".308 Winchester Hunting",
+      "9mmPcc": "9mm PCC",
+      "22Lr": ".22 LR",
+      "12gaSlug": "12ga Slug",
+      "genericCarbine": "Generic Carbine",
+      "genericHuntingRifle": "Generic Hunting Rifle",
+      "custom": "Custom"
+    }
+  },
   "shotTimer": {
     "title": "Shot Timer",
     "description": "Measure time between shots",
@@ -217,6 +248,7 @@
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Zero Calculator",
     "holdoverCalculatorSettings": "Holdover Calculator",
+    "mpbrCalculatorSettings": "Practical MPBR",
     "mildotCalculatorSettings": "MilDot Calculator",
     "shotTimerSettings": "Shot Timer",
     "defaultZeroDistance": "Default Zero Distance",
@@ -231,6 +263,9 @@
     "defaultHoldoverProfile": "Default Firearm Profile",
     "defaultHoldoverHeightOverBore": "Default Height Over Bore",
     "defaultHoldoverOutputUnit": "Default Output Unit",
+    "defaultMpbrProfile": "Default Cartridge / Profile",
+    "defaultMpbrVitalZone": "Default Vital Zone",
+    "defaultMpbrHeightOverBore": "Default Sight Height Over Bore",
     "defaultMilSize": "Default Mils",
     "defaultPhysicalSize": "Default Physical Size",
     "defaultDistance": "Default Distance",

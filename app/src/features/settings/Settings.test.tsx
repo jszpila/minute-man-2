@@ -51,6 +51,9 @@ jest.mock('../../shared/utils/storage', () => ({
     HOLDOVER_PROFILE_DEFAULT: 'mm_holdoverProfileDefault',
     HOLDOVER_HEIGHT_OVER_BORE_DEFAULT: 'mm_holdoverHeightOverBoreDefault',
     HOLDOVER_OUTPUT_UNIT_DEFAULT: 'mm_holdoverOutputUnitDefault',
+    MPBR_PROFILE_DEFAULT: 'mm_mpbrProfileDefault',
+    MPBR_VITAL_ZONE_DEFAULT: 'mm_mpbrVitalZoneDefault',
+    MPBR_HEIGHT_OVER_BORE_DEFAULT: 'mm_mpbrHeightOverBoreDefault',
     MILDOT_SIZE_DEFAULT: 'mm_mildotSizeDefault',
     MILDOT_PHYSICAL_SIZE_DEFAULT: 'mm_mildotPhysicalSizeDefault',
     MILDOT_DISTANCE_DEFAULT: 'mm_mildotDistanceDefault',
@@ -77,6 +80,7 @@ jest.mock('../../shared/utils/calculations', () => ({
   DEFAULT_ZERO_ADJUSTMENT_INCREMENT: '0.25',
   DEFAULT_HOLDOVER_OUTPUT_UNIT: 'physical',
   DEFAULT_HOLDOVER_PROFILE: 'arCarbine',
+  DEFAULT_MPBR_PROFILE: '556Nato55',
   getHoldoverProfileHeight: (profile: string, units: 'merican' | 'metric') => {
     const heights: Record<string, number> = {
       arCarbine: 2.5,
@@ -89,6 +93,10 @@ jest.mock('../../shared/utils/calculations', () => ({
   },
   inchesToCentimeters: (inches: number) => inches * 2.54,
   centimetersToInches: (cm: number) => cm / 2.54,
+  getMpbrProfileVitalZone: (_profile: string, units: 'merican' | 'metric') =>
+    units === 'metric' ? 15.2 : 6,
+  getMpbrProfileHeight: (_profile: string, units: 'merican' | 'metric') =>
+    units === 'metric' ? 6.35 : 2.5,
   ZERO_DISTANCE_LIMITS: {
     merican: {
       min: 10,
@@ -112,6 +120,26 @@ jest.mock('../../shared/utils/calculations', () => ({
     },
   },
   HOLDOVER_HEIGHT_LIMITS: {
+    merican: {
+      min: 0.25,
+      max: 4,
+    },
+    metric: {
+      min: 0.5,
+      max: 10,
+    },
+  },
+  MPBR_VITAL_ZONE_LIMITS: {
+    merican: {
+      min: 1,
+      max: 24,
+    },
+    metric: {
+      min: 2.5,
+      max: 60,
+    },
+  },
+  MPBR_HEIGHT_LIMITS: {
     merican: {
       min: 0.25,
       max: 4,

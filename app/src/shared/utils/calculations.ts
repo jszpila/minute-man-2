@@ -74,6 +74,116 @@ export const HOLDOVER_PROFILE_HEIGHTS_INCHES: Record<HoldoverFirearmProfile, num
 export const DEFAULT_HOLDOVER_PROFILE: HoldoverFirearmProfile = 'arCarbine';
 export const DEFAULT_HOLDOVER_OUTPUT_UNIT: HoldoverOutputUnit = 'physical';
 
+export type MpbrProfile =
+  | '556Nato55'
+  | '556Nato77'
+  | '308Hunting'
+  | '9mmPcc'
+  | '22Lr'
+  | '12gaSlug'
+  | 'genericCarbine'
+  | 'genericHuntingRifle'
+  | 'custom';
+
+export type MpbrUnitSystem = 'merican' | 'metric';
+
+export interface MpbrProfilePreset {
+  muzzleVelocityFps: number;
+  dropAt300YardsInches: number;
+  defaultSightHeightInches: number;
+  defaultVitalZoneInches: number;
+}
+
+export interface MpbrCalculationResult {
+  recommendedZeroYards: number;
+  nearZeroYards: number;
+  farZeroYards: number;
+  mpbrYards: number;
+  maximumRiseInches: number;
+  maximumRiseYards: number;
+}
+
+export const MPBR_PROFILE_PRESETS: Record<MpbrProfile, MpbrProfilePreset> = {
+  '556Nato55': {
+    muzzleVelocityFps: 3100,
+    dropAt300YardsInches: 26,
+    defaultSightHeightInches: 2.5,
+    defaultVitalZoneInches: 6,
+  },
+  '556Nato77': {
+    muzzleVelocityFps: 2750,
+    dropAt300YardsInches: 32,
+    defaultSightHeightInches: 2.5,
+    defaultVitalZoneInches: 6,
+  },
+  '308Hunting': {
+    muzzleVelocityFps: 2700,
+    dropAt300YardsInches: 29,
+    defaultSightHeightInches: 1.5,
+    defaultVitalZoneInches: 6,
+  },
+  '9mmPcc': {
+    muzzleVelocityFps: 1300,
+    dropAt300YardsInches: 245,
+    defaultSightHeightInches: 2,
+    defaultVitalZoneInches: 4,
+  },
+  '22Lr': {
+    muzzleVelocityFps: 1200,
+    dropAt300YardsInches: 360,
+    defaultSightHeightInches: 1.5,
+    defaultVitalZoneInches: 4,
+  },
+  '12gaSlug': {
+    muzzleVelocityFps: 1600,
+    dropAt300YardsInches: 210,
+    defaultSightHeightInches: 1.5,
+    defaultVitalZoneInches: 8,
+  },
+  genericCarbine: {
+    muzzleVelocityFps: 2850,
+    dropAt300YardsInches: 30,
+    defaultSightHeightInches: 2.5,
+    defaultVitalZoneInches: 6,
+  },
+  genericHuntingRifle: {
+    muzzleVelocityFps: 2800,
+    dropAt300YardsInches: 28,
+    defaultSightHeightInches: 1.5,
+    defaultVitalZoneInches: 6,
+  },
+  custom: {
+    muzzleVelocityFps: 2600,
+    dropAt300YardsInches: 36,
+    defaultSightHeightInches: 2,
+    defaultVitalZoneInches: 6,
+  },
+};
+
+export const DEFAULT_MPBR_PROFILE: MpbrProfile = '556Nato55';
+
+export const MPBR_VITAL_ZONE_LIMITS = {
+  merican: {
+    min: 1,
+    max: 24,
+  },
+  metric: {
+    min: 2.5,
+    max: 60,
+  },
+} as const;
+
+export const MPBR_HEIGHT_LIMITS = {
+  merican: {
+    min: 0.25,
+    max: 4,
+  },
+  metric: {
+    min: 0.5,
+    max: 10,
+  },
+} as const;
+
 /**
  * Convert yards to meters
  */
@@ -102,6 +212,94 @@ export const getHoldoverProfileHeight = (
   return units === 'metric'
     ? Math.round(inchesToCentimeters(heightInches) * 100) / 100
     : heightInches;
+};
+
+export const getMpbrProfilePreset = (profile: MpbrProfile): MpbrProfilePreset =>
+  MPBR_PROFILE_PRESETS[profile] || MPBR_PROFILE_PRESETS[DEFAULT_MPBR_PROFILE];
+
+export const getMpbrProfileVitalZone = (profile: MpbrProfile, units: MpbrUnitSystem): number => {
+  const vitalZoneInches = getMpbrProfilePreset(profile).defaultVitalZoneInches;
+  return units === 'metric'
+    ? Math.round(inchesToCentimeters(vitalZoneInches) * 10) / 10
+    : vitalZoneInches;
+};
+
+export const getMpbrProfileHeight = (profile: MpbrProfile, units: MpbrUnitSystem): number => {
+  const heightInches = getMpbrProfilePreset(profile).defaultSightHeightInches;
+  return units === 'metric'
+    ? Math.round(inchesToCentimeters(heightInches) * 100) / 100
+    : heightInches;
+};
+
+const calculateMpbrPathInches = (
+  distanceYards: number,
+  sightHeightInches: number,
+  dropCoefficient: number,
+  farZeroYards: number
+): number => {
+  const launchSlope = (sightHeightInches + dropCoefficient * farZeroYards ** 2) / farZeroYards;
+  return -sightHeightInches + launchSlope * distanceYards - dropCoefficient * distanceYards ** 2;
+};
+
+export const calculateMpbr = (
+  profile: MpbrProfile,
+  vitalZoneInches: number,
+  sightHeightInches: number
+): MpbrCalculationResult => {
+  const preset = getMpbrProfilePreset(profile);
+  const halfVitalZone = vitalZoneInches / 2;
+  const dropCoefficient = preset.dropAt300YardsInches / 300 ** 2;
+  const maxSearchYards = profile === '22Lr' || profile === '12gaSlug' ? 260 : 450;
+
+  let low = Math.max(15, sightHeightInches * 12);
+  let high = maxSearchYards;
+
+  for (let i = 0; i < 48; i += 1) {
+    const farZero = (low + high) / 2;
+    const launchSlope = (sightHeightInches + dropCoefficient * farZero ** 2) / farZero;
+    const maximumRiseYards = launchSlope / (2 * dropCoefficient);
+    const maximumRise = calculateMpbrPathInches(
+      maximumRiseYards,
+      sightHeightInches,
+      dropCoefficient,
+      farZero
+    );
+
+    if (maximumRise > halfVitalZone) {
+      high = farZero;
+    } else {
+      low = farZero;
+    }
+  }
+
+  const farZeroYards = (low + high) / 2;
+  const launchSlope = (sightHeightInches + dropCoefficient * farZeroYards ** 2) / farZeroYards;
+  const maximumRiseYards = launchSlope / (2 * dropCoefficient);
+  const maximumRiseInches = calculateMpbrPathInches(
+    maximumRiseYards,
+    sightHeightInches,
+    dropCoefficient,
+    farZeroYards
+  );
+
+  const zeroDiscriminant = launchSlope ** 2 - 4 * dropCoefficient * sightHeightInches;
+  const nearZeroYards =
+    zeroDiscriminant > 0
+      ? (launchSlope - Math.sqrt(zeroDiscriminant)) / (2 * dropCoefficient)
+      : farZeroYards;
+
+  const endpointDiscriminant =
+    launchSlope ** 2 - 4 * dropCoefficient * (sightHeightInches - halfVitalZone);
+  const mpbrYards = (launchSlope + Math.sqrt(endpointDiscriminant)) / (2 * dropCoefficient);
+
+  return {
+    recommendedZeroYards: Math.round(nearZeroYards / 5) * 5,
+    nearZeroYards: Math.round(nearZeroYards),
+    farZeroYards: Math.round(farZeroYards),
+    mpbrYards: Math.round(mpbrYards),
+    maximumRiseInches: Math.round(maximumRiseInches * 10) / 10,
+    maximumRiseYards: Math.round(maximumRiseYards),
+  };
 };
 
 /**

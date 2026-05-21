@@ -33,12 +33,18 @@ import {
   DEFAULT_HOLDOVER_OUTPUT_UNIT,
   DEFAULT_HOLDOVER_PROFILE,
   getHoldoverProfileHeight,
+  DEFAULT_MPBR_PROFILE,
+  getMpbrProfileHeight,
+  getMpbrProfileVitalZone,
+  MPBR_HEIGHT_LIMITS,
+  MPBR_VITAL_ZONE_LIMITS,
   inchesToCentimeters,
   centimetersToInches,
 } from '../../shared/utils/calculations';
 import type {
   HoldoverFirearmProfile,
   HoldoverOutputUnit,
+  MpbrProfile,
   ZeroAdjustmentType,
 } from '../../shared/utils/calculations';
 import {
@@ -127,6 +133,17 @@ const isHoldoverProfile = (value: unknown): value is HoldoverFirearmProfile =>
 
 const isHoldoverOutputUnit = (value: unknown): value is HoldoverOutputUnit =>
   value === 'physical' || value === 'moa' || value === 'mrad';
+
+const isMpbrProfile = (value: unknown): value is MpbrProfile =>
+  value === '556Nato55' ||
+  value === '556Nato77' ||
+  value === '308Hunting' ||
+  value === '9mmPcc' ||
+  value === '22Lr' ||
+  value === '12gaSlug' ||
+  value === 'genericCarbine' ||
+  value === 'genericHuntingRifle' ||
+  value === 'custom';
 
 const getDefaultIncrementForType = (adjustmentType: ZeroAdjustmentType) =>
   adjustmentType === DEFAULT_ZERO_ADJUSTMENT_TYPE ? DEFAULT_ZERO_ADJUSTMENT_INCREMENT : '0.1';
@@ -336,6 +353,90 @@ const Settings: React.FC = () => {
     setStorageItem(StorageKeys.HOLDOVER_OUTPUT_UNIT_DEFAULT, value);
   };
 
+  const [mpbrProfile, setMpbrProfile] = React.useState<MpbrProfile>(() => {
+    const saved = getStorageItem<MpbrProfile>(
+      StorageKeys.MPBR_PROFILE_DEFAULT,
+      DEFAULT_MPBR_PROFILE
+    );
+    return isMpbrProfile(saved) ? saved : DEFAULT_MPBR_PROFILE;
+  });
+
+  const [mpbrVitalZone, setMpbrVitalZone] = React.useState<number>(() => {
+    const savedProfile = getStorageItem<MpbrProfile>(
+      StorageKeys.MPBR_PROFILE_DEFAULT,
+      DEFAULT_MPBR_PROFILE
+    );
+    const profile = isMpbrProfile(savedProfile) ? savedProfile : DEFAULT_MPBR_PROFILE;
+    return (
+      getStorageItem<number>(
+        StorageKeys.MPBR_VITAL_ZONE_DEFAULT,
+        getMpbrProfileVitalZone(profile, units)
+      ) || getMpbrProfileVitalZone(profile, units)
+    );
+  });
+
+  const [mpbrHeightOverBore, setMpbrHeightOverBore] = React.useState<number>(() => {
+    const savedProfile = getStorageItem<MpbrProfile>(
+      StorageKeys.MPBR_PROFILE_DEFAULT,
+      DEFAULT_MPBR_PROFILE
+    );
+    const profile = isMpbrProfile(savedProfile) ? savedProfile : DEFAULT_MPBR_PROFILE;
+    return (
+      getStorageItem<number>(
+        StorageKeys.MPBR_HEIGHT_OVER_BORE_DEFAULT,
+        getMpbrProfileHeight(profile, units)
+      ) || getMpbrProfileHeight(profile, units)
+    );
+  });
+
+  const mpbrPrevUnitsRef = React.useRef<'merican' | 'metric'>(units);
+
+  React.useEffect(() => {
+    if (mpbrPrevUnitsRef.current === units) return;
+
+    const convertedVitalZone =
+      units === 'metric'
+        ? Math.round(inchesToCentimeters(mpbrVitalZone) * 10) / 10
+        : Math.round(centimetersToInches(mpbrVitalZone) * 10) / 10;
+    const convertedHeight =
+      units === 'metric'
+        ? Math.round(inchesToCentimeters(mpbrHeightOverBore) * 100) / 100
+        : Math.round(centimetersToInches(mpbrHeightOverBore) * 100) / 100;
+    setMpbrVitalZone(convertedVitalZone);
+    setMpbrHeightOverBore(convertedHeight);
+    setStorageItem(StorageKeys.MPBR_VITAL_ZONE_DEFAULT, convertedVitalZone);
+    setStorageItem(StorageKeys.MPBR_HEIGHT_OVER_BORE_DEFAULT, convertedHeight);
+    mpbrPrevUnitsRef.current = units;
+  }, [units, mpbrHeightOverBore, mpbrVitalZone]);
+
+  const handleMpbrProfileChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value as MpbrProfile;
+    const nextVitalZone = getMpbrProfileVitalZone(value, units);
+    const nextHeight = getMpbrProfileHeight(value, units);
+    setMpbrProfile(value);
+    setMpbrVitalZone(nextVitalZone);
+    setMpbrHeightOverBore(nextHeight);
+    setStorageItem(StorageKeys.MPBR_PROFILE_DEFAULT, value);
+    setStorageItem(StorageKeys.MPBR_VITAL_ZONE_DEFAULT, nextVitalZone);
+    setStorageItem(StorageKeys.MPBR_HEIGHT_OVER_BORE_DEFAULT, nextHeight);
+  };
+
+  const handleMpbrVitalZoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setMpbrVitalZone(value);
+      setStorageItem(StorageKeys.MPBR_VITAL_ZONE_DEFAULT, value);
+    }
+  };
+
+  const handleMpbrHeightOverBoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setMpbrHeightOverBore(value);
+      setStorageItem(StorageKeys.MPBR_HEIGHT_OVER_BORE_DEFAULT, value);
+    }
+  };
+
   const handleMilSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
@@ -436,6 +537,11 @@ const Settings: React.FC = () => {
     units === 'metric' ? HOLDOVER_HEIGHT_LIMITS.metric : HOLDOVER_HEIGHT_LIMITS.merican;
   const holdoverDistanceUnit = units === 'metric' ? t('units.meters') : t('units.yards');
   const holdoverHeightUnit = units === 'metric' ? t('units.centimeters') : t('units.inches');
+  const mpbrVitalLimits =
+    units === 'metric' ? MPBR_VITAL_ZONE_LIMITS.metric : MPBR_VITAL_ZONE_LIMITS.merican;
+  const mpbrHeightLimits =
+    units === 'metric' ? MPBR_HEIGHT_LIMITS.metric : MPBR_HEIGHT_LIMITS.merican;
+  const mpbrHeightUnit = units === 'metric' ? t('units.centimeters') : t('units.inches');
 
   return (
     <Box>
@@ -662,6 +768,73 @@ const Settings: React.FC = () => {
               <MenuItem value="mrad">{t('settings.mrad')}</MenuItem>
             </Select>
           </FormControl>
+        </Stack>
+      </SettingsSection>
+
+      {/* MPBR Calculator Settings */}
+      <SettingsSection title={t('settings.mpbrCalculatorSettings')} defaultExpanded={false}>
+        <Stack spacing={2}>
+          <FormControl fullWidth>
+            <InputLabel id="settings-mpbr-profile-label">
+              {t('settings.defaultMpbrProfile')}
+            </InputLabel>
+            <Select
+              labelId="settings-mpbr-profile-label"
+              value={mpbrProfile}
+              label={t('settings.defaultMpbrProfile')}
+              onChange={handleMpbrProfileChange as any}
+            >
+              <MenuItem value="556Nato55">{t('mpbrCalculator.profiles.556Nato55')}</MenuItem>
+              <MenuItem value="556Nato77">{t('mpbrCalculator.profiles.556Nato77')}</MenuItem>
+              <MenuItem value="308Hunting">{t('mpbrCalculator.profiles.308Hunting')}</MenuItem>
+              <MenuItem value="9mmPcc">{t('mpbrCalculator.profiles.9mmPcc')}</MenuItem>
+              <MenuItem value="22Lr">{t('mpbrCalculator.profiles.22Lr')}</MenuItem>
+              <MenuItem value="12gaSlug">{t('mpbrCalculator.profiles.12gaSlug')}</MenuItem>
+              <MenuItem value="genericCarbine">
+                {t('mpbrCalculator.profiles.genericCarbine')}
+              </MenuItem>
+              <MenuItem value="genericHuntingRifle">
+                {t('mpbrCalculator.profiles.genericHuntingRifle')}
+              </MenuItem>
+              <MenuItem value="custom">{t('mpbrCalculator.profiles.custom')}</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            label={t('settings.defaultMpbrVitalZone')}
+            type="number"
+            value={mpbrVitalZone}
+            onChange={handleMpbrVitalZoneChange}
+            inputProps={{
+              min: mpbrVitalLimits.min,
+              max: mpbrVitalLimits.max,
+              step: 0.1,
+            }}
+            fullWidth
+            helperText={t('settings.minMaxHelper', {
+              min: mpbrVitalLimits.min,
+              max: mpbrVitalLimits.max,
+              unit: mpbrHeightUnit,
+            })}
+          />
+
+          <TextField
+            label={t('settings.defaultMpbrHeightOverBore')}
+            type="number"
+            value={mpbrHeightOverBore}
+            onChange={handleMpbrHeightOverBoreChange}
+            inputProps={{
+              min: mpbrHeightLimits.min,
+              max: mpbrHeightLimits.max,
+              step: 0.01,
+            }}
+            fullWidth
+            helperText={t('settings.minMaxHelper', {
+              min: mpbrHeightLimits.min,
+              max: mpbrHeightLimits.max,
+              unit: mpbrHeightUnit,
+            })}
+          />
         </Stack>
       </SettingsSection>
 
