@@ -8,6 +8,7 @@
   "nav": {
     "zeroCalculator": "Nullpunkt-Rechner",
     "holdoverCalculator": "Haltepunkt-Rechner",
+    "mpbrCalculator": "Praktische MPBR",
     "mildotCalculator": "MilDot-Rechner",
     "shotTimer": "Schusschronometer",
     "rangeConditions": "Platzbedingungen",
@@ -122,6 +123,36 @@
       "custom": "Benutzerdefiniert"
     }
   },
+  "mpbrCalculator": {
+    "title": "Praktischer MPBR-Rechner",
+    "description": "Schätzt einen praktischen Nullpunkt und die maximale Point-Blank-Range für Halten auf die Mitte.",
+    "profile": "Patrone / Profil",
+    "vitalZone": "Größe der Vitalzone",
+    "heightOverBore": "Visierhöhe über Lauf",
+    "results": "Praktische MPBR-Ergebnisse",
+    "recommendedZero": "Empfohlener Nullpunkt",
+    "mpbr": "Maximale Point-Blank-Range",
+    "maximumRise": "Maximale Steigung",
+    "nearZero": "Naher Nullpunkt",
+    "farZero": "Ferner Nullpunkt",
+    "invalidInput": "Bitte korrigieren Sie die markierten Felder.",
+    "estimateNotice": "Dieser Rechner nutzt vereinfachte Profilnäherungen, keine vollständige Ballistiklösung.",
+    "vitalZoneHelp": "Akzeptabler Trefferbereich um den Zielpunkt. Dieser Wert erlaubt ungefähr ±{{half}} vom Zentrum.",
+    "heightOverBoreHelp": "Vertikale Entfernung zwischen Visierlinie und Laufachse. Min: {{min}}, Max: {{max}}, {{unit}}.",
+    "resultExplanation": "Mit dieser Einstellung können Sie in der Regel von kurzer Distanz bis etwa {{mpbr}} {{distanceUnit}} auf die Mitte halten, ohne nennenswerte Korrektur.",
+    "disclaimer": "Dieser Rechner verwendet vereinfachte Flugbahnannahmen und ist nur für praktische Feldschätzungen gedacht. Tatsächliche Ergebnisse können je nach Munition, Waffenkonfiguration, Umgebungsbedingungen und Schützeneinfluss abweichen.",
+    "profiles": {
+      "556Nato55": "5.56 NATO 55gr",
+      "556Nato77": "5.56 NATO 77gr",
+      "308Hunting": ".308 Winchester Jagd",
+      "9mmPcc": "9mm PCC",
+      "22Lr": ".22 LR",
+      "12gaSlug": "12ga Flintenlaufgeschoss",
+      "genericCarbine": "Generischer Karabiner",
+      "genericHuntingRifle": "Generisches Jagdgewehr",
+      "custom": "Benutzerdefiniert"
+    }
+  },
   "shotTimer": {
     "title": "Schusschronometer",
     "description": "Misst die Zeit zwischen Schüssen",
@@ -217,6 +248,7 @@
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Nullpunkt-Rechner",
     "holdoverCalculatorSettings": "Haltepunkt-Rechner",
+    "mpbrCalculatorSettings": "Praktische MPBR",
     "mildotCalculatorSettings": "MilDot-Rechner",
     "shotTimerSettings": "Schusschronometer",
     "defaultZeroDistance": "Standard-Nullpunkt-Entfernung",
@@ -231,6 +263,9 @@
     "defaultHoldoverProfile": "Standard-Waffenprofil",
     "defaultHoldoverHeightOverBore": "Standard-Visierhöhe über Lauf",
     "defaultHoldoverOutputUnit": "Standard-Ausgabeeinheit",
+    "defaultMpbrProfile": "Standard-Patrone / Profil",
+    "defaultMpbrVitalZone": "Standard-Vitalzone",
+    "defaultMpbrHeightOverBore": "Standard-Visierhöhe über Lauf",
     "defaultMilSize": "Standard Mils",
     "defaultPhysicalSize": "Standard-physische Größe",
     "defaultDistance": "Standard-Entfernung",

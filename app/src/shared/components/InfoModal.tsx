@@ -16,8 +16,7 @@ import {
   Link,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import GitInfo from '../static/GitInfo';
-import packageJson from '../../../package.json';
+import { getDiagnosticsVersionInfo } from '../utils/buildInfo';
 
 interface InfoModalProps {
   open: boolean;
@@ -70,10 +69,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
 
       <Typography variant="body2">
         {t('about.contactUs')}
-        <Link
-          href="mailto:contact@ursine.llc"
-          sx={{ ml: 0.5 }}
-        >
+        <Link href="mailto:contact@ursine.llc" sx={{ ml: 0.5 }}>
           contact@ursine.llc
         </Link>
       </Typography>
@@ -99,12 +95,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
           <TableCell sx={{ fontWeight: 'bold', width: '140px' }}>
             {t('about.diagnosticVersion')}
           </TableCell>
-          <TableCell>v{packageJson.version} ({GitInfo.sha})</TableCell>
+          <TableCell>{getDiagnosticsVersionInfo()}</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell sx={{ fontWeight: 'bold' }}>
-            {t('about.diagnosticNetwork')}
-          </TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticNetwork')}</TableCell>
           <TableCell>
             {navigator.onLine
               ? t('about.diagnosticNetworkConnected')
@@ -112,19 +106,13 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose }) => {
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell sx={{ fontWeight: 'bold' }}>
-            {t('about.diagnosticMode')}
-          </TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticMode')}</TableCell>
           <TableCell>
-            {isStandAlone
-              ? t('about.diagnosticModeStandalone')
-              : t('about.diagnosticModeWeb')}
+            {isStandAlone ? t('about.diagnosticModeStandalone') : t('about.diagnosticModeWeb')}
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell sx={{ fontWeight: 'bold' }}>
-            {t('about.diagnosticPlatform')}
-          </TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticPlatform')}</TableCell>
           <TableCell>{navigator.platform}</TableCell>
         </TableRow>
       </TableBody>

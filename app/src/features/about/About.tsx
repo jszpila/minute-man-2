@@ -16,13 +16,12 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import GitInfo from '../../shared/static/GitInfo';
 import { isRunningAsInstalled, triggerInstallPrompt } from '../../shared/utils/pwaUtils';
 import {
   usePwaInstalledState,
   usePwaInstallPromptVisibility,
 } from '../../shared/hooks/usePwaInstallPromptVisibility';
-import packageJson from '../../../package.json';
+import { getDiagnosticsVersionInfo } from '../../shared/utils/buildInfo';
 
 const AboutSection: React.FC<{
   title: string;
@@ -158,9 +157,7 @@ export const About: React.FC = () => {
                 <TableCell sx={{ fontWeight: 'bold', width: '40%' }}>
                   {t('about.diagnosticVersion')}
                 </TableCell>
-                <TableCell>
-                  v{packageJson.version} ({GitInfo.sha})
-                </TableCell>
+                <TableCell>{getDiagnosticsVersionInfo()}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell sx={{ fontWeight: 'bold' }}>{t('about.diagnosticNetwork')}</TableCell>

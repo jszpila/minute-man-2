@@ -3,8 +3,6 @@ import '@testing-library/jest-dom';
 import { About } from './About';
 import { setupInstallPrompt } from '../../shared/utils/pwaUtils';
 
-const TEST_APP_VERSION = '0.0.0-test';
-
 // Mock useTranslation
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -12,11 +10,8 @@ jest.mock('react-i18next', () => ({
   }),
 }));
 
-// Mock GitInfo
-jest.mock('../../shared/static/GitInfo', () => ({
-  default: {
-    sha: 'abc123def456',
-  },
+jest.mock('../../shared/utils/buildInfo', () => ({
+  getDiagnosticsVersionInfo: () => 'v0.0.0-test (abc123def456, 05/19/26)',
 }));
 
 describe('About component', () => {
@@ -189,7 +184,7 @@ describe('About component', () => {
     render(<About />);
     fireEvent.click(screen.getByText('about.diagnosticsTitle'));
     const versionCell = screen.getByText(
-      (_content, element) => element?.textContent === `v${TEST_APP_VERSION} ()`
+      (_content, element) => element?.textContent === 'v0.0.0-test (abc123def456, 05/19/26)'
     );
     expect(versionCell).toBeInTheDocument();
   });

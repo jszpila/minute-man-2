@@ -384,8 +384,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":raq:"
-                    id=":raq:-label"
+                    for=":rcj:"
+                    id=":rcj:-label"
                   >
                     settings.defaultZeroDistance
                   </label>
@@ -393,10 +393,10 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":raq:-helper-text"
+                      aria-describedby=":rcj:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":raq:"
+                      id=":rcj:"
                       max="500"
                       min="10"
                       step="5"
@@ -418,7 +418,7 @@ exports[`Settings component matches snapshot 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":raq:-helper-text"
+                    id=":rcj:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -595,8 +595,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rat:"
-                    id=":rat:-label"
+                    for=":rcm:"
+                    id=":rcm:-label"
                   >
                     settings.defaultHoldoverZeroDistance
                   </label>
@@ -604,10 +604,10 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rat:-helper-text"
+                      aria-describedby=":rcm:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rat:"
+                      id=":rcm:"
                       max="300"
                       min="5"
                       step="1"
@@ -629,7 +629,7 @@ exports[`Settings component matches snapshot 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rat:-helper-text"
+                    id=":rcm:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -695,8 +695,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rav:"
-                    id=":rav:-label"
+                    for=":rco:"
+                    id=":rco:-label"
                   >
                     settings.defaultHoldoverHeightOverBore
                   </label>
@@ -704,10 +704,10 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rav:-helper-text"
+                      aria-describedby=":rco:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rav:"
+                      id=":rco:"
                       max="4"
                       min="0.25"
                       step="0.01"
@@ -729,7 +729,7 @@ exports[`Settings component matches snapshot 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rav:-helper-text"
+                    id=":rco:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -823,6 +823,205 @@ exports[`Settings component matches snapshot 1`] = `
           <span
             class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
           >
+            settings.mpbrCalculatorSettings
+          </span>
+        </div>
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-cwrbtg-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+            >
+              <div
+                class="MuiStack-root css-1sazv7p-MuiStack-root"
+              >
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-ytlejw-MuiFormControl-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    id="settings-mpbr-profile-label"
+                  >
+                    settings.defaultMpbrProfile
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                  >
+                    <div
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-labelledby="settings-mpbr-profile-label"
+                      class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                      role="combobox"
+                      tabindex="0"
+                    >
+                      mpbrCalculator.profiles.556Nato55
+                    </div>
+                    <input
+                      aria-hidden="true"
+                      aria-invalid="false"
+                      class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+                      tabindex="-1"
+                      value="556Nato55"
+                    />
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-1rfqz7c-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+                      data-testid="ArrowDropDownIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M7 10l5 5 5-5z"
+                      />
+                    </svg>
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ex8a5f-MuiNotchedOutlined-root"
+                      >
+                        <span>
+                          settings.defaultMpbrProfile
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-cmpglg-MuiFormControl-root-MuiTextField-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    for=":rcr:"
+                    id=":rcr:-label"
+                  >
+                    settings.defaultMpbrVitalZone
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-describedby=":rcr:-helper-text"
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+                      id=":rcr:"
+                      max="24"
+                      min="1"
+                      step="0.1"
+                      type="number"
+                      value="6"
+                    />
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ex8a5f-MuiNotchedOutlined-root"
+                      >
+                        <span>
+                          settings.defaultMpbrVitalZone
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                  <p
+                    class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
+                    id=":rcr:-helper-text"
+                  >
+                    settings.minMaxHelper
+                  </p>
+                </div>
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-cmpglg-MuiFormControl-root-MuiTextField-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    for=":rcs:"
+                    id=":rcs:-label"
+                  >
+                    settings.defaultMpbrHeightOverBore
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-describedby=":rcs:-helper-text"
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+                      id=":rcs:"
+                      max="4"
+                      min="0.25"
+                      step="0.01"
+                      type="number"
+                      value="2.5"
+                    />
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ex8a5f-MuiNotchedOutlined-root"
+                      >
+                        <span>
+                          settings.defaultMpbrHeightOverBore
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                  <p
+                    class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
+                    id=":rcs:-helper-text"
+                  >
+                    settings.minMaxHelper
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1ypifsw-MuiPaper-root-MuiCard-root"
+      style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+    >
+      <div
+        class="MuiCardHeader-root css-ubxeev-MuiCardHeader-root"
+      >
+        <div
+          class="MuiCardHeader-avatar css-1r9wl67-MuiCardHeader-avatar"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-16acvrp-MuiSvgIcon-root"
+            data-testid="ExpandMoreIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </div>
+        <div
+          class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
+          >
             settings.mildotCalculatorSettings
           </span>
         </div>
@@ -849,8 +1048,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rb1:"
-                    id=":rb1:-label"
+                    for=":rct:"
+                    id=":rct:-label"
                   >
                     settings.defaultMilSize
                   </label>
@@ -860,7 +1059,7 @@ exports[`Settings component matches snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rb1:"
+                      id=":rct:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -885,8 +1084,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rb2:"
-                    id=":rb2:-label"
+                    for=":rcu:"
+                    id=":rcu:-label"
                   >
                     settings.defaultPhysicalSize
                   </label>
@@ -896,7 +1095,7 @@ exports[`Settings component matches snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rb2:"
+                      id=":rcu:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -921,8 +1120,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rb3:"
-                    id=":rb3:-label"
+                    for=":rcv:"
+                    id=":rcv:-label"
                   >
                     settings.defaultDistance
                   </label>
@@ -932,7 +1131,7 @@ exports[`Settings component matches snapshot 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rb3:"
+                      id=":rcv:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -1117,8 +1316,8 @@ exports[`Settings component matches snapshot 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rb6:"
-                    id=":rb6:-label"
+                    for=":rd2:"
+                    id=":rd2:-label"
                   >
                     settings.defaultParTime
                   </label>
@@ -1126,10 +1325,10 @@ exports[`Settings component matches snapshot 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rb6:-helper-text"
+                      aria-describedby=":rd2:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rb6:"
+                      id=":rd2:"
                       max="600"
                       min="1"
                       step="1"
@@ -1151,7 +1350,7 @@ exports[`Settings component matches snapshot 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rb6:-helper-text"
+                    id=":rd2:-helper-text"
                   >
                     settings.seconds
                   </p>
@@ -1640,8 +1839,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbc:"
-                    id=":rbc:-label"
+                    for=":rd8:"
+                    id=":rd8:-label"
                   >
                     settings.defaultZeroDistance
                   </label>
@@ -1649,10 +1848,10 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rbc:-helper-text"
+                      aria-describedby=":rd8:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbc:"
+                      id=":rd8:"
                       max="500"
                       min="10"
                       step="5"
@@ -1674,7 +1873,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rbc:-helper-text"
+                    id=":rd8:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -1851,8 +2050,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbf:"
-                    id=":rbf:-label"
+                    for=":rdb:"
+                    id=":rdb:-label"
                   >
                     settings.defaultHoldoverZeroDistance
                   </label>
@@ -1860,10 +2059,10 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rbf:-helper-text"
+                      aria-describedby=":rdb:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbf:"
+                      id=":rdb:"
                       max="300"
                       min="5"
                       step="1"
@@ -1885,7 +2084,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rbf:-helper-text"
+                    id=":rdb:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -1951,8 +2150,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbh:"
-                    id=":rbh:-label"
+                    for=":rdd:"
+                    id=":rdd:-label"
                   >
                     settings.defaultHoldoverHeightOverBore
                   </label>
@@ -1960,10 +2159,10 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rbh:-helper-text"
+                      aria-describedby=":rdd:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbh:"
+                      id=":rdd:"
                       max="4"
                       min="0.25"
                       step="0.01"
@@ -1985,7 +2184,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rbh:-helper-text"
+                    id=":rdd:-helper-text"
                   >
                     settings.minMaxHelper
                   </p>
@@ -2079,6 +2278,205 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
           <span
             class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
           >
+            settings.mpbrCalculatorSettings
+          </span>
+        </div>
+      </div>
+      <div
+        class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-cwrbtg-MuiCollapse-root"
+        style="min-height: 0px;"
+      >
+        <div
+          class="MuiCollapse-wrapper MuiCollapse-vertical css-1x6hinx-MuiCollapse-wrapper"
+        >
+          <div
+            class="MuiCollapse-wrapperInner MuiCollapse-vertical css-1i4ywhz-MuiCollapse-wrapperInner"
+          >
+            <div
+              class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
+            >
+              <div
+                class="MuiStack-root css-1sazv7p-MuiStack-root"
+              >
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-ytlejw-MuiFormControl-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    id="settings-mpbr-profile-label"
+                  >
+                    settings.defaultMpbrProfile
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiSelect-root css-sc8y68-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+                  >
+                    <div
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
+                      aria-labelledby="settings-mpbr-profile-label"
+                      class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input css-18jp67o-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                      role="combobox"
+                      tabindex="0"
+                    >
+                      mpbrCalculator.profiles.556Nato55
+                    </div>
+                    <input
+                      aria-hidden="true"
+                      aria-invalid="false"
+                      class="MuiSelect-nativeInput css-j0riat-MuiSelect-nativeInput"
+                      tabindex="-1"
+                      value="556Nato55"
+                    />
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-1rfqz7c-MuiSvgIcon-root-MuiNativeSelect-root-MuiSelect-icon"
+                      data-testid="ArrowDropDownIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M7 10l5 5 5-5z"
+                      />
+                    </svg>
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ex8a5f-MuiNotchedOutlined-root"
+                      >
+                        <span>
+                          settings.defaultMpbrProfile
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-cmpglg-MuiFormControl-root-MuiTextField-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    for=":rdg:"
+                    id=":rdg:-label"
+                  >
+                    settings.defaultMpbrVitalZone
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-describedby=":rdg:-helper-text"
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+                      id=":rdg:"
+                      max="24"
+                      min="1"
+                      step="0.1"
+                      type="number"
+                      value="6"
+                    />
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ex8a5f-MuiNotchedOutlined-root"
+                      >
+                        <span>
+                          settings.defaultMpbrVitalZone
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                  <p
+                    class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
+                    id=":rdg:-helper-text"
+                  >
+                    settings.minMaxHelper
+                  </p>
+                </div>
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-cmpglg-MuiFormControl-root-MuiTextField-root"
+                >
+                  <label
+                    class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="true"
+                    for=":rdh:"
+                    id=":rdh:-label"
+                  >
+                    settings.defaultMpbrHeightOverBore
+                  </label>
+                  <div
+                    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
+                  >
+                    <input
+                      aria-describedby=":rdh:-helper-text"
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+                      id=":rdh:"
+                      max="4"
+                      min="0.25"
+                      step="0.01"
+                      type="number"
+                      value="2.5"
+                    />
+                    <fieldset
+                      aria-hidden="true"
+                      class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                    >
+                      <legend
+                        class="css-ex8a5f-MuiNotchedOutlined-root"
+                      >
+                        <span>
+                          settings.defaultMpbrHeightOverBore
+                        </span>
+                      </legend>
+                    </fieldset>
+                  </div>
+                  <p
+                    class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
+                    id=":rdh:-helper-text"
+                  >
+                    settings.minMaxHelper
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1ypifsw-MuiPaper-root-MuiCard-root"
+      style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+    >
+      <div
+        class="MuiCardHeader-root css-ubxeev-MuiCardHeader-root"
+      >
+        <div
+          class="MuiCardHeader-avatar css-1r9wl67-MuiCardHeader-avatar"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-16acvrp-MuiSvgIcon-root"
+            data-testid="ExpandMoreIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+        </div>
+        <div
+          class="MuiCardHeader-content css-1jkp9bu-MuiCardHeader-content"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-body2 MuiCardHeader-title css-7ctihp-MuiTypography-root"
+          >
             settings.mildotCalculatorSettings
           </span>
         </div>
@@ -2105,8 +2503,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbj:"
-                    id=":rbj:-label"
+                    for=":rdi:"
+                    id=":rdi:-label"
                   >
                     settings.defaultMilSize
                   </label>
@@ -2116,7 +2514,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbj:"
+                      id=":rdi:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -2141,8 +2539,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbk:"
-                    id=":rbk:-label"
+                    for=":rdj:"
+                    id=":rdj:-label"
                   >
                     settings.defaultPhysicalSize
                   </label>
@@ -2152,7 +2550,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbk:"
+                      id=":rdj:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -2177,8 +2575,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbl:"
-                    id=":rbl:-label"
+                    for=":rdk:"
+                    id=":rdk:-label"
                   >
                     settings.defaultDistance
                   </label>
@@ -2188,7 +2586,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     <input
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbl:"
+                      id=":rdk:"
                       step="0.01"
                       type="number"
                       value="0"
@@ -2373,8 +2771,8 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   <label
                     class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-113d811-MuiFormLabel-root-MuiInputLabel-root"
                     data-shrink="true"
-                    for=":rbo:"
-                    id=":rbo:-label"
+                    for=":rdn:"
+                    id=":rdn:-label"
                   >
                     settings.defaultParTime
                   </label>
@@ -2382,10 +2780,10 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
                   >
                     <input
-                      aria-describedby=":rbo:-helper-text"
+                      aria-describedby=":rdn:-helper-text"
                       aria-invalid="false"
                       class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                      id=":rbo:"
+                      id=":rdn:"
                       max="600"
                       min="1"
                       step="1"
@@ -2407,7 +2805,7 @@ exports[`Settings component matches snapshot when sections are expanded 1`] = `
                   </div>
                   <p
                     class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled css-er619e-MuiFormHelperText-root"
-                    id=":rbo:-helper-text"
+                    id=":rdn:-helper-text"
                   >
                     settings.seconds
                   </p>

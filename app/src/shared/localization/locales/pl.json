@@ -8,6 +8,7 @@
   "nav": {
     "zeroCalculator": "Kalkulator Zerowania",
     "holdoverCalculator": "Kalkulator Poprawki Celowania",
+    "mpbrCalculator": "Praktyczny MPBR",
     "mildotCalculator": "Kalkulator MilDot",
     "shotTimer": "Stoper Strzelów",
     "rangeConditions": "Warunki na Polu",
@@ -122,6 +123,36 @@
       "custom": "Niestandardowy"
     }
   },
+  "mpbrCalculator": {
+    "title": "Praktyczny Kalkulator MPBR",
+    "description": "Szacuje praktyczne zerowanie i maksymalny zasięg bez poprawki przy celowaniu w środek.",
+    "profile": "Nabój / Profil",
+    "vitalZone": "Rozmiar Strefy Trafienia",
+    "heightOverBore": "Wysokość Celownika nad Lufą",
+    "results": "Praktyczne Wyniki MPBR",
+    "recommendedZero": "Zalecane Zerowanie",
+    "mpbr": "Maksymalny Zasięg Bez Poprawki",
+    "maximumRise": "Maksymalne Wzniesienie",
+    "nearZero": "Bliskie Zero",
+    "farZero": "Dalekie Zero",
+    "invalidInput": "Popraw zaznaczone pola.",
+    "estimateNotice": "Ten kalkulator używa uproszczonych przybliżeń profilu, a nie pełnego rozwiązania balistycznego.",
+    "vitalZoneHelp": "Akceptowalny obszar trafienia wokół punktu celowania. Ta wartość pozwala na około ±{{half}} od środka.",
+    "heightOverBoreHelp": "Pionowa odległość między linią celowania a osią lufy. Min: {{min}}, Maks: {{max}}, {{unit}}.",
+    "resultExplanation": "Przy tej konfiguracji możesz zazwyczaj celować w środek od bliskiego dystansu do około {{mpbr}} {{distanceUnit}} bez istotnej poprawki.",
+    "disclaimer": "Ten kalkulator używa uproszczonych przybliżeń trajektorii i służy wyłącznie do praktycznych szacunków terenowych. Rzeczywiste wyniki mogą się różnić zależnie od amunicji, konfiguracji broni, warunków środowiskowych i strzelca.",
+    "profiles": {
+      "556Nato55": "5.56 NATO 55gr",
+      "556Nato77": "5.56 NATO 77gr",
+      "308Hunting": ".308 Winchester Myśliwski",
+      "9mmPcc": "9mm PCC",
+      "22Lr": ".22 LR",
+      "12gaSlug": "Breneka 12ga",
+      "genericCarbine": "Karabinek Generyczny",
+      "genericHuntingRifle": "Karabin Myśliwski Generyczny",
+      "custom": "Niestandardowy"
+    }
+  },
   "shotTimer": {
     "title": "Stoper Strzelów",
     "description": "Mierzy czas pomiędzy strzelami",
@@ -217,6 +248,7 @@
     "notMerican": "Euro",
     "zeroCalculatorSettings": "Kalkulator Zerowania",
     "holdoverCalculatorSettings": "Kalkulator Poprawki Celowania",
+    "mpbrCalculatorSettings": "Praktyczny MPBR",
     "mildotCalculatorSettings": "Kalkulator MilDot",
     "shotTimerSettings": "Stoper Strzelów",
     "defaultZeroDistance": "Domyślny Dystans Zerowania",
@@ -231,6 +263,9 @@
     "defaultHoldoverProfile": "Domyślny Profil Broni",
     "defaultHoldoverHeightOverBore": "Domyślna Wysokość nad Lufą",
     "defaultHoldoverOutputUnit": "Domyślna Jednostka Wyniku",
+    "defaultMpbrProfile": "Domyślny Nabój / Profil",
+    "defaultMpbrVitalZone": "Domyślna Strefa Trafienia",
+    "defaultMpbrHeightOverBore": "Domyślna Wysokość Celownika nad Lufą",
     "defaultMilSize": "Domyślne Mils",
     "defaultPhysicalSize": "Domyślny Rozmiar Fizyczny",
     "defaultDistance": "Domyślny Dystans",
